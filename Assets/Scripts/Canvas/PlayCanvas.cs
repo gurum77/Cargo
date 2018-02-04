@@ -31,14 +31,14 @@ public class PlayCanvas : MonoBehaviour {
     // 턴
     public void OnLeftButtonClicked()
     {
-        GameController.Me.player.OnLeftKeyClicked();
+        GameController.Me.Player.OnLeftKeyClicked();
     }
 
     // 오른쪽 버튼 클릭
     // 이동
     public void OnRightButtonClicked()
     {
-        GameController.Me.player.OnRightKeyClicked();
+        GameController.Me.Player.OnRightKeyClicked();
     }
 
     // 최고점수 출력
@@ -50,7 +50,7 @@ public class PlayCanvas : MonoBehaviour {
             return;
         }
         
-        bestScoreText.text = "Best " + GameController.Me.player.GameData.EnergyBarModeBestScore.ToString();
+        bestScoreText.text = "Best " + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
     }
 
     // 점수 출력
@@ -62,7 +62,7 @@ public class PlayCanvas : MonoBehaviour {
             return;
         }
 
-        scoreText.text = GameController.Me.player.Score().ToString();
+        scoreText.text = GameController.Me.Player.Score().ToString();
     }
 
     // coins 출력
@@ -74,6 +74,6 @@ public class PlayCanvas : MonoBehaviour {
             return;
         }
 
-        coinsText.text = GameController.Me.player.GameData.Coins.ToString();
+        coinsText.text = GameController.Me.Player.GameData.Coins.ToString();
     }
 }

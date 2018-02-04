@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ReadyCanvas : MonoBehaviour {
 
@@ -43,7 +44,7 @@ public class ReadyCanvas : MonoBehaviour {
             return;
         }
 
-        bestScoreText.text = "Best " + GameController.Me.player.GameData.EnergyBarModeBestScore.ToString();
+        bestScoreText.text = "Best " + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
     }
 
 
@@ -56,7 +57,7 @@ public class ReadyCanvas : MonoBehaviour {
             return;
         }
 
-        scoreText.text = GameController.Me.player.Score().ToString();
+        scoreText.text = GameController.Me.Player.Score().ToString();
     }
 
     // coins 출력
@@ -68,6 +69,12 @@ public class ReadyCanvas : MonoBehaviour {
             return;
         }
 
-        coinsText.text = GameController.Me.player.GameData.Coins.ToString();
+        coinsText.text = GameController.Me.Player.GameData.Coins.ToString();
+    }
+
+    // player 선택 버튼 클릭
+    public void OnPlayerSelectionButtonClicked()
+    {
+        SceneManager.LoadScene("PlayerSelection");
     }
 }

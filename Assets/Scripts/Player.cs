@@ -9,10 +9,18 @@ using Assets.Scripts.Controller;
 /// </summary>
 public class Player : MonoBehaviour {
     
+    public enum Character
+    {
+        eAmbulance,
+        eFiretruck,
+        eCount
+    };
+
     float movingDist = 1.0f;
     public float speed;
     int playerPosition; // 현재 player의 position
     int score;  // 현재 점수
+    public GameObject[] characterPrefabs;   // player의 캐릭터
     public AudioSource audioSourceTick;
     public AudioSource audioSourceCoin;
     Vector3 targetPos   = new Vector3();  // 목표 위치
@@ -20,6 +28,29 @@ public class Player : MonoBehaviour {
     // player의 게임 데이타
     PlayerGameData gameData = new PlayerGameData();
 
+    // player의 캐릭터를 교체한다.
+    // 기존 캐릭터를 삭제하고, 새로운 캐릭터 object를 만든다.
+    public void ReplaceCharacter(Player.Character characterType)
+    {
+        // 기존 캐릭터 object 는 삭제한다.
+        GameObject character = GameObject.FindGameObjectWithTag("Character");
+        if(character)
+        {
+            GameObject.DestroyObject(character);
+        }
+
+        // character enum에 맞는 character prefab를 가져온다.
+        GameObject characterPrefab = characterPrefabs[characterType];
+        // 새로운 캐릭터 object를 생성한다.
+        if(characterPrefab)
+        {
+            character = Instantiate(characterPrefab, transform);
+            character.tag = "Character";
+        }
+
+        // 새로운 캐릭터 object 변수 보관
+        gameData.Character = characterType;
+    }
     public PlayerGameData GameData
     {
         get { return gameData; }

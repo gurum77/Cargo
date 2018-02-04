@@ -23,10 +23,18 @@ public class GameController : MonoBehaviour {
     static public GameController Me;
     public RoadController roadController;
     public GameModeController gameModeController;
-    public Player player;
+   
     public GameObject playCanvasItems;
     public GameObject readyCanvasItems;
-    
+
+    public GameObject characterPrefab;
+
+    public Player player;
+    public Player Player
+    {
+        get { return player; }
+    }
+
     private Control controlType;
     public Control ControlType
     {
@@ -102,6 +110,9 @@ public class GameController : MonoBehaviour {
     // 게임 준비단계로 간다.
     public void Ready()
     {
+        // Player의 character 를 만든다
+        Player.ReplaceCharacter();
+
         GameState = State.eReady;
 
         // canvas 교체

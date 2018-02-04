@@ -70,7 +70,7 @@ public class GameMode_EnergyBar : MonoBehaviour {
     void IncreaseEnergy()
     {
         // 현재 점수
-        int curScore = GameController.Me.player.Score();
+        int curScore = GameController.Me.Player.Score();
         // 점수차
         int diffScore = curScore - lastScore;
         

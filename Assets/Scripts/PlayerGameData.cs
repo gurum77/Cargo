@@ -10,17 +10,17 @@ using UnityEngine;
 public class PlayerGameData
 {
     #region 게임 데이타 저장 키
-    string CoinsKey
+    static public string CoinsKey
     {
         get { return "Coins"; }
     }
 
-    string EnergyBarModeBestScoreKey
+    static public string EnergyBarModeBestScoreKey
     {
         get { return "EnergyBarModeBestScoreKey"; }
     }
 
-    string CharacterKey
+    static public string CharacterKey
     {
         get { return "CharacterKey"; }
     }
@@ -31,26 +31,26 @@ public class PlayerGameData
     public void Save()
     {
         // coins
-        PlayerPrefs.SetInt(CoinsKey, Coins);
+        PlayerPrefs.SetInt(PlayerGameData.CoinsKey, Coins);
 
         // energy bar 모드 최고 점수
-        PlayerPrefs.SetInt(EnergyBarModeBestScoreKey, EnergyBarModeBestScore);
+        PlayerPrefs.SetInt(PlayerGameData.EnergyBarModeBestScoreKey, EnergyBarModeBestScore);
 
         // character
-        PlayerPrefs.SetInt(CharacterKey, (int)Character);
+        PlayerPrefs.SetInt(PlayerGameData.CharacterKey, (int)CharacterType);
     }
 
     // 게임 데이타를 읽어온다.
     public void Load()
     {
         // coins
-        Coins = PlayerPrefs.GetInt(CoinsKey);
+        Coins = PlayerPrefs.GetInt(PlayerGameData.CoinsKey);
 
         // energy bar 모드 최고 점수
-        EnergyBarModeBestScore = PlayerPrefs.GetInt(EnergyBarModeBestScoreKey);
+        EnergyBarModeBestScore = PlayerPrefs.GetInt(PlayerGameData.EnergyBarModeBestScoreKey);
 
         // character
-        Character = (Player.Character)PlayerPrefs.GetInt(CharacterKey);
+        CharacterType = (Player.Character)PlayerPrefs.GetInt(PlayerGameData.CharacterKey);
 
     }
 
@@ -60,7 +60,7 @@ public class PlayerGameData
     public int Coins
     { get; set; }
 
-    public Player.Character Character
+    public Player.Character CharacterType
     { get; set; }
     
 }

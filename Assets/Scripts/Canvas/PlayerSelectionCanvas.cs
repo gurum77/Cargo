@@ -4,10 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerSelectionCanvas : MonoBehaviour {
-
-    public GameObject ambulancePrefab;
-    public GameObject firetruckPrefab;
-
 	// Use this for initialization
 	void Start () {
 		
@@ -18,18 +14,52 @@ public class PlayerSelectionCanvas : MonoBehaviour {
 		
 	}
 
+    // player를 변경한다.
+    void ChangePlayer(Player.Character characterType)
+    {
+        PlayerPrefs.SetInt(PlayerGameData.CharacterKey, (int)characterType);
+        SceneManager.LoadScene("Playground");
+    }
+
     // 앰뷸런스 버튼 클릭
     public void OnAmbulanceButtonClicked()
     {
-        PlayerPrefs.SetString("Character", "Ambulance");
-        SceneManager.LoadScene("Playground");
+        ChangePlayer(Player.Character.eAmbulance);
     }
 
     // 파이어트럭 버튼 클릭
     public void OnFiretruckButtonClicked()
     {
-        PlayerPrefs.SetString("Character", "Firetruck");
-        SceneManager.LoadScene("Playground");
+        ChangePlayer(Player.Character.eFiretruck);
+    }
 
+    // Police 버튼 클릭
+    public void OnPoliceButtonClicked()
+    {
+        ChangePlayer(Player.Character.ePolice);
+    }
+
+    // Car 버튼 클릭
+    public void OnCarButtonClicked()
+    {
+        ChangePlayer(Player.Character.eCar);
+    }
+
+    // Truck 버튼 클릭
+    public void OnTruckButtonClicked()
+    {
+        ChangePlayer(Player.Character.eTruck);
+    }
+
+    // Taxi 버튼 클릭
+    public void OnTaxiButtonClicked()
+    {
+        ChangePlayer(Player.Character.eTaxi);
+    }
+
+    // VwVan 버튼 클릭
+    public void OnVwVanButtonClicked()
+    {
+        ChangePlayer(Player.Character.eVwVan);
     }
 }

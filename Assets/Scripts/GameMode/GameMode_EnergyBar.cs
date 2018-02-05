@@ -61,7 +61,8 @@ public class GameMode_EnergyBar : MonoBehaviour {
         progressBar.SetFillerSize(remainEnergy);
 
         // 맵을 구성한다.
-        GameController.Me.roadController.MakeMap();
+        if (GameController.Me)
+            GameController.Me.roadController.MakeMap();
 
     }
 

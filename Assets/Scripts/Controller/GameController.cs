@@ -54,13 +54,13 @@ public class GameController : MonoBehaviour {
     }
 
     // game data를 불러온다.
-    void LoadGameData()
+    public void LoadGameData()
     {
         player.GameData.Load();
     }
 
     // game data를 저장한다.
-    void SaveGameData()
+    public void SaveGameData()
     {
         // player의 게임 데이타
         player.GameData.Save();
@@ -110,14 +110,25 @@ public class GameController : MonoBehaviour {
     // 게임 준비단계로 간다.
     public void Ready()
     {
-        // Player의 character 를 만든다
-        Player.ReplaceCharacter();
+        // 게임 데이타를 동기화 한다.
+        {
+            SyncGameDataToGameObject();
+        }
+        
 
+        // 게임 상태를 준비상태로 변경한다.
         GameState = State.eReady;
 
         // canvas 교체
         playCanvasItems.SetActive(false);
         readyCanvasItems.SetActive(true);
+    }
+
+    // 게임 데이타를 게임 object로 만든다.
+    void SyncGameDataToGameObject()
+    {
+        // character를 교체한다.
+        Player.MakeCharacterGameObject();
     }
 
 	// Use this for initialization

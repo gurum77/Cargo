@@ -13,6 +13,11 @@ public class Player : MonoBehaviour {
     {
         eAmbulance,
         eFiretruck,
+        ePolice,
+        eCar,
+        eTruck,
+        eTaxi,
+        eVwVan,
         eCount
     };
 
@@ -28,9 +33,9 @@ public class Player : MonoBehaviour {
     // player의 게임 데이타
     PlayerGameData gameData = new PlayerGameData();
 
-    // player의 캐릭터를 교체한다.
+    // game data에 맞게 player의 character game object를 만든다.
     // 기존 캐릭터를 삭제하고, 새로운 캐릭터 object를 만든다.
-    public void ReplaceCharacter(Player.Character characterType)
+    public void MakeCharacterGameObject()
     {
         // 기존 캐릭터 object 는 삭제한다.
         GameObject character = GameObject.FindGameObjectWithTag("Character");
@@ -40,17 +45,16 @@ public class Player : MonoBehaviour {
         }
 
         // character enum에 맞는 character prefab를 가져온다.
-        GameObject characterPrefab = characterPrefabs[characterType];
+        GameObject characterPrefab = characterPrefabs[(int)GameData.CharacterType];
+
         // 새로운 캐릭터 object를 생성한다.
         if(characterPrefab)
         {
             character = Instantiate(characterPrefab, transform);
             character.tag = "Character";
         }
-
-        // 새로운 캐릭터 object 변수 보관
-        gameData.Character = characterType;
     }
+
     public PlayerGameData GameData
     {
         get { return gameData; }

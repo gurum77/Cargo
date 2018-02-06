@@ -157,8 +157,8 @@ e97ff9540a49b92b779792c195839d33 Assembly-CSharp.dll:UnityStandardAssets.Effects
 602eb97b20feedd39c051dee7c2e88de Assembly-CSharp.dll:UnityStandardAssets.Vehicles.Car.CarAIControl
 787e2b9ae31dffd9c6c22a49250dbd1c Assembly-CSharp.dll:UnityStandardAssets.Vehicles.Car.CarSelfRighting
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:UnityStandardAssets.Effects.FireLight
-bbdac54214e9de13422061d3e07474bd Assembly-CSharp.dll:.Player
-12a10c68584d6ec10c78ee28ed6cc3fb Assembly-CSharp.dll:.PlayCanvas
+edb6c72634aec49c3589e1fb33159710 Assembly-CSharp.dll:.Player
+f71d70bc048533a31d40f062dc14fd14 Assembly-CSharp.dll:.PlayCanvas
 869e5abc2271c3b618904edff22e38ef Assembly-CSharp.dll:UnityStandardAssets.Effects.ExplosionFireAndDebris
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.PlaygroundCanvas
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -208,4 +208,3 @@ f4b175ffc1eeca85d2783436b4c764a7 Assembly-CSharp.dll:UnityStandardAssets.Effects
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:UnityStandardAssets.Utility.FPSCounter
 976aca3cc810d953c31d50c66e036a82 Assembly-CSharp.dll:.GameModeController
 0f3d4bb7128a287827d041c696039525 Assembly-CSharp.dll:UnityStandardAssets.Utility.AutoMobileShaderSwitch
-8d9ebf08b026aaaf389a1fe0b4296acb Assembly-CSharp.dll:.scriptTexttest

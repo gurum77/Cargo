@@ -285,7 +285,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ImportedAssets\Fonts\Script\scriptTexttest.cs" />
     <Compile Include="Assets\ImportedAssets\GrassRoadRace\Script\CameraMove.cs" />
     <Compile Include="Assets\ImportedAssets\Standard Assets\CrossPlatformInput\Scripts\AxisTouchButton.cs" />
     <Compile Include="Assets\ImportedAssets\Standard Assets\CrossPlatformInput\Scripts\ButtonHandler.cs" />
@@ -367,8 +366,6 @@
     <Compile Include="Assets\Scripts\PlayerGameData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\ImportedAssets\Fonts\Documentation\JazzCreateAltKeys_BubbleFont.txt" />
-    <None Include="Assets\ImportedAssets\Fonts\Documentation\JazzCreateBubble_VersionHistory_1.1.txt" />
     <None Include="Assets\ImportedAssets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\ImportedAssets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
     <None Include="Assets\ImportedAssets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />

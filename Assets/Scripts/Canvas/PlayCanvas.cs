@@ -8,6 +8,7 @@ public class PlayCanvas : MonoBehaviour {
     public Text scoreText;
     public Text bestScoreText;
     public Text coinsText;
+    public Text comboText;
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +26,9 @@ public class PlayCanvas : MonoBehaviour {
 
         // display coins
         DisplayCoins();
+
+        // display combo
+        DisplayCombo();
 	}
 
     // 왼쪽 버튼 클릭
@@ -62,7 +66,7 @@ public class PlayCanvas : MonoBehaviour {
             return;
         }
 
-        scoreText.text = GameController.Me.Player.Score().ToString();
+        scoreText.text = GameController.Me.Player.Score.ToString();
     }
 
     // coins 출력
@@ -75,5 +79,24 @@ public class PlayCanvas : MonoBehaviour {
         }
 
         coinsText.text = GameController.Me.Player.GameData.Coins.ToString();
+    }
+
+    // combo 출력
+    void DisplayCombo()
+    {
+        if(!comboText)
+        {
+            Debug.Assert(false);
+            return;
+        }
+
+        if(GameController.Me.player.Combo <= 0)
+        {
+            comboText.text = "";
+        }
+        else
+        {
+            comboText.text = "COMBO " + GameController.Me.player.Combo.ToString();
+        }
     }
 }

@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
         eTruck,
         eTaxi,
         eVwVan,
+        ePoliceHelicopter,
         eCount
     };
 
@@ -25,6 +26,15 @@ public class Player : MonoBehaviour {
     public float speed;
     int playerPosition; // 현재 player의 position
     int score;  // 현재 점수
+    int combo;  // 정해진 시간내에 이동한 횟수
+    public float comboTime; // 콤보로 인정해주는 시간
+    float deltaMoveTime;    // 이전 이동에서 현재 이동까지 흐른 시간
+
+    // 변신에 필요한 콤보
+    public int level1Combo; // level1 변신에 필요한 콤보
+
+
+    
     public GameObject[] characterPrefabs;   // player의 캐릭터
     public AudioSource audioSourceTick;
     public AudioSource audioSourceCoin;
@@ -73,7 +83,11 @@ public class Player : MonoBehaviour {
         score = 0;
         Animator ani = GetComponentInChildren<Animator>();
         if (ani != null)
+        {
             ani.SetTrigger("Car_Base");
+            ani.ResetTrigger("Car_Level1");
+            ani.ResetTrigger("Car_Destory");
+        }
     }
 
     // coin을 추가한다.
@@ -82,9 +96,14 @@ public class Player : MonoBehaviour {
         gameData.Coins = gameData.Coins + addCoins;
     }
 
-    public int Score()
+    public int Combo
     {
-        return score;
+        get { return combo; }
+    }
+
+    public int Score
+    {
+        get { return score; }
     }
 
     public void OnLeftKeyClicked()
@@ -106,9 +125,20 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+
+        // 이동에 걸린 시간을 누적시킨다.
+        deltaMoveTime += Time.deltaTime;
+
+        // 누적시간이 콤보기준 시간보다 커지면 콤보를 초기화 한다.
+        if (deltaMoveTime > comboTime)
+            combo = 0;
+
         // play 중인 경우에만 입력을 받는다.
         if(GameController.Me.GameState == GameController.State.ePlay)
         {
+            // 변신 체크
+            CheckLevel();
+
             // turn key가 입력 되었는지?
             if (IsInputTurnKey() || IsInputLeftMoveKey())
             {
@@ -124,7 +154,39 @@ public class Player : MonoBehaviour {
 
             transform.position = Vector3.Lerp(transform.position, targetPos, speed * Time.deltaTime);
         }
-	}
+
+        
+    }
+
+    int GetLevel()
+    {
+        if (level1Combo < Combo)
+            return 1;
+
+        return 0;
+    }
+
+    // level 체크해서 변신한다.
+    void CheckLevel()
+    {
+         Animator ani = GetComponentInChildren<Animator>();
+         if (ani == null)
+             return;
+
+        int level = GetLevel();
+        if (level == 0)
+        {
+            ani.ResetTrigger("Car_Level1");
+            ani.ResetTrigger("Car_Destory");
+            ani.SetTrigger("Car_Base");
+        }
+        else if(level == 1)
+        {
+            ani.ResetTrigger("Car_Base");
+            ani.ResetTrigger("Car_Destory");
+            ani.SetTrigger("Car_Level1");
+        }
+    }
 
     // 좌측으로 이동시킨다.
     public void MoveLeft()
@@ -227,13 +289,37 @@ public class Player : MonoBehaviour {
         }
 
         // 이동할때마다 체크한다.
-        CheckSuccess();
+        if(CheckSuccess())
+        {
+            // Coin 체크
+            CheckCoin();
 
-        // Coin 체크
-        CheckCoin();
+            // map을 갱신한다.
+            ReplaceMapByPlayerPosition();
 
-        // map을 갱신한다.
-        ReplaceMapByPlayerPosition();
+            // combo를 체크한다.
+            CheckCombo();
+        }
+    }
+
+    
+
+    // combo를 체크한다.
+    void CheckCombo()
+    {
+        if (comboTime >= deltaMoveTime)
+        { 
+            combo++;
+        }
+        else
+        { 
+            combo = 0;
+        }
+
+        deltaMoveTime = 0;
+
+        // 최대 콤보 갱신
+        GameData.MaxCombo = combo > GameData.MaxCombo ? combo : GameData.MaxCombo;
     }
 
     // 현재 player의 위치에 맞게 map을 갱신한다.
@@ -316,12 +402,12 @@ public class Player : MonoBehaviour {
     }
 
     // 이동한 위치가 성공인지 체크한다.
-    void CheckSuccess()
+    bool CheckSuccess()
     {
         if(!RoadController())
-            return;
+            return false;
         if (RoadController().GetRoadBlockProperty(playerPosition) == null)
-            return;
+            return false;
 
         Vector3 roadBlockPos    = RoadController().GetRoadBlockProperty(playerPosition).Position;
         
@@ -331,17 +417,22 @@ public class Player : MonoBehaviour {
             Animator ani = GetComponentInChildren<Animator>();
             if(ani != null)
             {
-                ani.ResetTrigger("Car_Base"); 
+                ani.ResetTrigger("Car_Base");
+                ani.ResetTrigger("Car_Level1"); 
                 ani.SetTrigger("Car_Destory");
             }
             GameController.Me.GameOver();
+
+            return false;
         }
         // 이동한 위치가 성공이면 베스트 스코어를 올린다.
         else
         {
             score = playerPosition;
-            GameData.EnergyBarModeBestScore = Score() > GameData.EnergyBarModeBestScore ? Score() : GameData.EnergyBarModeBestScore;
+            GameData.EnergyBarModeBestScore = Score > GameData.EnergyBarModeBestScore ? Score : GameData.EnergyBarModeBestScore;
         }
+
+        return true;
     }
 
     // 이동한 위치에 코인이 있는지 체크해서 coin개수를 늘린다.

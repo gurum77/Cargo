@@ -25,6 +25,12 @@ public class PlayerGameData
         get { return "CharacterKey"; }
     }
 
+    // 최대 콤보 
+    static public string MaxComboKey
+    {
+        get { return "MaxCombo"; }
+    }
+
     #endregion
 
     // 게임 데이타를 저장한다.
@@ -38,6 +44,9 @@ public class PlayerGameData
 
         // character
         PlayerPrefs.SetInt(PlayerGameData.CharacterKey, (int)CharacterType);
+
+        // max combo
+        PlayerPrefs.SetInt(PlayerGameData.MaxComboKey, MaxCombo);
     }
 
     // 게임 데이타를 읽어온다.
@@ -52,6 +61,8 @@ public class PlayerGameData
         // character
         CharacterType = (Player.Character)PlayerPrefs.GetInt(PlayerGameData.CharacterKey);
 
+        // max combo
+        MaxCombo = PlayerPrefs.GetInt(PlayerGameData.MaxComboKey);
     }
 
     public int EnergyBarModeBestScore
@@ -61,6 +72,9 @@ public class PlayerGameData
     { get; set; }
 
     public Player.Character CharacterType
+    { get; set; }
+
+    public int MaxCombo
     { get; set; }
     
 }

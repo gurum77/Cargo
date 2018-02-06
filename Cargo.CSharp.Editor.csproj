@@ -294,8 +294,6 @@
     <Compile Include="Assets\ImportedAssets\Standard Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\ImportedAssets\Fonts\Documentation\JazzCreateAltKeys_BubbleFont.txt" />
-    <None Include="Assets\ImportedAssets\Fonts\Documentation\JazzCreateBubble_VersionHistory_1.1.txt" />
     <None Include="Assets\ImportedAssets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\ImportedAssets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
     <None Include="Assets\ImportedAssets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />

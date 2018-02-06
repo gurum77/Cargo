@@ -57,7 +57,7 @@ public class ReadyCanvas : MonoBehaviour {
             return;
         }
 
-        scoreText.text = GameController.Me.Player.Score().ToString();
+        scoreText.text = GameController.Me.Player.Score.ToString();
     }
 
     // coins 출력

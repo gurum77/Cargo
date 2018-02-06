@@ -62,4 +62,11 @@ public class PlayerSelectionCanvas : MonoBehaviour {
     {
         ChangePlayer(Player.Character.eVwVan);
     }
+
+    // police helicopter 버튼 클릭
+    public void OnPoliceHelicopterButtonClicked()
+    {
+        ChangePlayer(Player.Character.ePoliceHelicopter);
+    }
+
 }

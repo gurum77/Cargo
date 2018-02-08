@@ -15,6 +15,7 @@ public class GameMode_EnergyBar : MonoBehaviour {
     public ProgressBarBehaviour progressBar;
     public int lastScore;   // 에너지바에 반영된 마지막 점수
     private float remainEnergy;  // 남은 에너지
+    public GameObject energyBarModeItem;   // energy bar mode용 canvas item
     
     
 	// Use this for initialization
@@ -43,7 +44,7 @@ public class GameMode_EnergyBar : MonoBehaviour {
         // 에너지가 0이면 게임을 종료시킨다.
         if(remainEnergy <= 0)
         {
-            
+            GameController.Me.GameOver();
         }
     }
 
@@ -51,6 +52,10 @@ public class GameMode_EnergyBar : MonoBehaviour {
     // 모드별 게임 시작할때 호출된다.
     void OnEnable()
     {
+        // 여기서 보여야 하는 item을 showItemByGameMode로 이동한다
+        if (energyBarModeItem && GameController.Me && GameController.Me.gameModeController && GameController.Me.gameModeController.showItemByGameMode)
+            energyBarModeItem.transform.SetParent(GameController.Me.gameModeController.showItemByGameMode.transform);
+
         // 값 초기화
         lastScore = 0;
 

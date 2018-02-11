@@ -53,8 +53,13 @@ public class PlayCanvas : MonoBehaviour {
             Debug.Assert(false);
             return;
         }
-        
-        bestScoreText.text = "Best " + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
+
+        // 모드별로 다르게 표시한다.
+        GameModeController.GameMode curMode = GameController.Me.gameModeController.GetCurGameMode();
+        if (curMode == GameModeController.GameMode.eEnergyBarMode)
+            bestScoreText.text = "Best " + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
+        else if (curMode == GameModeController.GameMode.e100MMode)
+            bestScoreText.text = "Best " + GameMode_100M.TimeToString(GameController.Me.Player.GameData.HundredMBestTime);
     }
 
     // 점수 출력

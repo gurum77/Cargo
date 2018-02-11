@@ -21,6 +21,12 @@ public class PlayerSelectionCanvas : MonoBehaviour {
         SceneManager.LoadScene("Playground");
     }
 
+    // grand ma 버튼 클릭
+    public void OnGrandMaButtonClicked()
+    {
+        ChangePlayer(Player.Character.eGrandMa);
+    }
+
     // 앰뷸런스 버튼 클릭
     public void OnAmbulanceButtonClicked()
     {

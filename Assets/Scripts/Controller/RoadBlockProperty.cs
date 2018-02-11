@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Assets.Scripts.Controller
 {
     // road block 속성
-    public class RoadBlockProperty
+    public class MapBlockProperty
     {
         // 좌우
         bool left;
@@ -57,6 +57,7 @@ namespace Assets.Scripts.Controller
         { get; set; }
 
         // 장애물
+
 
     }
 }

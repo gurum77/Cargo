@@ -9,6 +9,7 @@ public class ReadyCanvas : MonoBehaviour {
     public Text scoreText;
     public Text bestScoreText;
     public Text coinsText;
+    public Text gameModeText;
     
 
 
@@ -27,7 +28,16 @@ public class ReadyCanvas : MonoBehaviour {
 
         // display coins
         DisplayCoins();
+
+        // display game mode
+        DisplayGameMode();
 	}
+
+    // 게임 모드를 표시한다.
+    void DisplayGameMode()
+    {
+        gameModeText.text = GameController.Me.gameModeController.GetCurGameModeDisplayName();
+    }
 
     public void OnStartButtonClicked()
     {
@@ -44,7 +54,12 @@ public class ReadyCanvas : MonoBehaviour {
             return;
         }
 
-        bestScoreText.text = "Best " + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
+        // 모드별로 다르게 표시한다.
+        GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
+        if (curGameMode == GameModeController.GameMode.eEnergyBarMode)
+            bestScoreText.text = "Best " + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
+        else if (curGameMode == GameModeController.GameMode.e100MMode)
+            bestScoreText.text = "Best " + GameMode_100M.TimeToString(GameController.Me.Player.GameData.HundredMBestTime);
     }
 
 
@@ -70,6 +85,16 @@ public class ReadyCanvas : MonoBehaviour {
         }
 
         coinsText.text = GameController.Me.Player.GameData.Coins.ToString();
+    }
+
+    // mode 선택 버튼 클릭
+    public void OnGameModeSelectionButtonClicked()
+    {
+        // game data를 저장한다.
+        GameController.Me.SaveGameData();
+
+        // player 선택 신으로 변경한다.
+        SceneManager.LoadScene("GameModeSelection");
     }
 
     // player 선택 버튼 클릭

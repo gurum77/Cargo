@@ -67,7 +67,7 @@ public class GameMode_EnergyBar : MonoBehaviour {
 
         // 맵을 구성한다.
         if (GameController.Me)
-            GameController.Me.roadController.MakeMap();
+            GameController.Me.mapController.MakeMap();
 
     }
 

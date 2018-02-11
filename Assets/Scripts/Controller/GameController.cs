@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour {
     
 
     static public GameController Me;
-    public RoadController roadController;
+    public MapController mapController;
     public GameModeController gameModeController;
    
     public GameObject playCanvasItems;
@@ -48,9 +48,9 @@ public class GameController : MonoBehaviour {
         set { gameState = value;  }
         get { return gameState; }
     }
-    public RoadController RoadController
+    public MapController MapController
     {
-        get{return roadController;}
+        get{return mapController;}
     }
 
     // game data를 불러온다.
@@ -81,29 +81,34 @@ public class GameController : MonoBehaviour {
         player.enabled = false;
         gameModeController.enabled = false;
         gameModeController.DisableAllGameMode();
-        roadController.enabled = false;
-
-        
+        mapController.enabled = false;
     }
 
     // play를 시작한다.
     public void Play()
     {
-        
+        // 게임 상태를 플레이로
         GameState = State.ePlay;
         
         // canvas 교체
         playCanvasItems.SetActive(true);
         readyCanvasItems.SetActive(false);
         
-
+        // player 활성화
         player.enabled = true;
+
+        // player 애니메이션을 base로
         Animator ani = GetComponentInChildren<Animator>();
         if (ani != null)
             ani.ResetTrigger("Car_Base");
-        gameModeController.enabled = true;
-        roadController.enabled = true;
 
+        // game mode controller 활성화
+        gameModeController.enabled = true;
+
+        // road controller 활성화
+        mapController.enabled = true;
+
+        // 게임 모드 시작
         gameModeController.StartGameMode();
     }
 
@@ -129,6 +134,9 @@ public class GameController : MonoBehaviour {
     {
         // character를 교체한다.
         Player.MakeCharacterGameObject();
+
+        // game mode를 교체한다
+        gameModeController.SetCurGameMode(Player.GameData.GameModeType);
     }
 
 	// Use this for initialization

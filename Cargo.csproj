@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.3.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -350,8 +352,11 @@
     <Compile Include="Assets\ImportedAssets\Standard Assets\Vehicles\Car\Scripts\SkidTrail.cs" />
     <Compile Include="Assets\ImportedAssets\Standard Assets\Vehicles\Car\Scripts\Suspension.cs" />
     <Compile Include="Assets\ImportedAssets\Standard Assets\Vehicles\Car\Scripts\WheelEffects.cs" />
+    <Compile Include="Assets\Prefabs\ImportedAssetUsed\Low Poly Animated People\RandomAnimationPicker.cs" />
     <Compile Include="Assets\Prefabs\ProgressBar\ProgressBarBehaviour.cs" />
     <Compile Include="Assets\Prefabs\ProgressBar\Utils.cs" />
+    <Compile Include="Assets\Scripts\Canvas\GameModeSelectionCanvas.cs" />
+    <Compile Include="Assets\Scripts\Canvas\MapSelectionCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\PlayCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\PlayerSelectionCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\ReadyCanvas.cs" />
@@ -360,7 +365,7 @@
     <Compile Include="Assets\Scripts\Controller\GameModeController.cs" />
     <Compile Include="Assets\Scripts\Controller\PlaygroundCanvas.cs" />
     <Compile Include="Assets\Scripts\Controller\RoadBlockProperty.cs" />
-    <Compile Include="Assets\Scripts\Controller\RoadController.cs" />
+    <Compile Include="Assets\Scripts\Controller\MapController.cs" />
     <Compile Include="Assets\Scripts\GameMode\GameMode_100M.cs" />
     <Compile Include="Assets\Scripts\GameMode\GameMode_EnergyBar.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />

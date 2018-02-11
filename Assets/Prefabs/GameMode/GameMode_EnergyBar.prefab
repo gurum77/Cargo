@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4239587913040540
 Transform:
   m_ObjectHideFlags: 1
@@ -51,7 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4f5efb716ac5e4c8999dc19fbad8d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnergy: 30
-  decreaseEnergyPerSec: 1
-  increaseEnergyPerStep: 0.2
+  maxEnergy: 100
+  decreaseEnergyPerSec: 7
+  increaseEnergyPerStep: 1
   progressBar: {fileID: 0}
+  lastScore: 0
+  energyBarModeItem: {fileID: 0}

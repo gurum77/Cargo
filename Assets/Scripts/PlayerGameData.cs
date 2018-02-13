@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class PlayerGameData
 {
-    #region 게임 데이타 저장 키
+    #region 게임 데이타 저장 키 정의
     static public string CoinsKey
     {
         get { return "Coins"; }
@@ -23,6 +23,11 @@ public class PlayerGameData
     static public string CharacterKey
     {
         get { return "CharacterKey"; }
+    }
+
+    static public string MapKey
+    {
+        get { return "MapKey"; }
     }
 
     static public string GameModeKey
@@ -44,6 +49,7 @@ public class PlayerGameData
 
     #endregion
 
+    #region 게임 데이타를 저장하는 함수
     // 게임 데이타를 저장한다.
     public void Save()
     {
@@ -56,6 +62,9 @@ public class PlayerGameData
         // character
         PlayerPrefs.SetInt(PlayerGameData.CharacterKey, (int)CharacterType);
 
+        // map
+        PlayerPrefs.SetInt(PlayerGameData.MapKey, (int)MapType);
+
         // game mode
         PlayerPrefs.SetInt(PlayerGameData.GameModeKey, (int)GameModeType);
 
@@ -65,7 +74,10 @@ public class PlayerGameData
         // 100M 모드 최고 시간
         PlayerPrefs.SetFloat(PlayerGameData.HundredMModeBestTimeKey, HundredMBestTime);
     }
+#endregion
 
+
+    #region 게임 데이타를 읽어오는 함수
     // 게임 데이타를 읽어온다.
     public void Load()
     {
@@ -78,6 +90,9 @@ public class PlayerGameData
         // character
         CharacterType = (Player.Character)PlayerPrefs.GetInt(PlayerGameData.CharacterKey);
 
+        // map
+        MapType = (MapController.Map)PlayerPrefs.GetInt(PlayerGameData.MapKey);
+
         // game mode
         GameModeType    = (GameModeController.GameMode)PlayerPrefs.GetInt(PlayerGameData.GameModeKey);
 
@@ -87,7 +102,9 @@ public class PlayerGameData
         // 100M 모드 최고 기록
         HundredMBestTime = PlayerPrefs.GetFloat(PlayerGameData.HundredMModeBestTimeKey);
     }
+#endregion
 
+    #region 데이타 get;set;
     public int EnergyBarModeBestScore
     { get; set; }
 
@@ -95,6 +112,9 @@ public class PlayerGameData
     { get; set; }
 
     public Player.Character CharacterType
+    { get; set; }
+
+    public MapController.Map MapType
     { get; set; }
 
     public GameModeController.GameMode GameModeType
@@ -105,5 +125,6 @@ public class PlayerGameData
 
     public float HundredMBestTime
     { get; set; }
-    
+    #endregion
+
 }

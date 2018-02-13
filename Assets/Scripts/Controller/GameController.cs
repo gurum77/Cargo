@@ -135,6 +135,9 @@ public class GameController : MonoBehaviour {
         // character를 교체한다.
         Player.MakeCharacterGameObject();
 
+        // map을 교체한다.
+        mapController.ChangeMap(Player.GameData.MapType);
+
         // game mode를 교체한다
         gameModeController.SetCurGameMode(Player.GameData.GameModeType);
     }

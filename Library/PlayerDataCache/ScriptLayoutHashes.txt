@@ -2,6 +2,8 @@ Android
 SceneListBegin?
 Assets/Scenes/Playground.unity
 Assets/Scenes/PlayerSelection.unity
+Assets/Scenes/GameModeSelection.unity
+Assets/Scenes/MapSelection.unity
 SceneListEnd?
 7ba1e84ad3d2d8813486668e75f842ce Assembly-CSharp.dll:UnityStandardAssets.Effects.ExtinguishableParticleSystem
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
@@ -17,6 +19,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 6af7378a45ad6da4992a71ef50ddc2eb UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 9ca6347af5ceb6b0d1c105af31b6722e UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 7ba1e84ad3d2d8813486668e75f842ce Assembly-CSharp.dll:UnityStandardAssets.Effects.ParticleSystemMultiplier
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MapSelectionCanvas
 430c1729d7a445aa5df470ced463fca9 Assembly-CSharp.dll:UnityStandardAssets.Effects.ExplosionPhysicsForce
 c35752b81d25e001fee445da226f3c4e Assembly-CSharp.dll:UnityStandardAssets.Vehicles.Car.Suspension
 0df26d7642d4095bdac77a78b25e44a4 Assembly-CSharp.dll:UnityStandardAssets.Vehicles.Car.BrakeLight
@@ -90,7 +93,7 @@ f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 86d36c43c53541d667100dc90b89cfba UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 1b8c02d0aa82fbf036a2b9b2d713eec3 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 4fbcb34d506c7a6d4666f85b64007227 Assembly-CSharp.dll:ProgressBar.ProgressBarBehaviour
-12a10c68584d6ec10c78ee28ed6cc3fb Assembly-CSharp.dll:.ReadyCanvas
+b86f904248ad0d421cb48dce2ff43d98 Assembly-CSharp.dll:.ReadyCanvas
 6c156248975c65e334daa4cbfba64bd1 Assembly-CSharp.dll:UnityStandardAssets.Utility.TimedObjectActivator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 970a95104359198fe1a98ef48655de8c UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -137,6 +140,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 78ebae5ed9b3edeb216da437b99754a4 Assembly-CSharp.dll:UnityStandardAssets.CrossPlatformInput.Joystick
 149e538468c9a609cf26b23682c996c7 Assembly-CSharp.dll:UnityStandardAssets.Utility.PlatformSpecificContent
 4df86f437a61b08c14fd0adff88ddf71 Assembly-CSharp.dll:UnityStandardAssets.Utility.ActivateTrigger
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.RandomAnimationPicker
 75b7bc8036e3f612369bd8f4d1c2666e Assembly-CSharp.dll:.CameraMove
 a2efb0db652b8114d1ae7dd9a600d626 Assembly-CSharp.dll:UnityStandardAssets.CrossPlatformInput.InputAxisScrollbar
 8add7944724b2305a45c386f15eacb7e Assembly-CSharp.dll:UnityStandardAssets.Vehicles.Aeroplane.AeroplaneAiControl
@@ -147,7 +151,7 @@ a90e94673f50d2237c1b971c138660c6 Assembly-CSharp.dll:UnityStandardAssets.Utility
 57fde8e76fc7bce23deb0e799d336be7 Assembly-CSharp.dll:UnityStandardAssets.Utility.SmoothFollow
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
-53ab3876ec23052a6997de4eddd29c60 Assembly-CSharp.dll:.GameController
+791a61476f35cbfef36f6ff467b7108c Assembly-CSharp.dll:.GameController
 01189dce9b1ddab1eebd984760b43877 Assembly-CSharp.dll:UnityStandardAssets.Vehicles.Aeroplane.LandingGear
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:UnityStandardAssets.CrossPlatformInput.MobileControlRig
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:UnityStandardAssets.Utility.ObjectResetter
@@ -157,7 +161,8 @@ e97ff9540a49b92b779792c195839d33 Assembly-CSharp.dll:UnityStandardAssets.Effects
 602eb97b20feedd39c051dee7c2e88de Assembly-CSharp.dll:UnityStandardAssets.Vehicles.Car.CarAIControl
 787e2b9ae31dffd9c6c22a49250dbd1c Assembly-CSharp.dll:UnityStandardAssets.Vehicles.Car.CarSelfRighting
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:UnityStandardAssets.Effects.FireLight
-edb6c72634aec49c3589e1fb33159710 Assembly-CSharp.dll:.Player
+e2f2cdc236a328da1446d2e6c2ec74e4 Assembly-CSharp.dll:.GameMode_100M
+b74de81598507b873e207808bb531d8d Assembly-CSharp.dll:.Player
 f71d70bc048533a31d40f062dc14fd14 Assembly-CSharp.dll:.PlayCanvas
 869e5abc2271c3b618904edff22e38ef Assembly-CSharp.dll:UnityStandardAssets.Effects.ExplosionFireAndDebris
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.PlaygroundCanvas
@@ -194,7 +199,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 ac0e5e8ccd6c031d45307738e1b2ad59 Assembly-CSharp.dll:UnityStandardAssets.Vehicles.Aeroplane.AeroplaneControlSurfaceAnimator
 74d16288332f6289274f30bd41341cc6 Assembly-CSharp.dll:UnityStandardAssets.Vehicles.Car.CarAudio
-fc0109d0b35145f64fea9a03827ff109 Assembly-CSharp.dll:.GameMode_EnergyBar
+c6a11d86c1e2082b8dd1571b596e8b31 Assembly-CSharp.dll:.GameMode_EnergyBar
 6ef10f2c9d52b20165b73caa5f02409d Assembly-CSharp.dll:UnityStandardAssets.Vehicles.Aeroplane.AeroplaneUserControl2Axis
 ab232dc3d94359ca42eabb9c72cbbb82 Assembly-CSharp.dll:UnityStandardAssets.Effects.WaterHoseParticles
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
@@ -203,8 +208,9 @@ db3b233e35a88802fed1717d19c3d9ec Assembly-CSharp.dll:UnityStandardAssets.Utility
 1778f312be6498be5ec0f8322f849dd5 Assembly-CSharp.dll:.CameraController
 a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp.dll:UnityStandardAssets.CrossPlatformInput.TouchPad
 0ad469aca31264c6140b1e503c43ab6b Assembly-CSharp.dll:UnityStandardAssets.Utility.TimedObjectDestructor
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.GameModeSelectionCanvas
 f4b175ffc1eeca85d2783436b4c764a7 Assembly-CSharp.dll:UnityStandardAssets.Effects.Explosive
-63c9a1e363fee386a42ec45f4373a97e Assembly-CSharp.dll:.RoadController
+5dbf3d7fee67709dd291393c876af8c6 Assembly-CSharp.dll:.MapController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:UnityStandardAssets.Utility.FPSCounter
-976aca3cc810d953c31d50c66e036a82 Assembly-CSharp.dll:.GameModeController
+587c43355c02d853ef553c99af1a9f78 Assembly-CSharp.dll:.GameModeController
 0f3d4bb7128a287827d041c696039525 Assembly-CSharp.dll:UnityStandardAssets.Utility.AutoMobileShaderSwitch

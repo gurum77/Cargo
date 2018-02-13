@@ -402,7 +402,7 @@ public class Player : MonoBehaviour {
         if (rc == null)
             return -1;
         
-        return playerPosition - rc.backTileRowsFromPlayer;
+        return playerPosition - rc.backTileRowsFromPlayer - Mathf.RoundToInt(rc.MaxMapSize.z);
     }
 
     MapController RoadController()

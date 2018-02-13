@@ -97,6 +97,16 @@ public class ReadyCanvas : MonoBehaviour {
         SceneManager.LoadScene("GameModeSelection");
     }
 
+    // map 선택 버튼 클릭
+    public void OnMapSelectionButtonClicked()
+    {
+        // game data를 저장한다.
+        GameController.Me.SaveGameData();
+
+        // map 선택 신으로 변경한다.
+        SceneManager.LoadScene("MapSelection");
+    }
+
     // player 선택 버튼 클릭
     public void OnPlayerSelectionButtonClicked()
     {

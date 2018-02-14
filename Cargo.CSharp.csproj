@@ -285,6 +285,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ImportedAssets\EasyObjectPool\Core\EasyObjectPool.cs" />
+    <Compile Include="Assets\ImportedAssets\EasyObjectPool\Core\PoolObject.cs" />
+    <Compile Include="Assets\ImportedAssets\EasyObjectPool\Example\CubeBehaviour.cs" />
+    <Compile Include="Assets\ImportedAssets\EasyObjectPool\Example\Example.cs" />
     <Compile Include="Assets\ImportedAssets\GrassRoadRace\Script\CameraMove.cs" />
     <Compile Include="Assets\ImportedAssets\Standard Assets\CrossPlatformInput\Scripts\AxisTouchButton.cs" />
     <Compile Include="Assets\ImportedAssets\Standard Assets\CrossPlatformInput\Scripts\ButtonHandler.cs" />
@@ -362,6 +366,7 @@
     <Compile Include="Assets\Scripts\Controller\GameController.cs" />
     <Compile Include="Assets\Scripts\Controller\GameModeController.cs" />
     <Compile Include="Assets\Scripts\Controller\MapController.cs" />
+    <Compile Include="Assets\Scripts\Controller\Mem.cs" />
     <Compile Include="Assets\Scripts\Controller\PlaygroundCanvas.cs" />
     <Compile Include="Assets\Scripts\Controller\RoadBlockProperty.cs" />
     <Compile Include="Assets\Scripts\GameMode\GameMode_100M.cs" />

@@ -30,7 +30,7 @@ namespace Assets.Scripts.Controller
         // 코인 object를 모두 삭제한다.
         public void DeleteCoin()
         {
-            GameObject.DestroyObject(coin);
+            Mem.DestroyObject(coin);
             coin = null;
         }
 
@@ -46,7 +46,7 @@ namespace Assets.Scripts.Controller
         {
             foreach(var obj in objects)
             {
-                GameObject.DestroyObject(obj);
+                Mem.DestroyObject(obj);
             }
             objects.Clear();
         }

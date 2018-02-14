@@ -42,7 +42,8 @@ public class Player : MonoBehaviour {
     public AudioSource audioSourceCoin;
     Vector3 targetPos   = new Vector3();  // 목표 위치
     Quaternion targetDir = new Quaternion();   // 목표 방향
-    
+
+    Animator ani;
 
     // player의 게임 데이타
     PlayerGameData gameData = new PlayerGameData();
@@ -75,18 +76,17 @@ public class Player : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-       
 	}
 
     void OnEnable()
     {
+        ani = GetComponentInChildren<Animator>();
         transform.position = new Vector3(0, 0, 0);
         transform.rotation = Quaternion.Euler(0, 45, 0);
         targetPos = new Vector3(0, 0, 0);
         targetDir = transform.rotation;
         playerPosition = 0;
         score = 0;
-        Animator ani = GetComponentInChildren<Animator>();
         if (ani != null)
         {
             ani.SetTrigger("Car_Base");
@@ -127,10 +127,9 @@ public class Player : MonoBehaviour {
             MoveRight();
     }
 
+
 	// Update is called once per frame
 	void Update () {
-
-
         // 이동에 걸린 시간을 누적시킨다.
         deltaMoveTime += Time.deltaTime;
 
@@ -160,8 +159,6 @@ public class Player : MonoBehaviour {
             transform.position = Vector3.Lerp(transform.position, targetPos, speed * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetDir, rotationSpeed * Time.deltaTime);
         }
-
-        
     }
 
     // player를 목표 지점으로 이동한다.(미션 완성했을대 마무리를위한 함수)
@@ -181,7 +178,6 @@ public class Player : MonoBehaviour {
     // level 체크해서 변신한다.
     void CheckLevel()
     {
-         Animator ani = GetComponentInChildren<Animator>();
          if (ani == null)
              return;
 
@@ -426,7 +422,6 @@ public class Player : MonoBehaviour {
         if (!roadBlockPos.Equals(targetPos))
         {
             // player destory 애니메이션 발동
-            Animator ani = GetComponentInChildren<Animator>();
             if(ani != null)
             {
                 ani.ResetTrigger("Car_Base");

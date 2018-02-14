@@ -18,8 +18,8 @@ public class GameController : MonoBehaviour {
         eControl_TurnAndMove,   // turn과 move를 분리
         eControl_MoveOnly       // move만
     };
-    
 
+    public int targetFrameRate;
     static public GameController Me;
     public MapController mapController;
     public GameModeController gameModeController;
@@ -144,6 +144,9 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        QualitySettings.vSyncCount = 0;
+
         Me = this;
 
         // control type 지정
@@ -158,7 +161,10 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        if(targetFrameRate != Application.targetFrameRate)
+        {
+            Application.targetFrameRate = targetFrameRate;
+        }
        
 	}
 

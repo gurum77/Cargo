@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Controller;
+using MarchingBytes;
+using Assets.Scripts.Controller;
 
 public class MapController : MonoBehaviour {
 
@@ -27,8 +29,7 @@ public class MapController : MonoBehaviour {
     Vector3[] subMapSize;   // sub map의 크기
     Vector3 maxMapSize; // 가장 큰 map의 크기
     float lastMainMapBlockZ;    // 마지막 main map block의 Z 좌표
-
-
+    
     #region 맵별 프리팹 정의
     enum MapPrefabIndex
     {
@@ -41,8 +42,7 @@ public class MapController : MonoBehaviour {
     public GameObject[] basicMapPrefabs;    // 0 : mainMap prefab, 1 : road block 왼쪽, 2 : road block 오른쪽, 3 이후 : sub map prefab
     public GameObject[] seaMapPrefabs;      // 0 : mainMap prefab, 1 : road block 왼쪽, 2 : road block 오른쪽, 3 이후 : sub map prefab
     #endregion 
-
-
+    
     public int leftTileColsFromPlayer;  // player의 좌측 tile columns 수
     public int rightTileColsFromPlayer; // player의 우측 tile columns수
     public int backTileRowsFromPlayer;  // player의 뒤쪽 tile row수
@@ -170,7 +170,6 @@ public class MapController : MonoBehaviour {
 
     void OnEnable()
     {
-       
     }
 
 
@@ -286,7 +285,7 @@ public class MapController : MonoBehaviour {
                     pos.x += mainMapSize.x;
 
                 pos.y = mainMapPrefab.transform.position.y;
-                obj = Instantiate(mainMapPrefab, pos, rotation);
+                obj = Mem.Instantiate(mainMapPrefab, pos, rotation);
                 obj.transform.parent = temp.transform;
                 rb.AddObject(obj);
             }
@@ -315,9 +314,9 @@ public class MapController : MonoBehaviour {
                         pos.x += (size.x / 2 + size.z / 2) + 1;
                     pos.y = subMapPrefabs[subMapIndex].transform.position.y;
                 }
-                
 
-                obj = Instantiate(subMapPrefabs[subMapIndex], pos, subMapPrefabs[subMapIndex].transform.rotation);
+
+                obj = Mem.Instantiate(subMapPrefabs[subMapIndex], pos, subMapPrefabs[subMapIndex].transform.rotation);
                 obj.transform.parent = temp.transform;
                 rb.AddObject(obj);
             }
@@ -345,7 +344,7 @@ public class MapController : MonoBehaviour {
 
                 pos = posOrg;
                 pos.x -= (ix + 0);
-                obj = Instantiate(mainMapPrefab, pos, rotation);
+                obj = Mem.Instantiate(mainMapPrefab, pos, rotation);
                 obj.transform.parent = temp.transform;
             }
 
@@ -354,7 +353,7 @@ public class MapController : MonoBehaviour {
             {
                 pos = posOrg;
                 pos.x += (ix + 1);
-                obj = Instantiate(mainMapPrefab, pos, rotation);
+                obj = Mem.Instantiate(mainMapPrefab, pos, rotation);
                 obj.transform.parent = temp.transform;
             }
         }
@@ -379,7 +378,7 @@ public class MapController : MonoBehaviour {
         }
 
         var property = mapBlocks[mapBlocks.Count - 1];
-        GameObject obj = Instantiate(finishPrefab, property.Position, finishPrefab.transform.rotation);
+        GameObject obj = Mem.Instantiate(finishPrefab, property.Position, finishPrefab.transform.rotation);
         if(obj)
         {
             obj.transform.SetParent(temp.transform);
@@ -433,7 +432,7 @@ public class MapController : MonoBehaviour {
             GameObject prefab = left == true ? roadBlock_Left_Prefab : roadBlock_Right_Prefab;
 
             // road block 생성
-            GameObject rb = Instantiate(prefab, pos, rotation);
+            GameObject rb = Mem.Instantiate(prefab, pos, rotation);
             rb.transform.parent = temp.transform;
 
             // object 보관
@@ -473,6 +472,9 @@ public class MapController : MonoBehaviour {
     // playerPosition 기준으로 보이는 것만 만든다.
     public void MakeCoin(int index, Vector3 blockPosition, int playerPosition)
     {
+        if (mapBlocks[index].CoinNums == 0)
+            return;
+
         if (IsInVisibleRangeByPlayerPosition(index, playerPosition))
         {
             Quaternion rotation = Quaternion.Euler(45.0f, 0.0f, 0.0f);
@@ -481,11 +483,11 @@ public class MapController : MonoBehaviour {
             pos.y = 0.5f;
 
             // coin 생성
-            GameObject coin = Instantiate(coinPrefab, pos, rotation);
+            GameObject coin = Mem.Instantiate(coinPrefab, pos, rotation);
             coin.transform.parent = temp.transform;
 
             // 코인 object를 생성하는데, 갯수에 따라 크기를 달리한다.
-            coin.transform.localScale *= mapBlocks[index].CoinNums;
+            coin.transform.localScale   = coinPrefab.transform.localScale * mapBlocks[index].CoinNums;
 
             // game object 보관
             mapBlocks[index].SetCoin(coin);

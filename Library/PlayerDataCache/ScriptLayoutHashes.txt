@@ -214,3 +214,7 @@ f4b175ffc1eeca85d2783436b4c764a7 Assembly-CSharp.dll:UnityStandardAssets.Effects
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:UnityStandardAssets.Utility.FPSCounter
 587c43355c02d853ef553c99af1a9f78 Assembly-CSharp.dll:.GameModeController
 0f3d4bb7128a287827d041c696039525 Assembly-CSharp.dll:UnityStandardAssets.Utility.AutoMobileShaderSwitch
+3b6b70f2bc2203242f1580382b97b9d1 Assembly-CSharp.dll:.Example
+ed0b0b1232044c896e926de54122f4ba Assembly-CSharp.dll:MarchingBytes.PoolObject
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CubeBehaviour
+58f59f8d444a84c08b0c0fb5ba1c884f Assembly-CSharp.dll:MarchingBytes.EasyObjectPool

@@ -19,6 +19,8 @@ public class MapController : MonoBehaviour {
     public int maxMainMapColumns;   // 최대 main map columns수(좌우 포함)
     public GameObject roadBlock_Left_Prefab;    // road block 왼쪽에 들어가는 prefab
     public GameObject roadBlock_Right_Prefab;   // road block 오른쪽에 들어가는 prefab
+    public GameObject roadBlock_TurnToLeft_Prefab;    // road block 오른쪽에서 왼쪽으로 돌아가는 prefab
+    public GameObject roadBlock_TurnToRight_Prefab;   // road block 왼쪽에서 오른쪽으로 돌아가는 prefab
     public GameObject mainMapPrefab;    // main map prefab
     public GameObject []subMapPrefabs;  // sub map prefab
     public GameObject coinPrefab;
@@ -34,8 +36,10 @@ public class MapController : MonoBehaviour {
     enum MapPrefabIndex
     {
         eMain,
-        eLeft,
-        eRight,
+        eLeft,  // 왼쪽으로 가는 블럭
+        eRight, // 오른쪽으로 가는 블럭
+        eTurnToLeft,    // 오른쪽으로 가다가 왼쪽으로 회전하는 블럭
+        eTurnToRight,   // 왼쪽으로 가다가 오른족으로 회전하는 블럭
         eSub,
         eCount
     };
@@ -162,6 +166,8 @@ public class MapController : MonoBehaviour {
         mainMapPrefab = mapPrefabs[(int)MapPrefabIndex.eMain];
         roadBlock_Left_Prefab = mapPrefabs[(int)MapPrefabIndex.eLeft];
         roadBlock_Right_Prefab = mapPrefabs[(int)MapPrefabIndex.eRight];
+        roadBlock_TurnToLeft_Prefab = mapPrefabs[(int)MapPrefabIndex.eTurnToLeft];
+        roadBlock_TurnToRight_Prefab = mapPrefabs[(int)MapPrefabIndex.eTurnToRight];
         System.Array.Resize<GameObject>(ref subMapPrefabs, mapPrefabs.Length - (int)MapPrefabIndex.eSub);
         int idx = 0;
         for (int ix = (int)MapPrefabIndex.eSub; ix < mapPrefabs.Length; ++ix)
@@ -425,14 +431,19 @@ public class MapController : MonoBehaviour {
             // 방향
             bool left = mapBlocks[index].Left;
 
-            // 회전
-            Quaternion rotation = Quaternion.identity;
 
             // prefab
             GameObject prefab = left == true ? roadBlock_Left_Prefab : roadBlock_Right_Prefab;
+            // 회전이라면 상황이 달라짐
+            if(index > 0 && mapBlocks[index-1].Left != left && index < mapBlocks.Count-1)
+            {
+                prefab = left == true ? roadBlock_TurnToLeft_Prefab : roadBlock_TurnToRight_Prefab;
+            }
+
+            pos.y = prefab.transform.position.y;
 
             // road block 생성
-            GameObject rb = Mem.Instantiate(prefab, pos, rotation);
+            GameObject rb = Mem.Instantiate(prefab, pos, prefab.transform.rotation);
             rb.transform.parent = temp.transform;
 
             // object 보관
@@ -461,9 +472,9 @@ public class MapController : MonoBehaviour {
             {
                 pos.z += 1.0f;
                 if (mapBlocks[ix].Left)
-                    pos.x += 1.0f;
-                else
                     pos.x -= 1.0f;
+                else
+                    pos.x += 1.0f;
             }
         }
     }

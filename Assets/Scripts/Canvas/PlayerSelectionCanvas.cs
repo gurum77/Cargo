@@ -4,15 +4,75 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerSelectionCanvas : MonoBehaviour {
+
+    Player.Character previewCharacterType;
+    GameObject previewCharacter;
+    public GameObject[] characterPrefabs;   // player의 캐릭터
+    public GameObject player;
+
 	// Use this for initialization
 	void Start () {
-		
+
+        previewCharacterType = (Player.Character)PlayerPrefs.GetInt(PlayerGameData.CharacterKey);
 	}
+
+    void OnEnable()
+    {
+        CreatePreviewCharacter();
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    // preview character 를 만든다.
+    void CreatePreviewCharacter()
+    {
+        GameObject prefab = new GameObject();
+        int index = (int)previewCharacterType;
+        if (index > -1 && previewCharacterType < Player.Character.eCount)
+            prefab = characterPrefabs[index];
+        else
+            prefab = null;
+
+        if(prefab == null)
+        {
+            Debug.Assert(false);
+            return;
+        }
+
+        if (previewCharacter)
+        {
+            GameObject.DestroyObject(previewCharacter);
+        }
+
+        previewCharacter    = Instantiate(prefab, player.transform);
+        previewCharacter.transform.SetParent(player.transform);
+    }
+
+    public void OnLeftButtonClicked()
+    {
+        if ((int)previewCharacterType > 0)
+        {
+            previewCharacterType--;
+            CreatePreviewCharacter();
+        }
+    }
+
+    public void OnRightButtonClicked()
+    {
+        if (previewCharacterType < Player.Character.eCount - 1)
+        {
+            previewCharacterType++;
+            CreatePreviewCharacter();
+        }
+    }
+
+    public void OnSelectButtonClicked()
+    {
+        ChangePlayer(previewCharacterType);
+    }
 
     // player를 변경한다.
     void ChangePlayer(Player.Character characterType)

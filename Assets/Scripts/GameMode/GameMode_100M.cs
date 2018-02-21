@@ -15,6 +15,11 @@ public class GameMode_100M : MonoBehaviour {
     public Text hundredMText;
     public int meter;
 
+    public float Time100M
+    {
+        get { return time100M; }
+    }
+
 	// Use this for initialization
 	void Start () {
         time100M = 0.0f;

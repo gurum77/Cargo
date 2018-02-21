@@ -31,6 +31,13 @@ public class PlayCanvas : MonoBehaviour {
         DisplayCombo();
 	}
 
+    // 카메라 버튼 클릭
+    public void OnCameraButtonClicked()
+    {
+        GameController.Me.SettingGameData.CameraSkyView = GameController.Me.SettingGameData.CameraSkyView == 1 ? 0 : 1;
+        GameController.Me.SyncSettingGameDataToGameObject();
+    }
+
     // 왼쪽 버튼 클릭
     // 턴
     public void OnLeftButtonClicked()

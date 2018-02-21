@@ -26,9 +26,17 @@ public class GameController : MonoBehaviour {
    
     public GameObject playCanvasItems;
     public GameObject readyCanvasItems;
+    public GameObject gameOverCanvasItems;
 
     public GameObject characterPrefab;
 
+    // 게임 셋팅을 저장하는 데이타
+    SettingGameData settingGameData = new SettingGameData();
+    public SettingGameData SettingGameData
+    {
+        get { return settingGameData; }
+    }
+    
     public Player player;
     public Player Player
     {
@@ -57,6 +65,7 @@ public class GameController : MonoBehaviour {
     public void LoadGameData()
     {
         player.GameData.Load();
+        settingGameData.Load();
     }
 
     // game data를 저장한다.
@@ -64,6 +73,7 @@ public class GameController : MonoBehaviour {
     {
         // player의 게임 데이타
         player.GameData.Save();
+        settingGameData.Save();
     }
 
     // game over를 한다.
@@ -76,7 +86,8 @@ public class GameController : MonoBehaviour {
         
         // canvas 교체
         playCanvasItems.SetActive(false);
-        readyCanvasItems.SetActive(true);
+        readyCanvasItems.SetActive(false);
+        gameOverCanvasItems.SetActive(true);
         
         player.enabled = false;
         gameModeController.enabled = false;
@@ -93,6 +104,7 @@ public class GameController : MonoBehaviour {
         // canvas 교체
         playCanvasItems.SetActive(true);
         readyCanvasItems.SetActive(false);
+        gameOverCanvasItems.SetActive(false);
         
         // player 활성화
         player.enabled = true;
@@ -127,7 +139,9 @@ public class GameController : MonoBehaviour {
         // canvas 교체
         playCanvasItems.SetActive(false);
         readyCanvasItems.SetActive(true);
+        gameOverCanvasItems.SetActive(false);
     }
+
 
     // 게임 데이타를 게임 object로 만든다.
     void SyncGameDataToGameObject()
@@ -140,6 +154,21 @@ public class GameController : MonoBehaviour {
 
         // game mode를 교체한다
         gameModeController.SetCurGameMode(Player.GameData.GameModeType);
+
+
+        // 게임 세팅 데이타 동기화
+        SyncSettingGameDataToGameObject();
+    }
+
+    // 게임 세팅 데이타를 게임 object에 적용한다.
+    public void SyncSettingGameDataToGameObject()
+    {
+        // camera sky view
+        CameraController cameraController = Camera.main.GetComponent<CameraController>();
+        if (cameraController)
+        {
+            cameraController.skyView = settingGameData.CameraSkyView == 1 ? true : false;
+        }
     }
 
 	// Use this for initialization

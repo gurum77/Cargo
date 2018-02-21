@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour {
 
     public GameObject player;
     public float followingSpeed;
+    public bool skyView = true;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -17,10 +19,23 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector3 pos = player.transform.position;
-        pos.y += 10;
-        pos.z -= 2;
+        if(skyView)
+        {
+            pos.y += 10;
+            pos.z -= 2;
+        }
+        else
+        {
+            pos.y += 2;
+            pos.z -= 2;
+        }
+        
 
         transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * followingSpeed);
 
+        // rotation
+        Quaternion targetRotation = skyView == true ? Quaternion.Euler(70, 0, 0) : Quaternion.Euler(40, 0, 0);
+        Quaternion curRotation = transform.rotation;
+        transform.rotation  = Quaternion.Lerp(curRotation, targetRotation, Time.deltaTime * followingSpeed);
 	}
 }

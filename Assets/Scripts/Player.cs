@@ -408,7 +408,7 @@ public class Player : MonoBehaviour {
 
         return GameController.Me.MapController;
     }
-
+   
     // 이동한 위치가 성공인지 체크한다.
     bool CheckSuccess()
     {
@@ -421,6 +421,9 @@ public class Player : MonoBehaviour {
         
         if (!roadBlockPos.Equals(targetPos))
         {
+            // 성공을 못 하면 카메라를 흔든다.
+            Camera.main.SendMessage("Clash");
+
             // player destory 애니메이션 발동
             if(ani != null)
             {
@@ -428,6 +431,8 @@ public class Player : MonoBehaviour {
                 ani.ResetTrigger("Car_Level1"); 
                 ani.SetTrigger("Car_Destory");
             }
+
+        
             GameController.Me.GameOver();
 
             return false;

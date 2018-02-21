@@ -36,7 +36,8 @@ public class ReadyCanvas : MonoBehaviour {
     // 게임 모드를 표시한다.
     void DisplayGameMode()
     {
-        gameModeText.text = GameController.Me.gameModeController.GetCurGameModeDisplayName();
+        if (gameModeText)
+            gameModeText.text = GameController.Me.gameModeController.GetCurGameModeDisplayName();
     }
 
     public void OnStartButtonClicked()
@@ -48,43 +49,30 @@ public class ReadyCanvas : MonoBehaviour {
     // 최고점수 출력
     void DisplayBestScore()
     {
-        if (!bestScoreText)
+        if (bestScoreText)
         {
-            Debug.Assert(false);
-            return;
+            // 모드별로 다르게 표시한다.
+            GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
+            if (curGameMode == GameModeController.GameMode.eEnergyBarMode)
+                bestScoreText.text = "Best " + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
+            else if (curGameMode == GameModeController.GameMode.e100MMode)
+                bestScoreText.text = "Best " + GameMode_100M.TimeToString(GameController.Me.Player.GameData.HundredMBestTime);
         }
-
-        // 모드별로 다르게 표시한다.
-        GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
-        if (curGameMode == GameModeController.GameMode.eEnergyBarMode)
-            bestScoreText.text = "Best " + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
-        else if (curGameMode == GameModeController.GameMode.e100MMode)
-            bestScoreText.text = "Best " + GameMode_100M.TimeToString(GameController.Me.Player.GameData.HundredMBestTime);
     }
 
 
     // 점수 출력
     void DisplayScore()
     {
-        if (!scoreText)
-        {
-            Debug.Assert(false);
-            return;
-        }
-
-        scoreText.text = GameController.Me.Player.Score.ToString();
+        if(scoreText)
+            scoreText.text = GameController.Me.Player.Score.ToString();
     }
 
     // coins 출력
     void DisplayCoins()
     {
-        if (!coinsText)
-        {
-            Debug.Assert(false);
-            return;
-        }
-
-        coinsText.text = GameController.Me.Player.GameData.Coins.ToString();
+        if (coinsText)
+            coinsText.text = GameController.Me.Player.GameData.Coins.ToString();
     }
 
     // mode 선택 버튼 클릭

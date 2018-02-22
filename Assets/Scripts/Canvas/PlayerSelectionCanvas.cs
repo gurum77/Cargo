@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Assets.Scripts.Controller;
 
 public class PlayerSelectionCanvas : MonoBehaviour {
 
@@ -12,12 +13,11 @@ public class PlayerSelectionCanvas : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-        previewCharacterType = (Player.Character)PlayerPrefs.GetInt(PlayerGameData.CharacterKey);
 	}
 
     void OnEnable()
     {
+        previewCharacterType = (Player.Character)PlayerPrefs.GetInt(PlayerGameData.CharacterKey);
         CreatePreviewCharacter();
     }
 	
@@ -29,7 +29,7 @@ public class PlayerSelectionCanvas : MonoBehaviour {
     // preview character 를 만든다.
     void CreatePreviewCharacter()
     {
-        GameObject prefab = new GameObject();
+        GameObject prefab = null;
         int index = (int)previewCharacterType;
         if (index > -1 && previewCharacterType < Player.Character.eCount)
             prefab = characterPrefabs[index];
@@ -44,6 +44,7 @@ public class PlayerSelectionCanvas : MonoBehaviour {
 
         if (previewCharacter)
         {
+            //DestroyObject(previewCharacter);
             GameObject.DestroyObject(previewCharacter);
         }
 

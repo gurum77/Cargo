@@ -433,6 +433,8 @@ public class Player : MonoBehaviour {
             }
 
         
+            // 3초간 대기한다.
+            
             GameController.Me.GameOver();
 
             return false;

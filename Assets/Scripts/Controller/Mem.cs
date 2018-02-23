@@ -29,7 +29,7 @@ namespace Assets.Scripts.Controller
         }
 
         // pool을 통해서 game object를 제거한다.
-        static public void DestroyObject(GameObject obj)
+        static public void DestroyGameObject(GameObject obj)
         {
             if (obj == null)
                 return;

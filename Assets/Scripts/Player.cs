@@ -27,16 +27,26 @@ public class Player : MonoBehaviour {
     public float speed; // 진행 속도
     public float rotationSpeed; // 회전 속도
     int playerPosition; // 현재 player의 position
+    public int PlayerPosition
+    { 
+        get { return playerPosition; } 
+    }
+
     int score;  // 현재 점수
+    int flagCount;   // 현재 깃발 개수
     int combo;  // 정해진 시간내에 이동한 횟수
     public float comboTime; // 콤보로 인정해주는 시간
-    float deltaMoveTime;    // 이전 이동에서 현재 이동까지 흐른 시간
+
+    float movingInterval;    // 이전 이동에서 현재 이동까지 흐른 시간
+    public float MovingInterval
+    {
+        get { return movingInterval; }
+    }
+
 
     // 변신에 필요한 콤보
     public int level1Combo; // level1 변신에 필요한 콤보
 
-
-    
     public GameObject[] characterPrefabs;   // player의 캐릭터
     public AudioSource audioSourceTick;
     public AudioSource audioSourceCoin;
@@ -47,6 +57,13 @@ public class Player : MonoBehaviour {
 
     // player의 게임 데이타
     PlayerGameData gameData = new PlayerGameData();
+
+  
+    // 사용자 입력이 활성화 되어 있는지?
+    public bool EnableUserInput
+    {
+        get; set;
+    }
 
     // game data에 맞게 player의 character game object를 만든다.
     // 기존 캐릭터를 삭제하고, 새로운 캐릭터 object를 만든다.
@@ -76,6 +93,7 @@ public class Player : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
+        EnableUserInput = true;
 	}
 
     void OnEnable()
@@ -87,6 +105,7 @@ public class Player : MonoBehaviour {
         targetDir = transform.rotation;
         playerPosition = 0;
         score = 0;
+        flagCount = 0;
         if (ani != null)
         {
             ani.SetTrigger("Car_Base");
@@ -111,6 +130,11 @@ public class Player : MonoBehaviour {
         get { return score; }
     }
 
+    public int FlagCount
+    {
+        get { return flagCount; }
+    }
+
     public void OnLeftKeyClicked()
     {
         if (GameController.Me.ControlType == GameController.Control.eControl_TurnAndMove)
@@ -131,10 +155,10 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         // 이동에 걸린 시간을 누적시킨다.
-        deltaMoveTime += Time.deltaTime;
+        movingInterval += Time.deltaTime;
 
         // 누적시간이 콤보기준 시간보다 커지면 콤보를 초기화 한다.
-        if (deltaMoveTime > comboTime)
+        if (movingInterval > comboTime)
             combo = 0;
 
         // play 중인 경우에만 입력을 받는다.
@@ -144,18 +168,22 @@ public class Player : MonoBehaviour {
             CheckLevel();
 
             // turn key가 입력 되었는지?
-            if (IsInputTurnKey() || IsInputLeftMoveKey())
+            if (EnableUserInput)
             {
-                OnLeftKeyClicked();
+                if (IsInputTurnKey() || IsInputLeftMoveKey())
+                {
+                    OnLeftKeyClicked();
+                }
+
+                // move key가 입력 되었는지?
+                if (IsInputMoveKey() || IsInputRightMoveKey())
+                {
+                    OnRightKeyClicked();
+                }
             }
+            
 
-            // move key가 입력 되었는지?
-            if (IsInputMoveKey() || IsInputRightMoveKey())
-            {
-                OnRightKeyClicked();
-            }
-
-
+            // 보간이동
             transform.position = Vector3.Lerp(transform.position, targetPos, speed * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetDir, rotationSpeed * Time.deltaTime);
         }
@@ -300,7 +328,7 @@ public class Player : MonoBehaviour {
         if(CheckSuccess())
         {
             // Coin 체크
-            CheckCoin();
+            CheckItem();
 
             // map을 갱신한다.
             ReplaceMapByPlayerPosition();
@@ -315,7 +343,7 @@ public class Player : MonoBehaviour {
     // combo를 체크한다.
     void CheckCombo()
     {
-        if (comboTime >= deltaMoveTime)
+        if (comboTime >= movingInterval)
         { 
             combo++;
         }
@@ -324,7 +352,7 @@ public class Player : MonoBehaviour {
             combo = 0;
         }
 
-        deltaMoveTime = 0;
+        movingInterval = 0;
 
         // 최대 콤보 갱신
         GameData.MaxCombo = combo > GameData.MaxCombo ? combo : GameData.MaxCombo;
@@ -353,7 +381,7 @@ public class Player : MonoBehaviour {
         MapBlockProperty rb = rc.GetMapBlockProperty(idx);
         if (rb != null)
         {
-            rc.MakeCoin(idx, rb.Position, playerPosition);
+            rc.MakeItem(idx, rb.Position, playerPosition);
         }
     }
 
@@ -369,7 +397,7 @@ public class Player : MonoBehaviour {
         MapBlockProperty rb = rc.GetMapBlockProperty(idx);
         if(rb != null)
         {
-            rb.DeleteAllObjects();
+            rb.DeleteAllGameObjects();
         }
 
         // 추가로 나타나야 하는 블럭들
@@ -449,28 +477,37 @@ public class Player : MonoBehaviour {
         return true;
     }
 
-    // 이동한 위치에 코인이 있는지 체크해서 coin개수를 늘린다.
-    void CheckCoin()
+    // 이동한 위치에 item이 있는지 체크해서 item적용
+    void CheckItem()
     {
         if (!RoadController())
             return;
 
-        if (RoadController().GetMapBlockProperty(playerPosition) == null)
+        MapBlockProperty prop = RoadController().GetMapBlockProperty(playerPosition);
+        if (prop == null)
             return;
 
-        // coins의 개수만큼 추가한다.
-        if (RoadController().GetMapBlockProperty(playerPosition).CoinNums > 0)
+        // coin인 경우
+        if (prop.Item == MapBlockProperty.ItemType.eCoin || prop.Item == MapBlockProperty.ItemType.eBigCoin)
         {
             if (audioSourceCoin)
                 audioSourceCoin.Play();
 
             // 동전개수를 증가시킨다.
-            AddCoins(RoadController().GetMapBlockProperty(playerPosition).CoinNums);
-
-            // 해당 동전을 삭제한다.
-            RoadController().GetMapBlockProperty(playerPosition).DeleteCoin();
-
+            AddCoins(prop.GetCoinNums());
         }
+        // flag인 경우
+        else if(prop.Item == MapBlockProperty.ItemType.eFlag)
+        {
+            if (audioSourceCoin)
+                audioSourceCoin.Play();
+
+            // flag 개수를 증가시킨다.
+            flagCount++;
+        }
+
+        // 해당 item을 삭제한다.
+        prop.DeleteItemGameObject();
     }
 
     // turn key가 입력 되었는지?

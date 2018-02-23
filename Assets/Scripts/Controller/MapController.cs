@@ -17,13 +17,14 @@ public class MapController : MonoBehaviour {
 
     public int maxRoadBlock;    // 최대 road block 개수
     public int maxMainMapColumns;   // 최대 main map columns수(좌우 포함)
+    
     public GameObject roadBlock_Left_Prefab;    // road block 왼쪽에 들어가는 prefab
     public GameObject roadBlock_Right_Prefab;   // road block 오른쪽에 들어가는 prefab
     public GameObject roadBlock_TurnToLeft_Prefab;    // road block 오른쪽에서 왼쪽으로 돌아가는 prefab
     public GameObject roadBlock_TurnToRight_Prefab;   // road block 왼쪽에서 오른쪽으로 돌아가는 prefab
     public GameObject mainMapPrefab;    // main map prefab
     public GameObject []subMapPrefabs;  // sub map prefab
-    public GameObject coinPrefab;
+    public GameObject []itemPrefabs;
     public GameObject temp;
     public GameObject finishPrefab;
 
@@ -31,6 +32,14 @@ public class MapController : MonoBehaviour {
     Vector3[] subMapSize;   // sub map의 크기
     Vector3 maxMapSize; // 가장 큰 map의 크기
     float lastMainMapBlockZ;    // 마지막 main map block의 Z 좌표
+    bool[] enabledItem;
+    public void EnableItem(MapBlockProperty.ItemType itemType, bool enable)
+    {
+        enabledItem[(int)itemType] = enable;
+    }
+
+
+    public int[] itemGenerationCycle;   // 아이템 발생 주기
     
     #region 맵별 프리팹 정의
     enum MapPrefabIndex
@@ -76,7 +85,7 @@ public class MapController : MonoBehaviour {
     
 
     // 맵의 크기를 계산한다.
-    void CalcMapObjectSize()
+    void CalcMapGameObjectSize()
     {
         maxMapSize  = new Vector3(0, 0, 0);
 
@@ -111,8 +120,8 @@ public class MapController : MonoBehaviour {
     {
         foreach(var prop in mapBlocks)
         {
-            prop.DeleteAllObjects();
-            prop.DeleteCoin();
+            prop.DeleteAllGameObjects();
+            prop.DeleteItemGameObject();
         }
         mapBlocks.Clear();
     }
@@ -131,7 +140,7 @@ public class MapController : MonoBehaviour {
         MakeRoadBlockObjects();
 
         // coin object을 생성한다.
-        MakeCoinObjects();
+        MakeItemObjects();
 
         // map block object을 생성한다.
         MakeMapBlockObjects();
@@ -176,11 +185,36 @@ public class MapController : MonoBehaviour {
 
     void OnEnable()
     {
+        // 데이타 체크
+        CheckData();
+        
     }
 
+    void CheckData()
+    { 
+        foreach(var item in itemPrefabs)
+        {
+            if (item == null)
+            {
+                Debug.Assert(false);
+            }
+        }
+    }
 
 	// Use this for initialization
 	void Start () {
+        // enabled item 배열 초기화
+        {
+            System.Array.Resize<bool>(ref enabledItem, (int)MapBlockProperty.ItemType.eCount);
+            for(int ix = 0; ix < enabledItem.Length; ++ix)
+            {
+                enabledItem[ix] = false;
+            }
+
+            // coin은 항상 활성화 한다.
+            EnableItem(MapBlockProperty.ItemType.eCoin, true);
+            EnableItem(MapBlockProperty.ItemType.eBigCoin, true);
+        }
 	}
 
     // road block 목록을 만든다.
@@ -201,10 +235,19 @@ public class MapController : MonoBehaviour {
 
             // 10개 전에는 항상 코인이 없다
             if (ix < 10)
-                prop.CoinNums = 0;
+                prop.Item = MapBlockProperty.ItemType.eNone;
             else
-                prop.CoinNums = Random.Range(0, 3) == 0 ? Random.Range(1, 3) : 0;
+            {
+                // 각 아이템을 발생주기에 따라 발생시킨다.
+                for(int jx = 0; jx < itemGenerationCycle.Length; ++jx)
+                {
+                    if(enabledItem[jx] == false)
+                        continue;
 
+                    if (Random.Range(0, itemGenerationCycle[jx]) == 0)
+                        prop.Item = (MapBlockProperty.ItemType)jx;
+                }
+            }
 
             mapBlocks.Add(prop);
         }
@@ -293,7 +336,7 @@ public class MapController : MonoBehaviour {
                 pos.y = mainMapPrefab.transform.position.y;
                 obj = Mem.Instantiate(mainMapPrefab, pos, rotation);
                 obj.transform.parent = temp.transform;
-                rb.AddObject(obj);
+                rb.AddGameObject(obj);
             }
         }
 
@@ -324,7 +367,7 @@ public class MapController : MonoBehaviour {
 
                 obj = Mem.Instantiate(subMapPrefabs[subMapIndex], pos, subMapPrefabs[subMapIndex].transform.rotation);
                 obj.transform.parent = temp.transform;
-                rb.AddObject(obj);
+                rb.AddGameObject(obj);
             }
         }
         
@@ -388,7 +431,7 @@ public class MapController : MonoBehaviour {
         if(obj)
         {
             obj.transform.SetParent(temp.transform);
-            property.AddObject(obj);
+            property.AddGameObject(obj);
         }
     }
 
@@ -397,7 +440,7 @@ public class MapController : MonoBehaviour {
     {
         // map block game object의 크기 계산
         {
-            CalcMapObjectSize();
+            CalcMapGameObjectSize();
         }
 
         //// 시작위치의 에서 아래에 기본 맵을 채운다.
@@ -447,7 +490,7 @@ public class MapController : MonoBehaviour {
             rb.transform.parent = temp.transform;
 
             // object 보관
-            mapBlocks[index].AddObject(rb);
+            mapBlocks[index].AddGameObject(rb);
 
         }
         
@@ -479,11 +522,11 @@ public class MapController : MonoBehaviour {
         }
     }
 
-    // coin gameobject를 만든다.
+    // item gameobject를 만든다.
     // playerPosition 기준으로 보이는 것만 만든다.
-    public void MakeCoin(int index, Vector3 blockPosition, int playerPosition)
+    public void MakeItem(int index, Vector3 blockPosition, int playerPosition)
     {
-        if (mapBlocks[index].CoinNums == 0)
+        if (mapBlocks[index].Item == Assets.Scripts.Controller.MapBlockProperty.ItemType.eNone)
             return;
 
         if (IsInVisibleRangeByPlayerPosition(index, playerPosition))
@@ -493,26 +536,27 @@ public class MapController : MonoBehaviour {
             Vector3 pos = blockPosition;
             pos.y = 0.5f;
 
-            // coin 생성
-            GameObject coin = Mem.Instantiate(coinPrefab, pos, rotation);
-            coin.transform.parent = temp.transform;
-
-            // 코인 object를 생성하는데, 갯수에 따라 크기를 달리한다.
-            coin.transform.localScale   = coinPrefab.transform.localScale * mapBlocks[index].CoinNums;
+            // item 생성
+            GameObject item = Mem.Instantiate(itemPrefabs[(int)mapBlocks[index].Item], pos, rotation);
+            item.transform.parent = temp.transform;
 
             // game object 보관
-            mapBlocks[index].SetCoin(coin);
+            mapBlocks[index].SetItemGameObject(item);
         }
     }
 
-    // coins gameobject를 만든다.
-    void MakeCoinObjects()
+
+
+    // item gameobject를 만든다.
+    void MakeItemObjects()
     {
         for (int ix = 0; ix < mapBlocks.Count; ++ix)
         {
-            MakeCoin(ix, mapBlocks[ix].Position, 0);
+            MakeItem(ix, mapBlocks[ix].Position, 0);
         }
     }
+
+    
 
 	// Update is called once per frame
 	void Update () {

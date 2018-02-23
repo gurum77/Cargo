@@ -9,46 +9,72 @@ namespace Assets.Scripts.Controller
     // road block 속성
     public class MapBlockProperty
     {
+        // item
+        public enum ItemType
+        {
+            eNone = -1,
+            eCoin,
+            eBigCoin,
+            eFlag,
+            eCount
+        };
+
+        public MapBlockProperty()
+        {
+            Item = ItemType.eNone;
+        }
+
+        public ItemType Item
+        {get;set;}
+
         // 좌우
         bool left;
         public bool Left
         { get; set; }
         
-
-        // coin 개수(0이상)
-        int coinNums;
-        public int CoinNums
-        { get; set; }
-
-        // coin object
-        GameObject coin;
-        public void SetCoin(GameObject newCoin)
+        // item object
+        GameObject itemGameObject;
+        public void SetItemGameObject(GameObject newItem)
         {
-            coin = newCoin;
+            itemGameObject = newItem;
+        }
+
+      
+        // 코인의 개수를 리턴
+        // 코인이 아니면 0개이다.
+        public int GetCoinNums()
+        {
+            if (Item == ItemType.eCoin)
+                return 1;
+            else if (Item == ItemType.eBigCoin)
+                return 3;
+
+            return 0;
         }
 
         // 코인 object를 모두 삭제한다.
-        public void DeleteCoin()
+        public void DeleteItemGameObject()
         {
-            Mem.DestroyObject(coin);
-            coin = null;
+            Mem.DestroyGameObject(itemGameObject);
+            itemGameObject = null;
         }
 
+
         // road block과 tile object들(나중에 삭제를 위해서 등록해둔다)
-        List<GameObject> objects    = new List<GameObject>();
-        public void AddObject(GameObject obj)
+        List<GameObject> gameObjects    = new List<GameObject>();
+        public void AddGameObject(GameObject obj)
         {
-            objects.Add(obj);
+            gameObjects.Add(obj);
         }
 
         // coin을 제외한 모든 object들을 삭제한다.
-        public void DeleteAllObjects()
+        public void DeleteAllGameObjects()
         {
-            foreach(var obj in objects)
+            foreach(var obj in gameObjects)
             {
-                Mem.DestroyObject(obj);
+                Mem.DestroyGameObject(obj);
             }
-            objects.Clear();
+            gameObjects.Clear();
         }
 
         // 좌표

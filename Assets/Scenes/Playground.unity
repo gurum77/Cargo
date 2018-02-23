@@ -1619,6 +1619,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114154392330025212, guid: b07dc56ba5bfc674b94c0765ea162bc3,
         type: 2}
+      propertyPath: itemPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114154392330025212, guid: b07dc56ba5bfc674b94c0765ea162bc3,
+        type: 2}
       propertyPath: subMapPrefabs.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1631,6 +1636,11 @@ Prefab:
         type: 2}
       propertyPath: basicMapPrefabs.Array.size
       value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 114154392330025212, guid: b07dc56ba5bfc674b94c0765ea162bc3,
+        type: 2}
+      propertyPath: itemGenerationCycle.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4463549093454826, guid: b07dc56ba5bfc674b94c0765ea162bc3, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1897,6 +1907,37 @@ Prefab:
       value: 
       objectReference: {fileID: 1200368573225118, guid: 571a69f902adb9846a5eabd744415ecc,
         type: 2}
+    - target: {fileID: 114154392330025212, guid: b07dc56ba5bfc674b94c0765ea162bc3,
+        type: 2}
+      propertyPath: itemPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 100000, guid: 8645a0f5dbe846a4bae22a67d2144035, type: 2}
+    - target: {fileID: 114154392330025212, guid: b07dc56ba5bfc674b94c0765ea162bc3,
+        type: 2}
+      propertyPath: itemPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 100000, guid: 4c3d06e90bf3c9243b7377db43614b25, type: 2}
+    - target: {fileID: 114154392330025212, guid: b07dc56ba5bfc674b94c0765ea162bc3,
+        type: 2}
+      propertyPath: itemPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 1000014124467848, guid: df8b2e05e6bc70e4eb740280ce078f7f,
+        type: 2}
+    - target: {fileID: 114154392330025212, guid: b07dc56ba5bfc674b94c0765ea162bc3,
+        type: 2}
+      propertyPath: itemGenerationCycle.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114154392330025212, guid: b07dc56ba5bfc674b94c0765ea162bc3,
+        type: 2}
+      propertyPath: itemGenerationCycle.Array.data[1]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114154392330025212, guid: b07dc56ba5bfc674b94c0765ea162bc3,
+        type: 2}
+      propertyPath: itemGenerationCycle.Array.data[2]
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b07dc56ba5bfc674b94c0765ea162bc3, type: 2}
   m_IsPrefabParent: 0
@@ -2529,6 +2570,22 @@ MonoBehaviour:
     fixedSize: 0
   - poolName: terrain_08
     prefab: {fileID: 1675079169142442, guid: ffbc74fb0bbcfde41861fd2317cf65e7, type: 2}
+    poolSize: 10
+    fixedSize: 0
+  - poolName: RoadBlock_StrightLeft
+    prefab: {fileID: 1292885810442624, guid: 30a91e10c1ef0ec4eae325ad77816a0f, type: 2}
+    poolSize: 10
+    fixedSize: 0
+  - poolName: RoadBlock_StrightRight
+    prefab: {fileID: 1688438947817286, guid: 471adf91f09e920438b34d7b41573458, type: 2}
+    poolSize: 10
+    fixedSize: 0
+  - poolName: RoadBlock_TurnLeft
+    prefab: {fileID: 1484350317577300, guid: 34622af430b72c846b67b2584a3896f3, type: 2}
+    poolSize: 10
+    fixedSize: 0
+  - poolName: RoadBlock_TurnRight
+    prefab: {fileID: 1213640992733978, guid: 829289cfbe8db8d408d78aad5a60846e, type: 2}
     poolSize: 10
     fixedSize: 0
 --- !u!4 &883610216

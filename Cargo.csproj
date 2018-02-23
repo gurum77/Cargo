@@ -362,9 +362,11 @@
     <Compile Include="Assets\ImportedAssets\sumPause\SampleScene\PauseMenuExample.cs" />
     <Compile Include="Assets\ImportedAssets\sumPause\SampleScene\PauseObjectExample.cs" />
     <Compile Include="Assets\ImportedAssets\sumPause\Scripts\SumPause.cs" />
+    <Compile Include="Assets\ImportedAssets\WavySprite\Scripts\WavySprite.cs" />
     <Compile Include="Assets\Prefabs\ImportedAssetUsed\Low Poly Animated People\RandomAnimationPicker.cs" />
     <Compile Include="Assets\Prefabs\ProgressBar\ProgressBarBehaviour.cs" />
     <Compile Include="Assets\Prefabs\ProgressBar\Utils.cs" />
+    <Compile Include="Assets\Scripts\AI\CargoAI.cs" />
     <Compile Include="Assets\Scripts\Canvas\GameModeSelectionCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\GameOverCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\MapSelectionCanvas.cs" />
@@ -382,13 +384,11 @@
     <Compile Include="Assets\Scripts\Controller\StringMaker.cs" />
     <Compile Include="Assets\Scripts\GameMode\GameMode_100M.cs" />
     <Compile Include="Assets\Scripts\GameMode\GameMode_EnergyBar.cs" />
+    <Compile Include="Assets\Scripts\GameMode\GameMode_Flag.cs" />
+    <Compile Include="Assets\Scripts\GameObjectRotation.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerGameData.cs" />
-    <Compile Include="Assets\Scripts\RotationObject.cs" />
     <Compile Include="Assets\Scripts\SettingGameData.cs" />
-    <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\CameraLogic.cs" />
-    <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\Demo.cs" />
-    <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\SimpleCharacterControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ImportedAssets\ColorfulButtons\Credits.txt" />
@@ -402,6 +402,8 @@
     <None Include="Assets\ImportedAssets\Standard Assets\Vehicles\Car\Shaders\DiffuseReflectiveShader.shader" />
     <None Include="Assets\ImportedAssets\Standard Assets\Vehicles\Car\Shaders\ReflectiveDiffuseSpec.shader" />
     <None Include="Assets\ImportedAssets\Standard Assets\Vehicles\Car\Shaders\ReflectiveDiffuseSpecTransp.shader" />
+    <None Include="Assets\ImportedAssets\WavySprite\Shaders\WavySprite.shader" />
+    <None Include="Assets\ImportedAssets\WavySprite\readme.txt" />
     <None Include="Assets\ImportedAssets\sumPause\README.md.txt" />
     <None Include="Assets\read me.txt" />
   </ItemGroup>

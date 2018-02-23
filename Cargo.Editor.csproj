@@ -296,6 +296,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ImportedAssets\Standard Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
+    <Compile Include="Assets\ImportedAssets\WavySprite\Editor\WavySpriteEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ImportedAssets\ColorfulButtons\Credits.txt" />
@@ -309,6 +310,8 @@
     <None Include="Assets\ImportedAssets\Standard Assets\Vehicles\Car\Shaders\DiffuseReflectiveShader.shader" />
     <None Include="Assets\ImportedAssets\Standard Assets\Vehicles\Car\Shaders\ReflectiveDiffuseSpec.shader" />
     <None Include="Assets\ImportedAssets\Standard Assets\Vehicles\Car\Shaders\ReflectiveDiffuseSpecTransp.shader" />
+    <None Include="Assets\ImportedAssets\WavySprite\Shaders\WavySprite.shader" />
+    <None Include="Assets\ImportedAssets\WavySprite\readme.txt" />
     <None Include="Assets\ImportedAssets\sumPause\README.md.txt" />
     <None Include="Assets\read me.txt" />
   </ItemGroup>

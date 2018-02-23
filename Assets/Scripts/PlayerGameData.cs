@@ -9,6 +9,32 @@ using UnityEngine;
 /// </summary>
 public class PlayerGameData
 {
+    #region 데이타 get;set;
+    public int EnergyBarModeBestScore
+    { get; set; }
+
+    public int Coins
+    { get; set; }
+
+    public Player.Character CharacterType
+    { get; set; }
+
+    public MapController.Map MapType
+    { get; set; }
+
+    public GameModeController.GameMode GameModeType
+    { get; set; }
+
+    public int MaxCombo
+    { get; set; }
+
+    public float HundredMBestTime
+    { get; set; }
+
+    public int FlagModeLevel
+    { get; set; }
+    #endregion
+
     #region 게임 데이타 저장 키 정의
     static public string CoinsKey
     {
@@ -47,6 +73,12 @@ public class PlayerGameData
         get { return "HundredMModeBestTimeKey"; }
     }
 
+    // flag 모드 레벨
+    static public string FlagModeLevelKey
+    {
+        get { return "FlagModeLevelKey"; }
+    }
+
     #endregion
 
     #region 게임 데이타를 저장하는 함수
@@ -73,6 +105,9 @@ public class PlayerGameData
 
         // 100M 모드 최고 시간
         PlayerPrefs.SetFloat(PlayerGameData.HundredMModeBestTimeKey, HundredMBestTime);
+
+        // flag 모드 레벨
+        PlayerPrefs.SetInt(PlayerGameData.FlagModeLevelKey, FlagModeLevel);
     }
 #endregion
 
@@ -101,30 +136,13 @@ public class PlayerGameData
 
         // 100M 모드 최고 기록
         HundredMBestTime = PlayerPrefs.GetFloat(PlayerGameData.HundredMModeBestTimeKey);
+
+        // flag 모드 레벨
+        FlagModeLevel = PlayerPrefs.GetInt(PlayerGameData.FlagModeLevelKey);
+
     }
 #endregion
 
-    #region 데이타 get;set;
-    public int EnergyBarModeBestScore
-    { get; set; }
-
-    public int Coins
-    { get; set; }
-
-    public Player.Character CharacterType
-    { get; set; }
-
-    public MapController.Map MapType
-    { get; set; }
-
-    public GameModeController.GameMode GameModeType
-    { get; set; }
-
-    public int MaxCombo
-    { get; set; }
-
-    public float HundredMBestTime
-    { get; set; }
-    #endregion
+  
 
 }

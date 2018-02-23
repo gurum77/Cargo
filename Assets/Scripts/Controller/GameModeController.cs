@@ -12,6 +12,7 @@ public class GameModeController : MonoBehaviour {
     {
         eEnergyBarMode,
         e100MMode,
+        eFlagMode,
         eUnknown,
         eCount
     };
@@ -36,6 +37,8 @@ public class GameModeController : MonoBehaviour {
             return "Energy bar";
         else if (gameMode == GameMode.e100MMode)
             return "100M";
+        else if (gameMode == GameMode.eFlagMode)
+            return "Flag";
 
         return "None";
     }

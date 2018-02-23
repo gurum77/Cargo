@@ -36,12 +36,40 @@ public class GameOverCanvas : MonoBehaviour {
     private void DisplayBestScore()
     {
         if (bestScoreText)
-            bestScoreText.text = StringMaker.GetBestScoreString();
+        {
+
+            // flag 모드에서는 현재 level을 찍어준다.
+            if (GameController.Me.gameModeController.GetCurGameMode() == GameModeController.GameMode.eFlagMode)
+            {
+                bestScoreText.text = StringMaker.GetFlagModeLevelString();
+            }
+            
+            else
+            {
+                bestScoreText.text = StringMaker.GetBestScoreString();
+            }
+            
+        }
     }
 
     private void DisplayScore()
     {
         if (scoreText)
-            scoreText.text = StringMaker.GetScoreString();
+        {
+            // flag 모드에서는 이기면 win, 지면 lost를 찍는다.
+            if (GameController.Me.gameModeController.GetCurGameMode() == GameModeController.GameMode.eFlagMode)
+            {
+                GameMode_Flag flagMode = GameController.Me.gameModeController.curGameMode.GetComponent<GameMode_Flag>();
+                if (flagMode)
+                {
+                    scoreText.text = flagMode.IsWin() ? "Win" : "Lost";
+                }
+            }
+            else
+            {
+                scoreText.text = StringMaker.GetScoreString();
+            }
+        }
+            
     }
 }

@@ -33,4 +33,10 @@ public class GameModeSelectionCanvas : MonoBehaviour {
     {
         ChangeGameMode(GameModeController.GameMode.e100MMode);
     }
+
+    // Flag 모드 버튼 클릭
+    public void OnFlagModeButtonClicked()
+    {
+        ChangeGameMode(GameModeController.GameMode.eFlagMode);
+    }
 }

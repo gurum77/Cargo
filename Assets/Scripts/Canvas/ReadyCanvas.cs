@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Assets.Scripts.Controller;
 
 public class ReadyCanvas : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class ReadyCanvas : MonoBehaviour {
     public Text bestScoreText;
     public Text coinsText;
     public Text gameModeText;
+    public Text gameModeSubText;
     
 
 
@@ -38,6 +40,18 @@ public class ReadyCanvas : MonoBehaviour {
     {
         if (gameModeText)
             gameModeText.text = GameController.Me.gameModeController.GetCurGameModeDisplayName();
+
+        if(gameModeSubText)
+        {
+            if(GameController.Me.gameModeController.GetCurGameMode() == GameModeController.GameMode.eFlagMode)
+            {
+                gameModeSubText.text = StringMaker.GetFlagModeLevelString();
+            }
+            else
+            {
+                gameModeSubText.text = "";
+            }
+        }
     }
 
     public void OnStartButtonClicked()

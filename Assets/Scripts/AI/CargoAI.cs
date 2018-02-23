@@ -21,7 +21,6 @@ public class CargoAI : MonoBehaviour {
     void OnEnable()
     {
         player = GetComponentInChildren<Player>();
-        player.EnableUserInput = false;
     }
 	
 	// Update is called once per frame
@@ -29,8 +28,9 @@ public class CargoAI : MonoBehaviour {
     {
         if(player)
         {
+            player.EnableUserInput = false;
             // interval이 더 커지면 이동한다.
-	    	if(targetMovingInterval <= player.MovingInterval)
+            if (targetMovingInterval <= player.MovingInterval)
             {
                 // 앱
                 MapBlockProperty prop = GameController.Me.mapController.GetMapBlockProperty(player.PlayerPosition);

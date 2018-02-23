@@ -33,12 +33,62 @@ namespace Assets.Scripts.Controller
             return GameController.Me.Player.GameData.Coins.ToString();
         }
 
+        // flag 모드 레벨 문자열
+        public static string GetFlagModeLevelString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("LEVEL ");
+
+            GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
+            if (curGameMode == GameModeController.GameMode.eFlagMode)
+            {
+                sb.Append(GameController.Me.Player.GameData.FlagModeLevel.ToString());
+            }
+
+            return sb.ToString();
+        }
+
+        // player flag 개수 문자열
+        public static string GetPlayerFlagCountString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("P : ");
+
+            GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
+            if(curGameMode == GameModeController.GameMode.eFlagMode)
+            {
+                sb.Append(GameController.Me.Player.FlagCount.ToString());
+            }
+
+            return sb.ToString();
+        }
+
+        // com flag 개수 문자열
+        public static string GetComFlagCountString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("COM : ");
+
+            GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
+            if (curGameMode == GameModeController.GameMode.eFlagMode)
+            {
+                GameMode_Flag mode = GameController.Me.gameModeController.gameModes[(int)curGameMode].GetComponent<GameMode_Flag>();
+                if(mode)
+                {
+                    sb.Append(mode.Com.FlagCount.ToString());
+                }
+            }
+
+            return sb.ToString();
+        }
+
         // score text
         public static string GetScoreString()
         {
             // 모드별로 다르게 표시한다.
             GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
-            if (curGameMode == GameModeController.GameMode.eEnergyBarMode)
+            if (curGameMode == GameModeController.GameMode.eEnergyBarMode ||
+                curGameMode == GameModeController.GameMode.eFlagMode)
             {
                 return GameController.Me.Player.Score.ToString();
             }

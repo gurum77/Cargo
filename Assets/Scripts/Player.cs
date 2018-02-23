@@ -65,12 +65,22 @@ public class Player : MonoBehaviour {
         get; set;
     }
 
+    // child 중에서 tag를 가진 game object를 찾는다.
+    GameObject FindChildGameObjectWithTag(string tag)
+    {
+        foreach(Transform obj in transform)
+        {
+            if (obj.CompareTag(tag))
+                return obj.gameObject;
+        }
+        return null;
+    }
     // game data에 맞게 player의 character game object를 만든다.
     // 기존 캐릭터를 삭제하고, 새로운 캐릭터 object를 만든다.
     public void MakeCharacterGameObject()
     {
         // 기존 캐릭터 object 는 삭제한다.
-        GameObject character = GameObject.FindGameObjectWithTag("Character");
+        GameObject character = FindChildGameObjectWithTag("Character");
         if(character)
         {
             GameObject.DestroyObject(character);
@@ -331,7 +341,8 @@ public class Player : MonoBehaviour {
             CheckItem();
 
             // map을 갱신한다.
-            ReplaceMapByPlayerPosition();
+            if(EnableUserInput)
+                ReplaceMapByPlayerPosition();
 
             // combo를 체크한다.
             CheckCombo();

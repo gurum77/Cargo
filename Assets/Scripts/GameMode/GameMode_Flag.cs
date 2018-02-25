@@ -13,6 +13,9 @@ public class GameMode_Flag : MonoBehaviour {
     public Text playerFlagCountText;
     public Text comFlagCountText;
 
+    public Image playerFlagImage;
+    public Image comFlagImage;
+
     // com 이동 간격 시작값
     public float startComMovingInterval;
 
@@ -127,8 +130,9 @@ public class GameMode_Flag : MonoBehaviour {
                     ai.targetMovingInterval = ai.targetMovingInterval - (ai.targetMovingInterval * decreaseRateComMovingIntervalByLevel);
                 }
             }
-           
-            com.GameData.CharacterType = Player.Character.eTaxi;
+
+            // com 캐릭터를 랜덤하게 정해준다.
+            com.GameData.CharacterType = (Player.Character)Random.Range(0, (int)Player.Character.eCount - 1);
             com.MakeCharacterGameObject();
             com.enabled = true;
             

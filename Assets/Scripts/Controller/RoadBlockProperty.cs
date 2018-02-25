@@ -57,6 +57,8 @@ namespace Assets.Scripts.Controller
         {
             Mem.DestroyGameObject(itemGameObject);
             itemGameObject = null;
+
+            Item = ItemType.eNone;
         }
 
 

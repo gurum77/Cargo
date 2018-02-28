@@ -36,7 +36,14 @@ public class GameController : MonoBehaviour {
     {
         get { return settingGameData; }
     }
-    
+
+    // 캐릭터 정보 게임 데이타
+    InventoryGameData inventoryGameData = new InventoryGameData();
+    public InventoryGameData InventoryGameData
+    {
+        get { return inventoryGameData; }
+    }
+
     public Player player;
     public Player Player
     {
@@ -194,7 +201,6 @@ public class GameController : MonoBehaviour {
         {
             Application.targetFrameRate = targetFrameRate;
         }
-       
 	}
 
    

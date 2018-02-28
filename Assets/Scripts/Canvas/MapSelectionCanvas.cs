@@ -17,7 +17,12 @@ public class MapSelectionCanvas : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Playground");
+        }
 	}
+
 
     // 맵을 변경한다.
     void ChangeMap(MapController.Map mapType)

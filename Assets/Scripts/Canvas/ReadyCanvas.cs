@@ -12,6 +12,7 @@ public class ReadyCanvas : MonoBehaviour {
     public Text coinsText;
     public Text gameModeText;
     public Text gameModeSubText;
+    public GameObject exitCanvasItems;
     
 
 
@@ -33,6 +34,11 @@ public class ReadyCanvas : MonoBehaviour {
 
         // display game mode
         DisplayGameMode();
+
+        if (Input.GetKeyDown(KeyCode.Escape) && exitCanvasItems)
+        {
+            exitCanvasItems.SetActive(true);
+        }
 	}
 
     // 게임 모드를 표시한다.

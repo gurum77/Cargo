@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Assets.Scripts.Controller;
+using UnityEngine.UI;
 
 public class PlayerSelectionCanvas : MonoBehaviour {
 
@@ -10,6 +11,12 @@ public class PlayerSelectionCanvas : MonoBehaviour {
     GameObject previewCharacter;
     public GameObject[] characterPrefabs;   // player의 캐릭터
     public GameObject player;
+    public GameObject curtain;  // 커튼
+    public Text coinText;
+    public Text selectText;
+    public GameObject celebrationParticle;
+    InventoryGameData inventoryGameData;
+    PlayerGameData playerGameData;
 
 	// Use this for initialization
 	void Start () {
@@ -17,13 +24,22 @@ public class PlayerSelectionCanvas : MonoBehaviour {
 
     void OnEnable()
     {
+        playerGameData = new PlayerGameData();
+        playerGameData.Load();
+
+        inventoryGameData = new InventoryGameData();
+        inventoryGameData.Load();
+
         previewCharacterType = (Player.Character)PlayerPrefs.GetInt(PlayerGameData.CharacterKey);
         CreatePreviewCharacter();
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Playground");
+        }
 	}
 
     // preview character 를 만든다.
@@ -50,6 +66,28 @@ public class PlayerSelectionCanvas : MonoBehaviour {
 
         previewCharacter    = Instantiate(prefab, player.transform);
         previewCharacter.transform.SetParent(player.transform);
+
+        // 캐릭터가 비활성인 경우 커튼을 보여준다.
+        if(curtain)
+        {
+            curtain.SetActive(inventoryGameData.characterInfo[index].Enabled ? false : true);
+        }
+
+        // price text
+        if(coinText)
+        {
+            coinText.text = playerGameData.Coins.ToString();
+        }
+
+        // 비활성화 인 경우 글자를 Get로 바꾼다.
+        if(selectText)
+        {
+            if (inventoryGameData.characterInfo[index].Enabled)
+                selectText.text = "SELECT";
+            else
+                selectText.text = string.Format("${0}", inventoryGameData.characterInfo[index].Price.ToString());
+        }
+
     }
 
     public void OnLeftButtonClicked()
@@ -70,15 +108,64 @@ public class PlayerSelectionCanvas : MonoBehaviour {
         }
     }
 
+
+
     public void OnSelectButtonClicked()
     {
-        ChangePlayer(previewCharacterType);
+        // 축하 particle
+        if (celebrationParticle)
+        {
+            ForkParticleEffect eff = celebrationParticle.GetComponent<ForkParticleEffect>();
+            if (eff)
+            {
+                eff.PlayEffect();
+            }
+        }
+
+        int index = (int)previewCharacterType;
+        // 비활성화 되어 있다면 구매를 한다.
+        if (index > -1 && previewCharacterType < Player.Character.eCount && !inventoryGameData.characterInfo[index].Enabled)
+        {
+            // 산다.
+            if(BuyCharacter())
+            {
+                CreatePreviewCharacter();
+            }
+        }
+        else
+        {
+            ChangePlayer(previewCharacterType);
+        }
+    }
+
+    // 선택된 캐릭터를 산다.
+    bool BuyCharacter()
+    {
+        int index = (int)previewCharacterType;
+        if (index > -1 && previewCharacterType < Player.Character.eCount)
+        {
+            if(playerGameData.Coins >= inventoryGameData.characterInfo[index].Price)
+            {
+                playerGameData.Coins -= inventoryGameData.characterInfo[index].Price;
+                inventoryGameData.characterInfo[index].Enabled = true;
+
+               
+
+                return true;
+            }
+            
+        }
+
+        return false;
     }
 
     // player를 변경한다.
     void ChangePlayer(Player.Character characterType)
     {
-        PlayerPrefs.SetInt(PlayerGameData.CharacterKey, (int)characterType);
+        playerGameData.CharacterType = characterType;
+        playerGameData.Save();
+        
+        inventoryGameData.Save();
         SceneManager.LoadScene("Playground");
     }
 

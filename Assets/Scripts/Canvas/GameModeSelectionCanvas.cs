@@ -12,7 +12,10 @@ public class GameModeSelectionCanvas : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Playground");
+        }
 	}
 
     // 게임모드를 변경한다.

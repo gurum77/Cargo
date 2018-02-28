@@ -13,8 +13,12 @@ public class GameMode_Flag : MonoBehaviour {
     public Text playerFlagCountText;
     public Text comFlagCountText;
 
-    public Image playerFlagImage;
-    public Image comFlagImage;
+    public Image playerFlagImagePrefab;
+    public Image comFlagImagePrefab;
+    List<Image> playerFlagImageList = new List<Image>();
+    List<Image> comFlagImageList    = new List<Image>();
+    public float flagImageWidth;
+    public float flagImageHeight;
 
     // com 이동 간격 시작값
     public float startComMovingInterval;
@@ -43,16 +47,40 @@ public class GameMode_Flag : MonoBehaviour {
     {
         if (playerFlagCountText)
         {
-            playerFlagCountText.text = StringMaker.GetPlayerFlagCountString();
+            playerFlagCountText.text = "P";// StringMaker.GetPlayerFlagCountString();
+
+            if (playerFlagImagePrefab)
+            {
+                RecountFlagImage(playerFlagImageList, targetFlagCount - GameController.Me.Player.FlagCount);
+            }
         }
 
         if (comFlagCountText)
         {
-            comFlagCountText.text = StringMaker.GetComFlagCountString();
+            comFlagCountText.text = "C";// StringMaker.GetComFlagCountString();
+
+            if (comFlagImagePrefab)
+            {
+                RecountFlagImage(comFlagImageList, targetFlagCount - Com.FlagCount);
+            }
         }
 
 
         CheckSuccess();
+    }
+
+    // flag image를 만든다.
+    void RecountFlagImage(List<Image> imageList, int flagCount)
+    {
+        // 지워야 하는 개수
+        int removeCount = imageList.Count - flagCount;
+
+        for(int ix = 0; ix < removeCount; ++ix)
+        {
+            Image image = imageList[imageList.Count - 1];
+            DestroyObject(image);
+            imageList.RemoveAt(imageList.Count - 1);
+        }
     }
 
     // 성공했는지 체크를 한다.
@@ -105,6 +133,9 @@ public class GameMode_Flag : MonoBehaviour {
         if (flagModeItem && GameController.Me && GameController.Me.gameModeController && GameController.Me.gameModeController.showItemByGameMode)
             flagModeItem.transform.SetParent(GameController.Me.gameModeController.showItemByGameMode.transform);
 
+        
+        // 이미지 초기화
+        InitImageList();
       
 
         // 맵을 구성한다.
@@ -135,8 +166,50 @@ public class GameMode_Flag : MonoBehaviour {
             com.GameData.CharacterType = (Player.Character)Random.Range(0, (int)Player.Character.eCount - 1);
             com.MakeCharacterGameObject();
             com.enabled = true;
-            
         }
-            
+
+        
+    }
+
+    void InitImageList()
+    {
+        RecountFlagImage(playerFlagImageList, 0);
+        RecountFlagImage(comFlagImageList, 0);
+        
+        // 필요한만큼 만들어둔다.
+        if(playerFlagCountText && comFlagCountText && playerFlagImagePrefab && comFlagImagePrefab)
+        {
+            Vector3 playerFlagImagePos = playerFlagCountText.transform.position;
+            for (int ix = 0; ix < targetFlagCount; ++ix)
+            {
+                Image image = Instantiate(playerFlagImagePrefab, playerFlagCountText.transform);
+                playerFlagImagePos.x += flagImageWidth;
+                image.transform.position = playerFlagImagePos;
+                playerFlagImageList.Add(image);
+
+                if(ix == (targetFlagCount/2)-1)
+                {
+                    playerFlagImagePos = playerFlagCountText.transform.position;
+                    playerFlagImagePos.y -= flagImageHeight;
+                }
+            }
+
+            Vector3 comFlagImagePos = comFlagCountText.transform.position;
+            for (int ix = 0; ix < targetFlagCount; ++ix)
+            {
+                Image image = Instantiate(comFlagImagePrefab, comFlagCountText.transform);
+                comFlagImagePos.x += flagImageWidth;
+                image.transform.position = comFlagImagePos;
+                comFlagImageList.Add(image);
+
+                if (ix == (targetFlagCount / 2)-1)
+                {
+                    comFlagImagePos = comFlagCountText.transform.position;
+                    comFlagImagePos.y -= flagImageHeight;
+                }
+            }
+        
+        }
+        
     }
 }

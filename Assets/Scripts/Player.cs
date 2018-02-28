@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
     
     public enum Character
     {
-        eAmbulance,
+        eAmbulance=0,
         eFiretruck,
         ePolice,
         eCar,
@@ -42,6 +42,8 @@ public class Player : MonoBehaviour {
     {
         get { return movingInterval; }
     }
+
+    public GameObject target;
 
 
     // 변신에 필요한 콤보
@@ -196,6 +198,13 @@ public class Player : MonoBehaviour {
             // 보간이동
             transform.position = Vector3.Lerp(transform.position, targetPos, speed * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetDir, rotationSpeed * Time.deltaTime);
+        }
+
+        if (target)
+        {
+            Vector3 pos = targetPos;
+            pos.y = target.transform.position.y;
+            target.transform.position  = pos;
         }
     }
 

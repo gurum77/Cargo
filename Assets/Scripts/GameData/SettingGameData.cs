@@ -34,7 +34,7 @@ public class SettingGameData
     // 게임 데이타를 읽어온다.
     public void Load()
     {
-        // 100M 모드 최고 기록
+        // Camera sky view
         CameraSkyView = PlayerPrefs.GetInt(SettingGameData.CameraSkyViewKey);
     }
     #endregion

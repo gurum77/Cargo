@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Controller;
 using MarchingBytes;
-using Assets.Scripts.Controller;
 
 public class MapController : MonoBehaviour {
 

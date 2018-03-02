@@ -8,6 +8,8 @@ public class GameMode_Flag : MonoBehaviour {
 
     // 목표 깃발개수
     public int targetFlagCount;
+    public float playerScale;
+    public float distXFromCenter;
 
     public GameObject flagModeItem;   // flag 모드 아이템
     public Text playerFlagCountText;
@@ -166,9 +168,19 @@ public class GameMode_Flag : MonoBehaviour {
             com.GameData.CharacterType = (Player.Character)Random.Range(0, (int)Player.Character.eCount - 1);
             com.MakeCharacterGameObject();
             com.enabled = true;
-        }
 
-        
+            // com 캐릭터의 위치
+            com.DistXFromCenter = distXFromCenter;
+
+            // com 캐릭터의 스케일
+            com.transform.localScale = new Vector3(playerScale, playerScale, playerScale);
+
+            // player의 위치
+            GameController.Me.Player.DistXFromCenter = distXFromCenter * -1;
+
+            // player의 스케일
+            GameController.Me.Player.transform.localScale = new Vector3(playerScale, playerScale, playerScale);
+        }
     }
 
     void InitImageList()

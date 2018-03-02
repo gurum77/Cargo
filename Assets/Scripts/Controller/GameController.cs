@@ -115,6 +115,9 @@ public class GameController : MonoBehaviour {
         
         // player 활성화
         player.enabled = true;
+        player.DistXFromCenter = 0.0f;
+        player.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
 
         // player 애니메이션을 base로
         Animator ani = GetComponentInChildren<Animator>();

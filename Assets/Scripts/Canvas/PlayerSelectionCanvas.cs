@@ -14,7 +14,6 @@ public class PlayerSelectionCanvas : MonoBehaviour {
     public GameObject curtain;  // 커튼
     public Text coinText;
     public Text selectText;
-    public GameObject celebrationParticle;
     InventoryGameData inventoryGameData;
     PlayerGameData playerGameData;
 
@@ -112,16 +111,6 @@ public class PlayerSelectionCanvas : MonoBehaviour {
 
     public void OnSelectButtonClicked()
     {
-        // 축하 particle
-        if (celebrationParticle)
-        {
-            ForkParticleEffect eff = celebrationParticle.GetComponent<ForkParticleEffect>();
-            if (eff)
-            {
-                eff.PlayEffect();
-            }
-        }
-
         int index = (int)previewCharacterType;
         // 비활성화 되어 있다면 구매를 한다.
         if (index > -1 && previewCharacterType < Player.Character.eCount && !inventoryGameData.characterInfo[index].Enabled)

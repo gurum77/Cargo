@@ -530,10 +530,10 @@ public class MapController : MonoBehaviour {
 
         if (IsInVisibleRangeByPlayerPosition(index, playerPosition))
         {
-            Quaternion rotation = Quaternion.Euler(45.0f, 0.0f, 0.0f);
+            Quaternion rotation = Quaternion.identity;//.Euler(45.0f, 0.0f, 0.0f);
 
             Vector3 pos = blockPosition;
-            pos.y = 0.5f;
+            pos.y = 1.0f;
 
             // item 생성
             GameObject item = Mem.Instantiate(itemPrefabs[(int)mapBlocks[index].Item], pos, rotation);

@@ -27,6 +27,9 @@ public class GameOverCanvas : MonoBehaviour {
         DisplayCoins();
 	}
 
+    void OnEnable()
+    {
+    }
     private void DisplayCoins()
     {
         if (coinText)

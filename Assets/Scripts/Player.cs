@@ -23,6 +23,12 @@ public class Player : MonoBehaviour {
         eCount
     };
 
+    // 중심에서 x 방향으로 이동한 거리(기본값은 0이다)
+    public float DistXFromCenter
+    {
+        get;
+        set;
+    }
     float movingDist = 1.0f;
     public float speed; // 진행 속도
     public float rotationSpeed; // 회전 속도
@@ -43,7 +49,8 @@ public class Player : MonoBehaviour {
         get { return movingInterval; }
     }
 
-    public GameObject target;
+    public GameObject targetGameObject;
+    public ParticleSystem turnEffect;
 
 
     // 변신에 필요한 콤보
@@ -53,6 +60,7 @@ public class Player : MonoBehaviour {
     public AudioSource audioSourceTick;
     public AudioSource audioSourceCoin;
     Vector3 targetPos   = new Vector3();  // 목표 위치
+    Vector3 targetPosWidthDistXFromCenter = new Vector3();  // 중심에서 x거리가 적용된 목표 위치
     Quaternion targetDir = new Quaternion();   // 목표 방향
 
     Animator ani;
@@ -114,6 +122,7 @@ public class Player : MonoBehaviour {
         transform.position = new Vector3(0, 0, 0);
         transform.rotation = Quaternion.Euler(0, 45, 0);
         targetPos = new Vector3(0, 0, 0);
+        targetPosWidthDistXFromCenter = new Vector3(0, 0, 0);
         targetDir = transform.rotation;
         playerPosition = 0;
         score = 0;
@@ -196,15 +205,18 @@ public class Player : MonoBehaviour {
             
 
             // 보간이동
-            transform.position = Vector3.Lerp(transform.position, targetPos, speed * Time.deltaTime);
+            targetPosWidthDistXFromCenter = targetPos;
+            targetPosWidthDistXFromCenter.x += DistXFromCenter;
+
+            transform.position = Vector3.Lerp(transform.position, targetPosWidthDistXFromCenter, speed * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetDir, rotationSpeed * Time.deltaTime);
         }
 
-        if (target)
+        if (targetGameObject)
         {
             Vector3 pos = targetPos;
-            pos.y = target.transform.position.y;
-            target.transform.position  = pos;
+            pos.y = targetGameObject.transform.position.y;
+            targetGameObject.transform.position  = pos;
         }
     }
 
@@ -300,6 +312,18 @@ public class Player : MonoBehaviour {
             // 좌측 45방향을 바라 보도록 한다.
             targetDir   = Quaternion.Euler(new Vector3(0, -45, 0));
         }
+
+        if(turnEffect)
+        {
+            if(!turnEffect.isPlaying)
+            {
+                
+                turnEffect.playOnAwake = true;
+                turnEffect.Play();
+                turnEffect.enableEmission = true;
+            }
+                
+        }
     }
     
     // player가 이동할 목표 위치를 계산한다.
@@ -321,6 +345,7 @@ public class Player : MonoBehaviour {
             targetPos.x += movingDist;
         }
 
+       
         // player position 증가 시킨다.
         playerPosition++;
     }

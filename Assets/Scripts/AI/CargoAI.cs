@@ -10,6 +10,11 @@ public class CargoAI : MonoBehaviour {
 
     // 목표 이동 인터벌(초단위)
     public float targetMovingInterval;
+    float curTargetMovingInterval;  // 현재 목표 이동 인터벌
+
+    // 10칸 마다 목표 이동 인터벌을 범위내에서 변경한다.
+    // 인터벌 변경할 범위는 목표 이동 인터벌의 지정된 % 내에서 정해진다.
+    public float targetMovingIntervalRangeRate;
 
     Player player;
 
@@ -21,8 +26,16 @@ public class CargoAI : MonoBehaviour {
     void OnEnable()
     {
         player = GetComponentInChildren<Player>();
+
+        curTargetMovingInterval = targetMovingInterval;
     }
 	
+    // 범위내에서 현재 목표 이동 인터벌을 결정한다.
+    void SetCurTargetMovingIntervalInRange()
+    {
+        float diff = targetMovingInterval * targetMovingIntervalRangeRate;
+        curTargetMovingInterval = Random.Range(targetMovingInterval - diff, targetMovingInterval + diff);
+    }
 	// Update is called once per frame
 	void Update () 
     {
@@ -30,7 +43,7 @@ public class CargoAI : MonoBehaviour {
         {
             player.EnableUserInput = false;
             // interval이 더 커지면 이동한다.
-            if (targetMovingInterval <= player.MovingInterval)
+            if (curTargetMovingInterval <= player.MovingInterval)
             {
                 // 앱
                 MapBlockProperty prop = GameController.Me.mapController.GetMapBlockProperty(player.PlayerPosition);
@@ -40,7 +53,15 @@ public class CargoAI : MonoBehaviour {
                         player.MoveLeft();
                     else
                         player.MoveRight();
+
+
+                    // 이동을 하고 나서 10칸마다 인터벌을 조정한다.
+                    if(player.PlayerPosition % 10 == 0)
+                    {
+                        SetCurTargetMovingIntervalInRange();
+                    }
                 }
+
             }
         }
 	}

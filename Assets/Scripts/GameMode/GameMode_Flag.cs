@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameMode_Flag : MonoBehaviour {
 
     // 목표 깃발개수
-    public int targetFlagCount;
+    public int targetFlagCount
     public float playerScale;
     public float distXFromCenter;
 
@@ -27,6 +27,10 @@ public class GameMode_Flag : MonoBehaviour {
 
     // 레벨별 com 이동 간격 감소비율
     public float decreaseRateComMovingIntervalByLevel;
+
+    // target flag count는 
+
+    int curTargetFlagCount;
 
     public Player com;
     public Player Com
@@ -157,10 +161,14 @@ public class GameMode_Flag : MonoBehaviour {
                 // com의 이동 간격
                 ai.targetMovingInterval = startComMovingInterval;
 
+                // level에 따라서 제곱근 만큼씩 줄어든다.
                 int level = GetLevel();
+                float diff = 0.0f;
                 for (int ix = 0; ix < level; ++ix)
                 {
-                    ai.targetMovingInterval = ai.targetMovingInterval - (ai.targetMovingInterval * decreaseRateComMovingIntervalByLevel);
+                    diff = ai.targetMovingInterval * (decreaseRateComMovingIntervalByLevel / (ix+1));
+                    
+                    ai.targetMovingInterval = ai.targetMovingInterval - diff;
                 }
             }
 

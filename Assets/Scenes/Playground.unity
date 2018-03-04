@@ -2405,7 +2405,7 @@ Prefab:
     - target: {fileID: 198101021485556472, guid: b6889e8818170c8478e5824800c73f01,
         type: 2}
       propertyPath: randomSeed
-      value: -676597071
+      value: -2030291160
       objectReference: {fileID: 0}
     - target: {fileID: 198101021485556472, guid: b6889e8818170c8478e5824800c73f01,
         type: 2}
@@ -2429,6 +2429,16 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.m_Scale.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198101021485556472, guid: b6889e8818170c8478e5824800c73f01,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198101021485556472, guid: b6889e8818170c8478e5824800c73f01,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b6889e8818170c8478e5824800c73f01, type: 2}
@@ -3750,6 +3760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetMovingInterval: 0.5
+  targetMovingIntervalRangeRate: 0.2
 --- !u!82 &1301157848
 AudioSource:
   m_ObjectHideFlags: 0

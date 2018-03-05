@@ -283,6 +283,18 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>Library\UnityAssemblies\UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
+    <Reference Include="Google.IOSResolver_v1.2.61.0">
+      <HintPath>Assets\PlayServicesResolver\Editor\Google.IOSResolver_v1.2.61.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.JarResolver_v1.2.61.0">
+      <HintPath>Assets\PlayServicesResolver\Editor\Google.JarResolver_v1.2.61.0.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandler">
+      <HintPath>Assets\PlayServicesResolver\Editor\Google.VersionHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandlerImpl_v1.2.61.0">
+      <HintPath>Assets\PlayServicesResolver\Editor\Google.VersionHandlerImpl_v1.2.61.0.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-UnityScript">
       <HintPath>Library\ScriptAssemblies\Assembly-UnityScript.dll</HintPath>
     </Reference>
@@ -294,11 +306,27 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GooglePlayGames\Editor\ForceNoGpgsForIOS.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSAndroidSetupUI.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSDocsUI.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSPostBuild.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSProjectSettings.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSStrings.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSUpgrader.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\GPGSUtil.cs" />
+    <Compile Include="Assets\GooglePlayGames\Editor\NearbyConnectionUI.cs" />
     <Compile Include="Assets\ImportedAssets\Standard Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
     <Compile Include="Assets\ImportedAssets\WavySprite\Editor\WavySpriteEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
+    <None Include="Assets\GooglePlayGames\Editor\GooglePlayGamesPluginDependencies.xml" />
+    <None Include="Assets\GooglePlayGames\Editor\GooglePlayGamesPlugin_v0.9.50.txt" />
+    <None Include="Assets\GooglePlayGames\Editor\m2repository\com\google\games\gpgs-plugin-support\maven-metadata.xml" />
+    <None Include="Assets\GooglePlayGames\Editor\template-AndroidManifest.txt" />
+    <None Include="Assets\GooglePlayGames\Editor\template-Constants.txt" />
+    <None Include="Assets\GooglePlayGames\Editor\template-GameInfo.txt" />
+    <None Include="Assets\GooglePlayGames\Plugins\Android\GooglePlayGamesManifest.plugin\AndroidManifest.xml" />
     <None Include="Assets\ImportedAssets\ColorfulButtons\Credits.txt" />
     <None Include="Assets\ImportedAssets\Fork Particle Variety Pack FX\Assets\Resources\ForkFX\Alien_Fire_PSK.xml" />
     <None Include="Assets\ImportedAssets\Fork Particle Variety Pack FX\Assets\Resources\ForkFX\Cartoon_Blast_PSK.xml" />
@@ -325,6 +353,28 @@
     <None Include="Assets\ImportedAssets\WavySprite\readme.txt" />
     <None Include="Assets\ImportedAssets\sumPause\README.md.txt" />
     <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />
+    <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.61.0.txt" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-auth-api-phone-license-11.6.2\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-auth-api-phone-license-11.6.2\third_party_licenses.txt" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-auth-base-license-11.6.2\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-auth-base-license-11.6.2\third_party_licenses.txt" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-base-license-11.6.2\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-base-license-11.6.2\third_party_licenses.txt" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-basement-license-11.6.2\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-basement-license-11.6.2\third_party_licenses.txt" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-drive-license-11.6.2\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-drive-license-11.6.2\third_party_licenses.txt" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-games-license-11.6.2\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-games-license-11.6.2\third_party_licenses.txt" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-nearby-license-11.6.2\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-nearby-license-11.6.2\third_party_licenses.txt" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-tasks-license-11.6.2\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\com.google.android.gms.play-services-tasks-license-11.6.2\third_party_licenses.txt" />
+    <None Include="Assets\Plugins\Android\com.google.games.gpgs-plugin-support-0.9.50\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\com.google.games.gpgs-plugin-support-0.9.50\R.txt" />
+    <None Include="Assets\Plugins\Android\com.google.games.gpgs-plugin-support-0.9.50\res\values-v11\values-v11.xml" />
+    <None Include="Assets\Plugins\Android\com.google.games.gpgs-plugin-support-0.9.50\res\values-v14\values-v14.xml" />
+    <None Include="Assets\Plugins\Android\com.google.games.gpgs-plugin-support-0.9.50\res\values\values.xml" />
     <None Include="Assets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
     <None Include="Assets\read me.txt" />
   </ItemGroup>

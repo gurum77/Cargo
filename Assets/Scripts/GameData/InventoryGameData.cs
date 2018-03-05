@@ -42,20 +42,16 @@ public class InventoryGameData
         }
 
         // 가격 결정
-        characterInfo[(int)Player.Character.eFiretruck].Price = 500;
-        characterInfo[(int)Player.Character.ePolice].Price = 500;
-        characterInfo[(int)Player.Character.eCar].Price = 500;
-        characterInfo[(int)Player.Character.eTruck].Price = 500;
-        characterInfo[(int)Player.Character.eTaxi].Price = 500;
-        characterInfo[(int)Player.Character.eVwVan].Price = 500;
-        characterInfo[(int)Player.Character.ePoliceHelicopter].Price = 1500;
-        characterInfo[(int)Player.Character.eGrandMa].Price = 2000;
+        characterInfo[(int)Player.Character.eFiretruck].Price = 50000;
+        characterInfo[(int)Player.Character.ePolice].Price = 50000;
+        characterInfo[(int)Player.Character.eCar].Price = 50000;
+        characterInfo[(int)Player.Character.eTruck].Price = 50000;
+        characterInfo[(int)Player.Character.eTaxi].Price = 50000;
+        characterInfo[(int)Player.Character.eVwVan].Price = 50000;
+        characterInfo[(int)Player.Character.ePoliceHelicopter].Price = 150000;
+        characterInfo[(int)Player.Character.eGrandMa].Price = 200000;
     }
     #region 게임 데이타 저장 키 정의
-    static string PriceKey(Player.Character character)
-    {
-        return character.ToString() + ".Price";
-    }
     
     static string EnabledKey(Player.Character character)
     {
@@ -73,8 +69,7 @@ public class InventoryGameData
         for (int ix = 0; ix < count; ++ix)
         {
             character = (Player.Character)ix;
-            // price
-            PlayerPrefs.SetInt(InventoryGameData.PriceKey(character), characterInfo[ix].Price);
+            
 
             // enabled
             PlayerPrefs.SetInt(InventoryGameData.EnabledKey(character), characterInfo[ix].Enabled ? 1 : 0);
@@ -92,8 +87,6 @@ public class InventoryGameData
         for (int ix = 0; ix < count; ++ix)
         {
             character = (Player.Character)ix;
-            // price
-            characterInfo[ix].Price = PlayerPrefs.GetInt(InventoryGameData.PriceKey(character), characterInfo[ix].Price);
 
             // enabled
             characterInfo[ix].Enabled = PlayerPrefs.GetInt(InventoryGameData.EnabledKey(character), characterInfo[ix].Enabled ? 1 : 0) == 0 ? false : true;

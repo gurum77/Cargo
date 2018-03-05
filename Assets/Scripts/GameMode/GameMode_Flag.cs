@@ -6,8 +6,16 @@ using UnityEngine.UI;
 
 public class GameMode_Flag : MonoBehaviour {
 
-    // 목표 깃발개수
-    public int targetFlagCount
+    // 목표 깃발개수(랜덤하게 변경된다. 50% 내에서 랜덤하게 변경된다)
+    public int targetFlagCount;
+
+    // 현재 단계에서의 목표 깃발개수를 생성한다.
+    int curTargetFlagCount;
+    void GenerateCurTargetFlagCount()
+    {
+        curTargetFlagCount  = (int)Random.Range(targetFlagCount * 0.5f, targetFlagCount * 1.5f);
+    }
+
     public float playerScale;
     public float distXFromCenter;
 
@@ -28,9 +36,6 @@ public class GameMode_Flag : MonoBehaviour {
     // 레벨별 com 이동 간격 감소비율
     public float decreaseRateComMovingIntervalByLevel;
 
-    // target flag count는 
-
-    int curTargetFlagCount;
 
     public Player com;
     public Player Com
@@ -40,7 +45,7 @@ public class GameMode_Flag : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        curTargetFlagCount = targetFlagCount;
 	}
 	
 	// Update is called once per frame
@@ -53,21 +58,21 @@ public class GameMode_Flag : MonoBehaviour {
     {
         if (playerFlagCountText)
         {
-            playerFlagCountText.text = "P";// StringMaker.GetPlayerFlagCountString();
+            playerFlagCountText.text = (curTargetFlagCount - GameController.Me.Player.FlagCount).ToString();// StringMaker.GetPlayerFlagCountString();
 
             if (playerFlagImagePrefab)
             {
-                RecountFlagImage(playerFlagImageList, targetFlagCount - GameController.Me.Player.FlagCount);
+                RecountFlagImage(playerFlagImageList, curTargetFlagCount - GameController.Me.Player.FlagCount);
             }
         }
 
         if (comFlagCountText)
         {
-            comFlagCountText.text = "C";// StringMaker.GetComFlagCountString();
+            comFlagCountText.text = (curTargetFlagCount - Com.FlagCount).ToString();// StringMaker.GetComFlagCountString();
 
             if (comFlagImagePrefab)
             {
-                RecountFlagImage(comFlagImageList, targetFlagCount - Com.FlagCount);
+                RecountFlagImage(comFlagImageList, curTargetFlagCount - Com.FlagCount);
             }
         }
 
@@ -93,13 +98,13 @@ public class GameMode_Flag : MonoBehaviour {
     void CheckSuccess()
     {
         // player가 깃발 개수를 먼저 채우면 성공
-        if(GameController.Me.Player.FlagCount >= targetFlagCount)
+        if (GameController.Me.Player.FlagCount >= curTargetFlagCount)
         {
             GameController.Me.Player.GameData.FlagModeLevel++;
             GameController.Me.GameOver();
         }
 
-        else if(com.FlagCount >= targetFlagCount)
+        else if (com.FlagCount >= curTargetFlagCount)
         {
             GameController.Me.GameOver();
         }
@@ -121,7 +126,7 @@ public class GameMode_Flag : MonoBehaviour {
     public bool IsWin()
     {
         // player가 깃발 개수를 먼저 채우면 성공
-        if (GameController.Me.Player.FlagCount >= targetFlagCount && GameController.Me.Player.FlagCount >= com.FlagCount)
+        if (GameController.Me.Player.FlagCount >= curTargetFlagCount && GameController.Me.Player.FlagCount >= com.FlagCount)
             return true;
 
         return false;
@@ -139,7 +144,10 @@ public class GameMode_Flag : MonoBehaviour {
         if (flagModeItem && GameController.Me && GameController.Me.gameModeController && GameController.Me.gameModeController.showItemByGameMode)
             flagModeItem.transform.SetParent(GameController.Me.gameModeController.showItemByGameMode.transform);
 
-        
+        // 목표 깃발 개수를 지정
+        GenerateCurTargetFlagCount();
+
+
         // 이미지 초기화
         InitImageList();
       
@@ -189,6 +197,7 @@ public class GameMode_Flag : MonoBehaviour {
             // player의 스케일
             GameController.Me.Player.transform.localScale = new Vector3(playerScale, playerScale, playerScale);
         }
+
     }
 
     void InitImageList()
@@ -200,14 +209,15 @@ public class GameMode_Flag : MonoBehaviour {
         if(playerFlagCountText && comFlagCountText && playerFlagImagePrefab && comFlagImagePrefab)
         {
             Vector3 playerFlagImagePos = playerFlagCountText.transform.position;
-            for (int ix = 0; ix < targetFlagCount; ++ix)
+
+            for (int ix = 0; ix < curTargetFlagCount; ++ix)
             {
                 Image image = Instantiate(playerFlagImagePrefab, playerFlagCountText.transform);
                 playerFlagImagePos.x += flagImageWidth;
                 image.transform.position = playerFlagImagePos;
                 playerFlagImageList.Add(image);
 
-                if(ix == (targetFlagCount/2)-1)
+                if (ix == (curTargetFlagCount / 2) - 1)
                 {
                     playerFlagImagePos = playerFlagCountText.transform.position;
                     playerFlagImagePos.y -= flagImageHeight;
@@ -215,14 +225,15 @@ public class GameMode_Flag : MonoBehaviour {
             }
 
             Vector3 comFlagImagePos = comFlagCountText.transform.position;
-            for (int ix = 0; ix < targetFlagCount; ++ix)
+            
+            for (int ix = 0; ix < curTargetFlagCount; ++ix)
             {
                 Image image = Instantiate(comFlagImagePrefab, comFlagCountText.transform);
                 comFlagImagePos.x += flagImageWidth;
                 image.transform.position = comFlagImagePos;
                 comFlagImageList.Add(image);
 
-                if (ix == (targetFlagCount / 2)-1)
+                if (ix == (curTargetFlagCount / 2) - 1)
                 {
                     comFlagImagePos = comFlagCountText.transform.position;
                     comFlagImagePos.y -= flagImageHeight;

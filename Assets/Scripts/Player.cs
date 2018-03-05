@@ -104,6 +104,21 @@ public class Player : MonoBehaviour {
         {
             character = Instantiate(characterPrefab, transform);
             character.tag = "Character";
+
+            // 새로운 캐릭터로 교체하고 나면 animation을 초기화 한다.
+            InitAnimation();
+        }
+    }
+
+    // animation을 초기상태로 설정한다.
+    public void InitAnimation()
+    {
+        ani = GetComponentInChildren<Animator>();
+        if (ani != null)
+        {
+            ani.SetTrigger("Car_Base");
+            ani.ResetTrigger("Car_Level1");
+            ani.ResetTrigger("Car_Destory");
         }
     }
 
@@ -118,7 +133,7 @@ public class Player : MonoBehaviour {
 
     void OnEnable()
     {
-        ani = GetComponentInChildren<Animator>();
+        
         transform.position = new Vector3(0, 0, 0);
         transform.rotation = Quaternion.Euler(0, 45, 0);
         targetPos = new Vector3(0, 0, 0);
@@ -127,18 +142,16 @@ public class Player : MonoBehaviour {
         playerPosition = 0;
         score = 0;
         flagCount = 0;
-        if (ani != null)
-        {
-            ani.SetTrigger("Car_Base");
-            ani.ResetTrigger("Car_Level1");
-            ani.ResetTrigger("Car_Destory");
-        }
+
+        InitAnimation();
+        
     }
 
     // coin을 추가한다.
     public void AddCoins(int addCoins)
     {
-        gameData.Coins = gameData.Coins + addCoins;
+        // 현재 레벨에 따라 곱해준다.
+        gameData.Coins = gameData.Coins + (addCoins * (GetLevel()+1));
     }
 
     public int Combo

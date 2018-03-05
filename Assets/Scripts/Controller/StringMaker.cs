@@ -52,8 +52,6 @@ namespace Assets.Scripts.Controller
         public static string GetPlayerFlagCountString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("P : ");
-
             GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
             if(curGameMode == GameModeController.GameMode.eFlagMode)
             {
@@ -67,8 +65,6 @@ namespace Assets.Scripts.Controller
         public static string GetComFlagCountString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("COM : ");
-
             GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
             if (curGameMode == GameModeController.GameMode.eFlagMode)
             {

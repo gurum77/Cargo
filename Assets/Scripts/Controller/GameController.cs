@@ -120,9 +120,8 @@ public class GameController : MonoBehaviour {
 
 
         // player 애니메이션을 base로
-        Animator ani = GetComponentInChildren<Animator>();
-        if (ani != null)
-            ani.ResetTrigger("Car_Base");
+        player.InitAnimation();
+        
 
         // game mode controller 활성화
         gameModeController.enabled = true;

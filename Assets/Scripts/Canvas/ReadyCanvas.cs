@@ -124,4 +124,13 @@ public class ReadyCanvas : MonoBehaviour {
         // player 선택 신으로 변경한다.
         SceneManager.LoadScene("PlayerSelection");
     }
+
+    // 리더보드 버튼 클릭
+    public void OnLeaderBoardButtonClicked()
+    {
+        Byung.GooglePlayGamesManager.Instance.Initialize();
+        Byung.GooglePlayGamesManager.Instance.SignInToGooglePlay();
+        Byung.GooglePlayGamesManager.Instance.ShowLeaderboardUI();
+        Byung.GooglePlayGamesManager.Instance.SignOutFromGooglePlay();
+    }
 }

@@ -478,6 +478,7 @@
     <Compile Include="Assets\GooglePlayGames\Platforms\PlayGamesClientFactory.cs" />
     <Compile Include="Assets\GooglePlayGames\Platforms\TokenClient.cs" />
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
+    <Compile Include="Assets\GPGSIds.cs" />
     <Compile Include="Assets\ImportedAssets\EasyObjectPool\Core\EasyObjectPool.cs" />
     <Compile Include="Assets\ImportedAssets\EasyObjectPool\Core\PoolObject.cs" />
     <Compile Include="Assets\ImportedAssets\EasyObjectPool\Example\CubeBehaviour.cs" />
@@ -566,6 +567,7 @@
     <Compile Include="Assets\Scripts\ActiveStateToggler.cs" />
     <Compile Include="Assets\Scripts\AI\CargoAI.cs" />
     <Compile Include="Assets\Scripts\ApplicationManager.cs" />
+    <Compile Include="Assets\Scripts\Byung\GooglePlayGamesManager.cs" />
     <Compile Include="Assets\Scripts\Canvas\ExitCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\GameModeSelectionCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\GameOverCanvas.cs" />

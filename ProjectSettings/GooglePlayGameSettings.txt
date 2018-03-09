@@ -1,2 +1,9 @@
 lastUpgrade=00950
 proj.pluginVersion=0.9.50
+proj.AppId=192337386163
+and.BundleId=mobile.Byung.Cargo
+proj.classDir=Assets
+proj.ConstantsClassName=GPGSIds
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--+app_id+--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e192337386163%3c%2fstring%3e%0d%0a++%3c%21--+package_name+--%3e%0d%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3emobile.Byung.Cargo%3c%2fstring%3e%0d%0a++%3c%21--+achievement+Energy+bar+best+score+--%3e%0d%0a++%3cstring+name%3d%22achievement_energy_bar_best_score%22+translatable%3d%22false%22%3eCgkIs7XOwcwFEAIQAQ%3c%2fstring%3e%0d%0a++%3c%21--+achievement+100M+best+time+--%3e%0d%0a++%3cstring+name%3d%22achievement_100m_best_time%22+translatable%3d%22false%22%3eCgkIs7XOwcwFEAIQAg%3c%2fstring%3e%0d%0a++%3c%21--+leaderboard+Cargo+--%3e%0d%0a++%3cstring+name%3d%22leaderboard_cargo%22+translatable%3d%22false%22%3eCgkIs7XOwcwFEAIQAw%3c%2fstring%3e%0d%0a%3c%2fresources%3e%0d%0a
+and.ClientId=192337386163-0gi3te7e6saqgogk56ifk3qsgikd7fts.apps.googleusercontent.com
+android.SetupDone=true

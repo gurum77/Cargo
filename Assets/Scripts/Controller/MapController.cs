@@ -264,6 +264,13 @@ public class MapController : MonoBehaviour {
                     if (Random.Range(0, itemGenerationCycle[jx]) == 0)
                         prop.Item = (MapBlockProperty.ItemType)jx;
                 }
+
+                // barrior은 연속될 수 없다.
+                // 연속으로 나오면 이번것은 지운다
+                if(prop.Item == MapBlockProperty.ItemType.eBarrior && mapBlocks[ix-1].Item == MapBlockProperty.ItemType.eBarrior)
+                {
+                    prop.Item   = MapBlockProperty.ItemType.eNone;
+                }
             }
 
             mapBlocks.Add(prop);

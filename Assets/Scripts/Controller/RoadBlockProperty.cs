@@ -18,6 +18,7 @@ namespace Assets.Scripts.Controller
             eDiamond,
             eFlag,
             eExplosion, // 폭발
+            eBarrior, // 장애물(띄어 넘어야 한다)
             eCount
         };
 

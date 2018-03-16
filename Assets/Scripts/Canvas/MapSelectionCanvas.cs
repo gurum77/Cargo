@@ -43,4 +43,10 @@ public class MapSelectionCanvas : MonoBehaviour {
     {
         ChangeMap(MapController.Map.eSea);
     }
+
+    // desert button 클릭
+    public void OnDesertButtonClicked()
+    {
+        ChangeMap(MapController.Map.eDesert);
+    }
 }

@@ -13,9 +13,12 @@ public class PlayerSelectionCanvas : MonoBehaviour {
     public GameObject player;
     public GameObject curtain;  // 커튼
     public Text coinText;
+    public Text diamondText;
     public Text selectText;
     InventoryGameData inventoryGameData;
     PlayerGameData playerGameData;
+    public Image coinImage;
+    public Image diamondImage;
 
 	// Use this for initialization
 	void Start () {
@@ -78,13 +81,45 @@ public class PlayerSelectionCanvas : MonoBehaviour {
             coinText.text = playerGameData.Coins.ToString();
         }
 
+        if (diamondText)
+        {
+            diamondText.text = playerGameData.Diamonds.ToString();
+        }
+
         // 비활성화 인 경우 글자를 Get로 바꾼다.
         if(selectText)
         {
             if (inventoryGameData.characterInfo[index].Enabled)
-                selectText.text = "SELECT";
+            {
+                if (coinImage)
+                    coinImage.enabled = false;
+                if (diamondImage)
+                    diamondImage.enabled = false;
+
+                    selectText.text = "SELECT";
+            }
+                
             else
-                selectText.text = string.Format("${0}", inventoryGameData.characterInfo[index].Price.ToString());
+            {
+                // diamond로 살수 있는 경우
+                if (inventoryGameData.characterInfo[index].Diamond > 0)
+                {
+                    selectText.text = string.Format("{0}", inventoryGameData.characterInfo[index].Diamond.ToString());
+                    if (coinImage)
+                        coinImage.enabled = false;
+                    if (diamondImage)
+                        diamondImage.enabled = true;
+                }
+                else
+                {
+                    selectText.text = string.Format("${0}", inventoryGameData.characterInfo[index].Price.ToString());
+                    if (coinImage)
+                        coinImage.enabled = true;
+                    if (diamondImage)
+                        diamondImage.enabled = false;
+                }
+
+            }
         }
 
     }
@@ -133,14 +168,25 @@ public class PlayerSelectionCanvas : MonoBehaviour {
         int index = (int)previewCharacterType;
         if (index > -1 && previewCharacterType < Player.Character.eCount)
         {
-            if(playerGameData.Coins >= inventoryGameData.characterInfo[index].Price)
+            if (inventoryGameData.characterInfo[index].Diamond > 0)
             {
-                playerGameData.Coins -= inventoryGameData.characterInfo[index].Price;
-                inventoryGameData.characterInfo[index].Enabled = true;
+                if (playerGameData.Diamonds >= inventoryGameData.characterInfo[index].Diamond)
+                {
+                    playerGameData.Diamonds -= inventoryGameData.characterInfo[index].Diamond;
+                    inventoryGameData.characterInfo[index].Enabled = true;
 
-               
+                    return true;
+                }
+            }
+            else
+            {
+                if (playerGameData.Coins >= inventoryGameData.characterInfo[index].Price)
+                {
+                    playerGameData.Coins -= inventoryGameData.characterInfo[index].Price;
+                    inventoryGameData.characterInfo[index].Enabled = true;
 
-                return true;
+                    return true;
+                }
             }
             
         }
@@ -161,7 +207,7 @@ public class PlayerSelectionCanvas : MonoBehaviour {
     // grand ma 버튼 클릭
     public void OnGrandMaButtonClicked()
     {
-        ChangePlayer(Player.Character.eGrandMa);
+        ChangePlayer(Player.Character.eCybog);
     }
 
     // 앰뷸런스 버튼 클릭

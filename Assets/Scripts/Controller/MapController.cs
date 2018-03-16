@@ -11,6 +11,7 @@ public class MapController : MonoBehaviour {
     {
         eBasic,
         eSea,
+        eDesert,
         eCount
     };
 
@@ -23,7 +24,7 @@ public class MapController : MonoBehaviour {
     public GameObject roadBlock_TurnToRight_Prefab;   // road block 왼쪽에서 오른쪽으로 돌아가는 prefab
     public GameObject mainMapPrefab;    // main map prefab
     public GameObject []subMapPrefabs;  // sub map prefab
-    public GameObject []itemPrefabs;
+    
     public GameObject temp;
     public GameObject finishPrefab;
 
@@ -37,8 +38,19 @@ public class MapController : MonoBehaviour {
         enabledItem[(int)itemType] = enable;
     }
 
-
+    // item과 item의 발생 주기
+    public GameObject[] itemPrefabs;
     public int[] itemGenerationCycle;   // 아이템 발생 주기
+    public int GetItemPrefabIndex(GameObject prefab)
+    {
+        for(int ix = 0; ix < itemPrefabs.Length; ++ix)
+        {
+            if (itemPrefabs[ix] == prefab)
+                return ix;
+        }
+
+        return -1;
+    }
     
     #region 맵별 프리팹 정의
     enum MapPrefabIndex
@@ -53,6 +65,7 @@ public class MapController : MonoBehaviour {
     };
     public GameObject[] basicMapPrefabs;    // 0 : mainMap prefab, 1 : road block 왼쪽, 2 : road block 오른쪽, 3 이후 : sub map prefab
     public GameObject[] seaMapPrefabs;      // 0 : mainMap prefab, 1 : road block 왼쪽, 2 : road block 오른쪽, 3 이후 : sub map prefab
+    public GameObject[] desertMapPrefabs;      // 0 : mainMap prefab, 1 : road block 왼쪽, 2 : road block 오른쪽, 3 이후 : sub map prefab
     #endregion 
     
     public int leftTileColsFromPlayer;  // player의 좌측 tile columns 수
@@ -160,6 +173,10 @@ public class MapController : MonoBehaviour {
         {
             mapPrefabs = seaMapPrefabs;
         }
+        else if(map == Map.eDesert)
+        {
+            mapPrefabs = desertMapPrefabs;
+        }
         else
             return;
 
@@ -210,9 +227,10 @@ public class MapController : MonoBehaviour {
                 enabledItem[ix] = false;
             }
 
-            // coin은 항상 활성화 한다.
+            // coin, diamond은 항상 활성화 한다.
             EnableItem(MapBlockProperty.ItemType.eCoin, true);
             EnableItem(MapBlockProperty.ItemType.eBigCoin, true);
+            EnableItem(MapBlockProperty.ItemType.eDiamond, true);
         }
 	}
 
@@ -530,7 +548,7 @@ public class MapController : MonoBehaviour {
 
         if (IsInVisibleRangeByPlayerPosition(index, playerPosition))
         {
-            Quaternion rotation = Quaternion.identity;//.Euler(45.0f, 0.0f, 0.0f);
+            Quaternion rotation = itemPrefabs[(int)mapBlocks[index].Item].transform.rotation;
 
             Vector3 pos = blockPosition;
             pos.y = 1.0f;

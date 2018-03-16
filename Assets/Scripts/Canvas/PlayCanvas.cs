@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts.Controller;
 
 public class PlayCanvas : MonoBehaviour {
 
     public Text scoreText;
     public Text bestScoreText;
-    public Text coinsText;
+    public Text coinText;
+    public Text diamondText;
     public Text comboText;
 
 	// Use this for initialization
@@ -25,7 +27,7 @@ public class PlayCanvas : MonoBehaviour {
         DisplayBestScore();
 
         // display coins
-        DisplayCoins();
+        DisplayCoinsAndDiamonds();
 
         // display combo
         DisplayCombo();
@@ -82,15 +84,12 @@ public class PlayCanvas : MonoBehaviour {
     }
 
     // coins 출력
-    void DisplayCoins()
+    void DisplayCoinsAndDiamonds()
     {
-        if (!coinsText)
-        {
-            Debug.Assert(false);
-            return;
-        }
-
-        coinsText.text = GameController.Me.Player.GameData.Coins.ToString();
+        if (coinText)
+            coinText.text = StringMaker.GetCoinsString();
+        if (diamondText)
+            diamondText.text = StringMaker.GetDiamondsString();
     }
 
     // combo 출력

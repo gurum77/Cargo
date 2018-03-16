@@ -9,11 +9,20 @@ public class GameMode_Flag : MonoBehaviour {
     // 목표 깃발개수(랜덤하게 변경된다. 50% 내에서 랜덤하게 변경된다)
     public int targetFlagCount;
 
+    // level 10단위로 추가 출현하는 장애물
+    public GameObject[] obstacleItemByLevel10;  // 
+
     // 현재 단계에서의 목표 깃발개수를 생성한다.
     int curTargetFlagCount;
     void GenerateCurTargetFlagCount()
     {
         curTargetFlagCount  = (int)Random.Range(targetFlagCount * 0.5f, targetFlagCount * 1.5f);
+    }
+
+    // 장애물 설정
+    void GenerateObstacle()
+    { 
+        // 레벨 10단위당 장애물 출현율을 높인다.
     }
 
     public float playerScale;
@@ -131,6 +140,36 @@ public class GameMode_Flag : MonoBehaviour {
 
         return false;
     }
+
+    
+    // 모든 장애물을 비활성화 한다.
+    void DisableAllObstacleItem()
+    {
+        GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eExplosion, false);
+    }
+
+    // 레벨별 출현 장애물 설정
+    void InitEnableObstacleItem()
+    {
+        // 현재 레벨
+        int level = GetLevel();
+
+        // 단위
+        int levelUnit = (level / 10);
+
+        for(int i = 0; i < levelUnit; ++i)
+        {
+            if(obstacleItemByLevel10.Length <= i)
+                break;
+
+            int idx = GameController.Me.mapController.GetItemPrefabIndex(obstacleItemByLevel10[i]);
+            if(idx < 0)
+                continue;
+
+            GameController.Me.mapController.EnableItem((MapBlockProperty.ItemType)idx, true);
+        }
+    }
+
     // 모드별 게임 시작할때 호출된다.
     void OnEnable()
     {
@@ -155,9 +194,14 @@ public class GameMode_Flag : MonoBehaviour {
         // 맵을 구성한다.
         if (GameController.Me)
         {
+            DisableAllObstacleItem();
+            InitEnableObstacleItem();
+
             GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eFlag, true);
             GameController.Me.mapController.MakeMap();
             GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eFlag, false);
+
+            DisableAllObstacleItem();
         }
 
         // ai player를 활성화 한다.

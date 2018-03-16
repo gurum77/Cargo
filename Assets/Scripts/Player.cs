@@ -19,7 +19,7 @@ public class Player : MonoBehaviour {
         eTaxi,
         eVwVan,
         ePoliceHelicopter,
-        eGrandMa,
+        eCybog,
         eCount
     };
 
@@ -59,6 +59,7 @@ public class Player : MonoBehaviour {
     public GameObject[] characterPrefabs;   // player의 캐릭터
     public AudioSource audioSourceTick;
     public AudioSource audioSourceCoin;
+    public AudioSource audioSourceDiamond;
     Vector3 targetPos   = new Vector3();  // 목표 위치
     Vector3 targetPosWidthDistXFromCenter = new Vector3();  // 중심에서 x거리가 적용된 목표 위치
     Quaternion targetDir = new Quaternion();   // 목표 방향
@@ -152,6 +153,13 @@ public class Player : MonoBehaviour {
     {
         // 현재 레벨에 따라 곱해준다.
         gameData.Coins = gameData.Coins + (addCoins * (GetLevel()+1));
+    }
+
+    // diamond를 추가한다.
+    public void AddDiamonds(int addDimonds)
+    {
+        // 현재 레벨에 따라 곱해준다.
+        gameData.Diamonds = gameData.Diamonds + (addDimonds * (GetLevel() + 1));
     }
 
     public int Combo
@@ -553,6 +561,15 @@ public class Player : MonoBehaviour {
 
             // 동전개수를 증가시킨다.
             AddCoins(prop.GetCoinNums());
+        }
+        // Diamond인 경우
+        else if (prop.Item == MapBlockProperty.ItemType.eDiamond)
+        {
+            if (audioSourceDiamond)
+                audioSourceDiamond.Play();
+
+            // diamond 개수를 증가시킨다.
+            AddDiamonds(prop.GetDiamondNums());
         }
         // flag인 경우
         else if(prop.Item == MapBlockProperty.ItemType.eFlag)

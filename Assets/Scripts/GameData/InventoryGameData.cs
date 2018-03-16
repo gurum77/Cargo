@@ -12,8 +12,18 @@ public class CharacterInfo
     public int Price
     { get; set; }
 
+    public int Diamond
+    { get; set; }
+
     public bool Enabled
     { get; set; }
+
+    public CharacterInfo()
+    {
+        Price = 0;
+        Diamond = 0;
+        Enabled = false;
+    }
 }
 
 public class InventoryGameData
@@ -32,15 +42,10 @@ public class InventoryGameData
             characterInfo[ix] = new CharacterInfo();
         }
         
+        // 기본 케릭터
         characterInfo[(int)Player.Character.eAmbulance].Enabled = true;
         characterInfo[(int)Player.Character.eAmbulance].Price = 0;
-
-        // 이후 캐릭터는 모드 비활성화
-        for (int ix = 1; ix < (int)Player.Character.eCount; ++ix)
-        {
-            characterInfo[ix].Enabled = false;
-        }
-
+        
         // 가격 결정
         characterInfo[(int)Player.Character.eFiretruck].Price = 50000;
         characterInfo[(int)Player.Character.ePolice].Price = 50000;
@@ -48,8 +53,12 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eTruck].Price = 50000;
         characterInfo[(int)Player.Character.eTaxi].Price = 50000;
         characterInfo[(int)Player.Character.eVwVan].Price = 50000;
-        characterInfo[(int)Player.Character.ePoliceHelicopter].Price = 150000;
-        characterInfo[(int)Player.Character.eGrandMa].Price = 200000;
+        
+        characterInfo[(int)Player.Character.ePoliceHelicopter].Price = 0;
+        characterInfo[(int)Player.Character.ePoliceHelicopter].Diamond  = 100;
+
+        characterInfo[(int)Player.Character.eCybog].Price = 0;
+        characterInfo[(int)Player.Character.eCybog].Diamond = 100;
     }
     #region 게임 데이타 저장 키 정의
     

@@ -16,6 +16,9 @@ public class PlayerGameData
     public int Coins
     { get; set; }
 
+    public int Diamonds
+    { get; set; }
+
     public Player.Character CharacterType
     { get; set; }
 
@@ -39,6 +42,11 @@ public class PlayerGameData
     static public string CoinsKey
     {
         get { return "Coins"; }
+    }
+
+    static public string DiamondsKey
+    {
+        get { return "Diamonds"; }
     }
 
     static public string EnergyBarModeBestScoreKey
@@ -88,6 +96,9 @@ public class PlayerGameData
         // coins
         PlayerPrefs.SetInt(PlayerGameData.CoinsKey, Coins);
 
+        // diamonds
+        PlayerPrefs.SetInt(PlayerGameData.DiamondsKey, Diamonds);
+
         // energy bar 모드 최고 점수
         PlayerPrefs.SetInt(PlayerGameData.EnergyBarModeBestScoreKey, EnergyBarModeBestScore);
 
@@ -118,6 +129,9 @@ public class PlayerGameData
     {
         // coins
         Coins = PlayerPrefs.GetInt(PlayerGameData.CoinsKey);
+
+        // diamonds
+        Diamonds    = PlayerPrefs.GetInt(PlayerGameData.DiamondsKey);
 
         // energy bar 모드 최고 점수
         EnergyBarModeBestScore = PlayerPrefs.GetInt(PlayerGameData.EnergyBarModeBestScoreKey);

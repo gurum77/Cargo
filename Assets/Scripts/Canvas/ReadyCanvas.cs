@@ -9,7 +9,8 @@ public class ReadyCanvas : MonoBehaviour {
 
     public Text scoreText;
     public Text bestScoreText;
-    public Text coinsText;
+    public Text coinText;
+    public Text diamondText;
     public Text gameModeText;
     public Text gameModeSubText;
     public GameObject exitCanvasItems;
@@ -30,7 +31,7 @@ public class ReadyCanvas : MonoBehaviour {
         DisplayBestScore();
 
         // display coins
-        DisplayCoins();
+        DisplayCoinsAndDiamonds();
 
         // display game mode
         DisplayGameMode();
@@ -89,10 +90,12 @@ public class ReadyCanvas : MonoBehaviour {
     }
 
     // coins 출력
-    void DisplayCoins()
+    void DisplayCoinsAndDiamonds()
     {
-        if (coinsText)
-            coinsText.text = GameController.Me.Player.GameData.Coins.ToString();
+        if (coinText)
+            coinText.text = StringMaker.GetCoinsString();
+        if (diamondText)
+            diamondText.text = StringMaker.GetDiamondsString();
     }
 
     // mode 선택 버튼 클릭
@@ -128,9 +131,6 @@ public class ReadyCanvas : MonoBehaviour {
     // 리더보드 버튼 클릭
     public void OnLeaderBoardButtonClicked()
     {
-        Byung.GooglePlayGamesManager.Instance.Initialize();
-        Byung.GooglePlayGamesManager.Instance.SignInToGooglePlay();
-        Byung.GooglePlayGamesManager.Instance.ShowLeaderboardUI();
-        Byung.GooglePlayGamesManager.Instance.SignOutFromGooglePlay();
+        
     }
 }

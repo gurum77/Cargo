@@ -28,10 +28,17 @@ namespace Assets.Scripts.Controller
         }
 
         // coin text 리턴
-        public static string GetCoinString()
+        public static string GetCoinsString()
         {
             return GameController.Me.Player.GameData.Coins.ToString();
         }
+
+        // diamond text 리턴
+        public static string GetDiamondsString()
+        {
+            return GameController.Me.Player.GameData.Diamonds.ToString();
+        }
+        
 
         // flag 모드 레벨 문자열
         public static string GetFlagModeLevelString()

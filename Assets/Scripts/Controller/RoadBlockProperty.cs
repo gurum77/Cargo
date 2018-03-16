@@ -15,7 +15,9 @@ namespace Assets.Scripts.Controller
             eNone = -1,
             eCoin,
             eBigCoin,
+            eDiamond,
             eFlag,
+            eExplosion, // 폭발
             eCount
         };
 
@@ -49,6 +51,16 @@ namespace Assets.Scripts.Controller
             else if (Item == ItemType.eBigCoin)
                 return 300;
 
+            return 0;
+        }
+
+        // Diamond의 개수를 리턴
+        // Diamond가 아니면 0개이다.
+        public int GetDiamondNums()
+        {
+            if (Item == ItemType.eDiamond)
+                return 1;
+            
             return 0;
         }
 

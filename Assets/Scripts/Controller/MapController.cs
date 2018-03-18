@@ -265,19 +265,39 @@ public class MapController : MonoBehaviour {
                         prop.Item = (MapBlockProperty.ItemType)jx;
                 }
 
-                // barrior은 연속될 수 없다.
-                // 연속으로 나오면 이번것은 지운다
-                if(prop.Item == MapBlockProperty.ItemType.eBarrior && mapBlocks[ix-1].Item == MapBlockProperty.ItemType.eBarrior)
-                {
-                    prop.Item   = MapBlockProperty.ItemType.eNone;
-                }
+              
             }
 
             mapBlocks.Add(prop);
         }
-    
+
+
+        // 장애물에 맞춰서 맵 블럭을 조정한다.
+        AdjustMapBlockPropertyByBarrier();    
     }
 
+    // 장애물에 맞춰서 맵 블럭을 조정한다.
+    void AdjustMapBlockPropertyByBarrier()
+    {
+        MapBlockProperty prop;
+        for (int ix = 2; ix < mapBlocks.Count-1; ++ix)
+        {
+            prop = mapBlocks[ix];
+
+            if (prop.Item == MapBlockProperty.ItemType.eBarrior)
+            {
+                // barrior은 연속될 수 없다.
+                // 연속으로 나오면 이번것은 지운다
+                if (mapBlocks[ix - 1].Item == MapBlockProperty.ItemType.eBarrior)
+                    prop.Item = MapBlockProperty.ItemType.eNone;
+
+                // barrior은 앞 2칸과 다음칸이 무조건 같은 방향이어야 한다.
+                mapBlocks[ix - 1].Left = prop.Left;
+                mapBlocks[ix - 2].Left = prop.Left;
+                mapBlocks[ix + 1].Left = prop.Left;
+            }
+        }
+    }
     // main map block의 columns 수를 계산한다.
     // 기본 3개인데(좌,중간,우 포함), main map block의 크기에 따라서 달라진다.
     // 최소 1개는 들어가야한다.

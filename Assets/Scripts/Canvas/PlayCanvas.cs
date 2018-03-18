@@ -54,6 +54,12 @@ public class PlayCanvas : MonoBehaviour {
         GameController.Me.Player.OnRightKeyClicked();
     }
 
+    // 점프 버튼 클릭
+    public void OnJumpButtonClicked()
+    {
+        GameController.Me.Player.OnJumpKeyClicked();
+    }
+
     // 최고점수 출력
     void DisplayBestScore()
     {

@@ -45,23 +45,15 @@ public class CargoAI : MonoBehaviour {
             // interval이 더 커지면 이동한다.
             if (curTargetMovingInterval <= player.MovingInterval)
             {
-                // 앱
-                MapBlockProperty prop = GameController.Me.mapController.GetMapBlockProperty(player.PlayerPosition);
-                if(prop != null)
+                // 앞으로 1칸 진행한다.
+                player.MoveForwardToValidWay(1);
+
+
+                // 이동을 하고 나서 10칸마다 인터벌을 조정한다.
+                if (player.PlayerPosition % 10 == 0)
                 {
-                    if (prop.Left)
-                        player.MoveLeft();
-                    else
-                        player.MoveRight();
-
-
-                    // 이동을 하고 나서 10칸마다 인터벌을 조정한다.
-                    if(player.PlayerPosition % 10 == 0)
-                    {
-                        SetCurTargetMovingIntervalInRange();
-                    }
+                    SetCurTargetMovingIntervalInRange();
                 }
-
             }
         }
 	}

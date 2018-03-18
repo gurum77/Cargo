@@ -91,7 +91,7 @@ public class Player : MonoBehaviour {
     public void MakeCharacterGameObject()
     {
         // 기존 캐릭터 object 는 삭제한다.
-        GameObject character = FindChildGameObjectWithTag("Character");
+        GameObject character = FindChildGameObjectWithTag(Define.Tag.Character);
         if(character)
         {
             GameObject.DestroyObject(character);
@@ -104,7 +104,7 @@ public class Player : MonoBehaviour {
         if(characterPrefab)
         {
             character = Instantiate(characterPrefab, transform);
-            character.tag = "Character";
+            character.tag = Define.Tag.Character;
 
             // 새로운 캐릭터로 교체하고 나면 animation을 초기화 한다.
             InitAnimation();
@@ -117,9 +117,9 @@ public class Player : MonoBehaviour {
         ani = GetComponentInChildren<Animator>();
         if (ani != null)
         {
-            ani.SetTrigger("Car_Base");
-            ani.ResetTrigger("Car_Level1");
-            ani.ResetTrigger("Car_Destory");
+            ani.SetTrigger(Define.Trigger.Base);
+            ani.ResetTrigger(Define.Trigger.Level1);
+            ani.ResetTrigger(Define.Trigger.Destroy);
         }
     }
 
@@ -193,9 +193,34 @@ public class Player : MonoBehaviour {
             MoveRight();
     }
 
+    public void OnJumpKeyClicked()
+    {
+        ani.SetTrigger(Define.Trigger.Jump);
 
-	// Update is called once per frame
-	void Update () {
+        // jump를 하면 2칸을 자동으로 진행한다.
+        Move(2);
+    }
+
+    // 앞으로 step 수만큼 올바른 길로 진행한다.
+    public void MoveForwardToValidWay(int step)
+    {
+        for (int ix = 0; ix < step; ++ix)
+        {
+            MapBlockProperty prop = GameController.Me.mapController.GetMapBlockProperty(PlayerPosition);
+            if (prop != null)
+            {
+                if (prop.Left)
+                    MoveLeft();
+                else
+                    MoveRight();
+            }
+        }
+    }
+      
+  
+
+    // Update is called once per frame
+    void Update () {
         // 이동에 걸린 시간을 누적시킨다.
         movingInterval += Time.deltaTime;
 
@@ -221,6 +246,12 @@ public class Player : MonoBehaviour {
                 if (IsInputMoveKey() || IsInputRightMoveKey())
                 {
                     OnRightKeyClicked();
+                }
+
+                // jump key가 입력 되었는지?
+                if(IsInputJumpKey())
+                {
+                    OnJumpKeyClicked();
                 }
             }
             
@@ -374,34 +405,40 @@ public class Player : MonoBehaviour {
     // player를 이동한다.
     // 진행방향으로 movingDist만큼 이동한다.
     // move할때마다 playerPosition이 증가한다.
-    public void Move()
+    // 여러 칸을 진행할때는 마지막 칸에서만 성공을 체크한다.
+    public void Move(int step=1)
     {
         if (!enabled)
             return;
 
-
-        // player가 이동할 목표 위치이동한다.
-        MoveTargetPos();
-        
-        // play
-        if (audioSourceTick)
+        for(int ix = 0; ix < step; ++ix)
         {
-            audioSourceTick.Play();
+            // player가 이동할 목표 위치이동한다.
+            MoveTargetPos();
+
+            // play
+            if (audioSourceTick)
+            {
+                audioSourceTick.Play();
+            }
+
+            // 이동할때마다 체크한다.
+            // 마지막 step에서만 이동을 성공했는지 체크한다.
+            if (ix < step-1 || CheckSuccess())
+            {
+                // Coin 체크
+                CheckItem();
+
+                // map을 갱신한다.
+                if (EnableUserInput)
+                    ReplaceMapByPlayerPosition();
+
+                // combo를 체크한다.
+                CheckCombo();
+            }
         }
 
-        // 이동할때마다 체크한다.
-        if(CheckSuccess())
-        {
-            // Coin 체크
-            CheckItem();
-
-            // map을 갱신한다.
-            if(EnableUserInput)
-                ReplaceMapByPlayerPosition();
-
-            // combo를 체크한다.
-            CheckCombo();
-        }
+      
     }
 
     
@@ -508,12 +545,14 @@ public class Player : MonoBehaviour {
     {
         if(!RoadController())
             return false;
-        if (RoadController().GetMapBlockProperty(playerPosition) == null)
+        MapBlockProperty prop = RoadController().GetMapBlockProperty(playerPosition);
+        if (prop == null)
             return false;
 
-        Vector3 roadBlockPos    = RoadController().GetMapBlockProperty(playerPosition).Position;
-        
-        if (!roadBlockPos.Equals(targetPos))
+        Vector3 roadBlockPos    = prop.Position;
+        // 장애물 블럭이면 실패(점프를 하면 체크하지 않는다)
+        // 잘못 이동한 위치라면 실패
+        if (prop.Item == MapBlockProperty.ItemType.eBarrior || !roadBlockPos.Equals(targetPos))
         {
             // 성공을 못 하면 카메라를 흔든다.
             Camera.main.SendMessage("Clash");
@@ -592,6 +631,16 @@ public class Player : MonoBehaviour {
         if(Input.GetKeyDown("left"))
             return true;
      
+        return false;
+    }
+
+    // jump 키가 입력 되었는지?
+    // 스페이스
+    bool IsInputJumpKey()
+    {
+        if (Input.GetKeyDown("space"))
+            return true;
+
         return false;
     }
 

@@ -18,7 +18,7 @@ namespace Assets.Scripts.Controller
             eDiamond,
             eFlag,
             eExplosion, // 폭발
-            eBarrior, // 장애물(띄어 넘어야 한다)
+            eBlank, // 장애물(띄어 넘어야 한다)
             eCount
         };
 
@@ -70,8 +70,10 @@ namespace Assets.Scripts.Controller
         {
             Mem.DestroyGameObject(itemGameObject);
             itemGameObject = null;
-
-            Item = ItemType.eNone;
+            if (Item != ItemType.eBlank)
+            {
+                Item = ItemType.eNone;
+            }
         }
 
 

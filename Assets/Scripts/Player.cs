@@ -65,6 +65,10 @@ public class Player : MonoBehaviour {
     Quaternion targetDir = new Quaternion();   // 목표 방향
 
     Animator ani;
+    public Animator Ani
+    {
+        get { return ani; }
+    }
 
     // player의 게임 데이타
     PlayerGameData gameData = new PlayerGameData();
@@ -195,7 +199,8 @@ public class Player : MonoBehaviour {
 
     public void OnJumpKeyClicked()
     {
-        ani.SetTrigger(Define.Trigger.Jump);
+        if(ani)
+            ani.SetTrigger(Define.Trigger.Jump);
 
         // jump를 하면 2칸을 자동으로 진행한다.
         Move(2);
@@ -206,7 +211,19 @@ public class Player : MonoBehaviour {
     {
         for (int ix = 0; ix < step; ++ix)
         {
-            MapBlockProperty prop = GameController.Me.mapController.GetMapBlockProperty(PlayerPosition);
+            // 다음 칸이 blank라면 점프를 한다.
+            MapBlockProperty prop = GameController.Me.mapController.GetMapBlockProperty(PlayerPosition+1);
+            if (prop != null)
+            {
+                if(prop.Item == MapBlockProperty.ItemType.eBlank)
+                {
+                    OnJumpKeyClicked();
+                    continue;
+                }
+                
+            }
+
+            prop = GameController.Me.mapController.GetMapBlockProperty(PlayerPosition);
             if (prop != null)
             {
                 if (prop.Left)
@@ -396,8 +413,7 @@ public class Player : MonoBehaviour {
         {
             targetPos.x += movingDist;
         }
-
-       
+               
         // player position 증가 시킨다.
         playerPosition++;
     }
@@ -411,8 +427,12 @@ public class Player : MonoBehaviour {
         if (!enabled)
             return;
 
+        bool isJump = false;
         for(int ix = 0; ix < step; ++ix)
         {
+            // jump중인지?
+            isJump = ix < step - 1 ? true : false;
+
             // player가 이동할 목표 위치이동한다.
             MoveTargetPos();
 
@@ -424,7 +444,7 @@ public class Player : MonoBehaviour {
 
             // 이동할때마다 체크한다.
             // 마지막 step에서만 이동을 성공했는지 체크한다.
-            if (ix < step-1 || CheckSuccess())
+            if (isJump || CheckSuccess())
             {
                 // Coin 체크
                 CheckItem();
@@ -552,7 +572,7 @@ public class Player : MonoBehaviour {
         Vector3 roadBlockPos    = prop.Position;
         // 장애물 블럭이면 실패(점프를 하면 체크하지 않는다)
         // 잘못 이동한 위치라면 실패
-        if (prop.Item == MapBlockProperty.ItemType.eBarrior || !roadBlockPos.Equals(targetPos))
+        if (prop.Item == MapBlockProperty.ItemType.eBlank || !roadBlockPos.Equals(targetPos))
         {
             // 성공을 못 하면 카메라를 흔든다.
             Camera.main.SendMessage("Clash");

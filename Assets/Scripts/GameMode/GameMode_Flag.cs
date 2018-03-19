@@ -146,7 +146,7 @@ public class GameMode_Flag : MonoBehaviour {
     void DisableAllObstacleItem()
     {
         GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eExplosion, false);
-        GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eBarrior, false);
+        GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eBlank, false);
     }
 
     // 레벨별 출현 장애물 설정

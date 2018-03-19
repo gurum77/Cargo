@@ -42,9 +42,15 @@ public class CargoAI : MonoBehaviour {
         if(player)
         {
             player.EnableUserInput = false;
+
+                     
             // interval이 더 커지면 이동한다.
             if (curTargetMovingInterval <= player.MovingInterval)
             {
+                // 왜 ai의 ani가 없어지는지 모르겠음(일단 예외처리)
+                if(player.Ani == null)
+                    player.InitAnimation();
+
                 // 앞으로 1칸 진행한다.
                 player.MoveForwardToValidWay(1);
 

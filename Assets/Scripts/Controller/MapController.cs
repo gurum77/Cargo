@@ -280,21 +280,29 @@ public class MapController : MonoBehaviour {
     void AdjustMapBlockPropertyByBarrier()
     {
         MapBlockProperty prop;
+        int lastAdjustIndex = -1;   // 마지막으로 조정된 index
         for (int ix = 2; ix < mapBlocks.Count-1; ++ix)
         {
             prop = mapBlocks[ix];
 
-            if (prop.Item == MapBlockProperty.ItemType.eBarrior)
+            if (prop.Item == MapBlockProperty.ItemType.eBlank)
             {
                 // barrior은 연속될 수 없다.
                 // 연속으로 나오면 이번것은 지운다
-                if (mapBlocks[ix - 1].Item == MapBlockProperty.ItemType.eBarrior)
+                // 방향이 다르다면 한칸 건너 띄어도 나올 수 없다.
+                if (mapBlocks[ix - 1].Item == MapBlockProperty.ItemType.eBlank ||
+                    lastAdjustIndex >= ix - 1)
+                {
                     prop.Item = MapBlockProperty.ItemType.eNone;
+                    continue;
+                }
 
                 // barrior은 앞 2칸과 다음칸이 무조건 같은 방향이어야 한다.
                 mapBlocks[ix - 1].Left = prop.Left;
                 mapBlocks[ix - 2].Left = prop.Left;
                 mapBlocks[ix + 1].Left = prop.Left;
+
+                lastAdjustIndex = ix + 1;
             }
         }
     }
@@ -513,7 +521,7 @@ public class MapController : MonoBehaviour {
     // road block gameobject 1개를 만든다.
     public void MakeRoadBlock(int index, Vector3 pos, int playerPosition)
     {
-        if (IsInVisibleRangeByPlayerPosition(index, playerPosition))
+        if (IsInVisibleRangeByPlayerPosition(index, playerPosition) && mapBlocks[index].Item != MapBlockProperty.ItemType.eBlank)
         {
             // 방향
             bool left = mapBlocks[index].Left;

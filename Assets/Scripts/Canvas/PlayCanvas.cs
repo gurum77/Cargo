@@ -11,6 +11,7 @@ public class PlayCanvas : MonoBehaviour {
     public Text coinText;
     public Text diamondText;
     public Text comboText;
+    public Text lifeText;
 
 	// Use this for initialization
 	void Start () {
@@ -31,6 +32,9 @@ public class PlayCanvas : MonoBehaviour {
 
         // display combo
         DisplayCombo();
+
+        // display life
+        DisplayLife();
 	}
 
     // 카메라 버튼 클릭
@@ -72,9 +76,9 @@ public class PlayCanvas : MonoBehaviour {
         // 모드별로 다르게 표시한다.
         GameModeController.GameMode curMode = GameController.Me.gameModeController.GetCurGameMode();
         if (curMode == GameModeController.GameMode.eEnergyBarMode)
-            bestScoreText.text = "Best " + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
+            bestScoreText.text = LocalizationText.GetText("Best ") + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
         else if (curMode == GameModeController.GameMode.e100MMode)
-            bestScoreText.text = "Best " + GameMode_100M.TimeToString(GameController.Me.Player.GameData.HundredMBestTime);
+            bestScoreText.text = LocalizationText.GetText("Best ") + GameMode_100M.TimeToString(GameController.Me.Player.GameData.HundredMBestTime);
     }
 
     // 점수 출력
@@ -113,7 +117,19 @@ public class PlayCanvas : MonoBehaviour {
         }
         else
         {
-            comboText.text = "COMBO " + GameController.Me.player.Combo.ToString();
+            comboText.text = LocalizationText.GetText("COMBO ") + GameController.Me.player.Combo.ToString();
         }
+    }
+
+    // 플레이어 life 출력
+    void DisplayLife()
+    {
+        if (!lifeText)
+        {
+            Debug.Assert(false);
+            return;
+        }
+
+        lifeText.text = GameController.Me.player.Life.ToString();
     }
 }

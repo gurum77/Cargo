@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// 창고 게임 데이타
-/// 플레이어가 보유한 아이템에 대한 데이타
+/// 캐릭터별 특성
 /// </summary>
 
 public class CharacterInfo
@@ -18,11 +18,15 @@ public class CharacterInfo
     public bool Enabled
     { get; set; }
 
+    public string Name
+    { get; set; }
+
     public CharacterInfo()
     {
         Price = 0;
         Diamond = 0;
         Enabled = false;
+        Name = "";
     }
 }
 
@@ -41,24 +45,49 @@ public class InventoryGameData
         {
             characterInfo[ix] = new CharacterInfo();
         }
+
         
         // 기본 케릭터
         characterInfo[(int)Player.Character.eAmbulance].Enabled = true;
         characterInfo[(int)Player.Character.eAmbulance].Price = 0;
+        characterInfo[(int)Player.Character.eAmbulance].Name    = LocalizationText.GetText("Ambulance");
         
         // 가격 결정
         characterInfo[(int)Player.Character.eFiretruck].Price = 50000;
+        characterInfo[(int)Player.Character.eFiretruck].Name = LocalizationText.GetText("Firetruck");
+
         characterInfo[(int)Player.Character.ePolice].Price = 50000;
+        characterInfo[(int)Player.Character.ePolice].Name = LocalizationText.GetText("Police car");
+
         characterInfo[(int)Player.Character.eCar].Price = 50000;
+        characterInfo[(int)Player.Character.eCar].Name = LocalizationText.GetText("Just car");
+
         characterInfo[(int)Player.Character.eTruck].Price = 50000;
+        characterInfo[(int)Player.Character.eTruck].Name = LocalizationText.GetText("Truck");
+
         characterInfo[(int)Player.Character.eTaxi].Price = 50000;
+        characterInfo[(int)Player.Character.eTaxi].Name = LocalizationText.GetText("Taxi");
+
         characterInfo[(int)Player.Character.eVwVan].Price = 50000;
-        
+        characterInfo[(int)Player.Character.eVwVan].Name = LocalizationText.GetText("Van");
+                
         characterInfo[(int)Player.Character.ePoliceHelicopter].Price = 0;
         characterInfo[(int)Player.Character.ePoliceHelicopter].Diamond  = 100;
+        characterInfo[(int)Player.Character.ePoliceHelicopter].Name = LocalizationText.GetText("Police helicopter");
+
+
+        characterInfo[(int)Player.Character.eInterceptor].Price = 0;
+        characterInfo[(int)Player.Character.eInterceptor].Diamond = 100;
+        characterInfo[(int)Player.Character.eInterceptor].Name = LocalizationText.GetText("International police car");
+
 
         characterInfo[(int)Player.Character.eCybog].Price = 0;
         characterInfo[(int)Player.Character.eCybog].Diamond = 100;
+        characterInfo[(int)Player.Character.eCybog].Name = LocalizationText.GetText("Cybog");
+
+        characterInfo[(int)Player.Character.eDevil].Price = 0;
+        characterInfo[(int)Player.Character.eDevil].Diamond = 200;
+        characterInfo[(int)Player.Character.eDevil].Name = LocalizationText.GetText("Devil");
     }
     #region 게임 데이타 저장 키 정의
     

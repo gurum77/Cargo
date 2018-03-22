@@ -180,11 +180,29 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    // 시스템 언어설정으로 localization을 설정한다.
+    void SetLocalizationBySystemLanguage()
+    {
+#if UNITY_EDITOR
+        LocalizationText.SetLanguage("KO");
+#else
+        if (Application.systemLanguage == SystemLanguage.Korean)
+            LocalizationText.SetLanguage("KO");
+        else
+            LocalizationText.SetLanguage("EN");
+#endif
+    }
+
+    void Awake()
+    {
+        SetLocalizationBySystemLanguage();
+    }
+
 	// Use this for initialization
 	void Start () {
 
         QualitySettings.vSyncCount = 0;
-
+    
         Me = this;
 
         // control type 지정

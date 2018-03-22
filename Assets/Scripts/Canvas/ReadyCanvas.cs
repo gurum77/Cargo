@@ -75,9 +75,9 @@ public class ReadyCanvas : MonoBehaviour {
             // 모드별로 다르게 표시한다.
             GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
             if (curGameMode == GameModeController.GameMode.eEnergyBarMode)
-                bestScoreText.text = "Best " + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
+                bestScoreText.text = LocalizationText.GetText("Best ") + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
             else if (curGameMode == GameModeController.GameMode.e100MMode)
-                bestScoreText.text = "Best " + GameMode_100M.TimeToString(GameController.Me.Player.GameData.HundredMBestTime);
+                bestScoreText.text = LocalizationText.GetText("Best ") + GameMode_100M.TimeToString(GameController.Me.Player.GameData.HundredMBestTime);
         }
     }
 
@@ -105,7 +105,7 @@ public class ReadyCanvas : MonoBehaviour {
         GameController.Me.SaveGameData();
 
         // player 선택 신으로 변경한다.
-        SceneManager.LoadScene("GameModeSelection");
+        SceneManager.LoadScene(Define.Scene.GameModeSelection);
     }
 
     // map 선택 버튼 클릭
@@ -115,7 +115,7 @@ public class ReadyCanvas : MonoBehaviour {
         GameController.Me.SaveGameData();
 
         // map 선택 신으로 변경한다.
-        SceneManager.LoadScene("MapSelection");
+        SceneManager.LoadScene(Define.Scene.MapSelection);
     }
 
     // player 선택 버튼 클릭
@@ -125,7 +125,7 @@ public class ReadyCanvas : MonoBehaviour {
         GameController.Me.SaveGameData();
         
         // player 선택 신으로 변경한다.
-        SceneManager.LoadScene("PlayerSelection");
+        SceneManager.LoadScene(Define.Scene.PlayerSelection);
     }
 
     // 리더보드 버튼 클릭

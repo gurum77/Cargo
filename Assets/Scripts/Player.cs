@@ -19,7 +19,9 @@ public class Player : MonoBehaviour {
         eTaxi,
         eVwVan,
         ePoliceHelicopter,
+        eInterceptor,
         eCybog,
+        eDevil,
         eCount
     };
 
@@ -29,7 +31,14 @@ public class Player : MonoBehaviour {
         get;
         set;
     }
+
     float movingDist = 1.0f;
+    // 현재 life
+    int life;
+    public int Life
+    { get { return life; } }
+
+    public int defaultLife;    // 기본 life 카운트
     public float speed; // 진행 속도
     public float rotationSpeed; // 회전 속도
     int playerPosition; // 현재 player의 position
@@ -60,9 +69,16 @@ public class Player : MonoBehaviour {
     public AudioSource audioSourceTick;
     public AudioSource audioSourceCoin;
     public AudioSource audioSourceDiamond;
+    public AudioSource audioSourceClock;
+    public AudioSource audioSourceLife;
+    public AudioSource audioSourceRock;
     Vector3 targetPos   = new Vector3();  // 목표 위치
     Vector3 targetPosWidthDistXFromCenter = new Vector3();  // 중심에서 x거리가 적용된 목표 위치
     Quaternion targetDir = new Quaternion();   // 목표 방향
+
+    // player의 파워(힘)
+    int PlayerPower
+    { get { return 1; } }
 
     Animator ani;
     public Animator Ani
@@ -147,6 +163,7 @@ public class Player : MonoBehaviour {
         playerPosition = 0;
         score = 0;
         flagCount = 0;
+        life = defaultLife;
 
         InitAnimation();
         
@@ -560,6 +577,42 @@ public class Player : MonoBehaviour {
         return GameController.Me.MapController;
     }
    
+    // 데미지를 준다.
+    // return false이면 게임 종료
+    bool ApplyDamage()
+    {
+        // 성공을 못 하면 카메라를 흔든다.
+        Camera.main.SendMessage(Define.Message.Clash);
+
+        // player destory 애니메이션 발동
+        if (ani != null)
+        {
+            ani.ResetTrigger(Define.Trigger.Base);
+            ani.ResetTrigger(Define.Trigger.Level1);
+            ani.SetTrigger(Define.Trigger.Destroy);
+        }
+
+        // life를 하나 깐다.
+        // 단 life가 0개가 되면 죽는다.
+        life--;
+
+        if (life <= 0)
+        {
+            // 3초간 대기한다.
+            GameController.Me.GameOver();
+
+            return false;
+        }
+        // 아니라면 올바른 위치로 이동시켜 준다.
+        else
+        {
+            targetPos = RoadController().GetMapBlockProperty(playerPosition).Position;
+        }
+
+        return true;
+    }
+
+
     // 이동한 위치가 성공인지 체크한다.
     bool CheckSuccess()
     {
@@ -572,25 +625,10 @@ public class Player : MonoBehaviour {
         Vector3 roadBlockPos    = prop.Position;
         // 장애물 블럭이면 실패(점프를 하면 체크하지 않는다)
         // 잘못 이동한 위치라면 실패
-        if (prop.Item == MapBlockProperty.ItemType.eBlank || !roadBlockPos.Equals(targetPos))
+        if (prop.Item == MapBlockProperty.ItemType.eBlank || !roadBlockPos.x.Equals(targetPos.x) || !roadBlockPos.z.Equals(targetPos.z))
         {
-            // 성공을 못 하면 카메라를 흔든다.
-            Camera.main.SendMessage("Clash");
-
-            // player destory 애니메이션 발동
-            if(ani != null)
-            {
-                ani.ResetTrigger("Car_Base");
-                ani.ResetTrigger("Car_Level1"); 
-                ani.SetTrigger("Car_Destory");
-            }
-
-        
-            // 3초간 대기한다.
-            
-            GameController.Me.GameOver();
-
-            return false;
+            if (!ApplyDamage())
+                return false;
         }
         // 이동한 위치가 성공이면 베스트 스코어를 올린다.
         else
@@ -639,9 +677,57 @@ public class Player : MonoBehaviour {
             // flag 개수를 증가시킨다.
             flagCount++;
         }
+        // clock인 경우
+        else if(prop.Item == MapBlockProperty.ItemType.eClock)
+        {
+            if (audioSourceClock)
+                audioSourceClock.Play();
+
+            // 시간을 늘린다.
+            GameMode_EnergyBar energyBarMode = GameController.Me.gameModeController.curGameMode.GetComponent < GameMode_EnergyBar>();
+            if(energyBarMode)
+            {
+                energyBarMode.IncreateEnergyByAmount(5);
+            }
+
+        }
+        // life인 경우
+        else if(prop.Item == MapBlockProperty.ItemType.eLife)
+        {
+            if (audioSourceLife)
+                audioSourceLife.Play();
+
+            life++;
+        }
+        // lock인 경우
+        else if(prop.Item == MapBlockProperty.ItemType.eRock)
+        {
+            if (audioSourceRock)
+                audioSourceRock.Play();
+
+            // rock의 health가 남아 있다면 player를 원래 위치로 이동한다.
+            if (prop.IsRemainHealth())
+            {
+                // damage를 준다.
+                prop.AddDamage(PlayerPower);
+
+                // 원래 위치로 이동
+                MoveToPrevPosition();
+                return;
+            }
+        }
 
         // 해당 item을 삭제한다.
         prop.DeleteItemGameObject();
+    }
+
+    // player를 이전 위치로 옮긴다.
+    void MoveToPrevPosition()
+    {
+        playerPosition--;
+        targetPos = GameController.Me.mapController.GetMapBlockProperty(playerPosition).Position;
+        // 살짝 흔든다.
+        
     }
 
     // turn key가 입력 되었는지?

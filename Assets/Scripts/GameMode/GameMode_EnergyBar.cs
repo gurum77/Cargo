@@ -67,10 +67,25 @@ public class GameMode_EnergyBar : MonoBehaviour {
 
         // 맵을 구성한다.
         if (GameController.Me)
+        {
+            // 시계 아이템 활성화
+            GameController.Me.mapController.EnableItem(Assets.Scripts.Controller.MapBlockProperty.ItemType.eClock, true);
+
             GameController.Me.mapController.MakeMap();
+
+            // 시계 아이템 비활성화
+            GameController.Me.mapController.EnableItem(Assets.Scripts.Controller.MapBlockProperty.ItemType.eClock, false);
+        }
 
     }
 
+    // 에너지를 지정된 양만큼 늘린다.
+    public void IncreateEnergyByAmount(int amount)
+    {
+        remainEnergy += amount;
+        if (remainEnergy > 100)
+            remainEnergy = 100;
+    }
     // 에너지를 늘린다.
     // 추가된 점수만큼 늘려준다.
     void IncreaseEnergy()

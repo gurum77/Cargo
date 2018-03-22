@@ -19,6 +19,9 @@ namespace Assets.Scripts.Controller
             eFlag,
             eExplosion, // 폭발
             eBlank, // 장애물(띄어 넘어야 한다)
+            eClock, // energy bar 모드에서 시간을 늘려줌
+            eLife,  // 모든 게임에서 생명을 1개 증가시킴
+            eRock,  // 여러번을 두둘겨야 사라진다.
             eCount
         };
 
@@ -34,6 +37,40 @@ namespace Assets.Scripts.Controller
         bool left;
         public bool Left
         { get; set; }
+
+        // item의 health가 남아 있는지?
+        public bool IsRemainHealth()
+        {
+            if (Item != ItemType.eRock)
+                return false;
+
+            if (itemGameObject)
+            {
+                Rock rock = itemGameObject.GetComponent<Rock>();
+                if (rock)
+                {
+                    return rock.IsRemainHealth();
+                }
+            }
+
+            return false;
+        }
+
+        // item에 damage를 준다.
+        public void AddDamage(int power)
+        {
+            if (Item != ItemType.eRock)
+                return;
+
+            if(itemGameObject)
+            {
+                Rock rock = itemGameObject.GetComponent<Rock>();
+                if(rock)
+                {
+                    rock.AddDamage(power);
+                }
+            }
+        }
         
         // item object
         GameObject itemGameObject;

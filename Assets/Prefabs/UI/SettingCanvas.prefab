@@ -438,6 +438,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2c1d6c102221b43bb88bc0f79c96ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  modeText: {fileID: 114533194262667484}
+  playerText: {fileID: 114270558567554606}
+  mapText: {fileID: 114473059364417266}
 --- !u!114 &114616188138737610
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -10,6 +10,7 @@ public class GameOverCanvas : MonoBehaviour {
     public Text bestScoreText;
     public Text coinText;
     public Text diamondText;
+    public Text gameOverText;
     public float timeToShowButtons; // 버튼을 보이게 하는 시간
     float timeFromEnable;   // 활성화 된 이후 시간
     public Button[] hideButtons;    // 숨겨야 하는 버튼을
@@ -17,6 +18,8 @@ public class GameOverCanvas : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         timeFromEnable = 0.0f;
+        if (gameOverText)
+            gameOverText.text = LocalizationText.GetText("GameOver");
         HideButtons();
 	}
 	

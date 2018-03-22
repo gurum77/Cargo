@@ -34,11 +34,11 @@ public class GameModeController : MonoBehaviour {
         GameMode gameMode = GetCurGameMode();
 
         if (gameMode == GameMode.eEnergyBarMode)
-            return "Energy bar";
+            return LocalizationText.GetText("Energy bar");
         else if (gameMode == GameMode.e100MMode)
-            return "100M";
+            return LocalizationText.GetText("100M");
         else if (gameMode == GameMode.eFlagMode)
-            return "Flag";
+            return LocalizationText.GetText("Flag");
 
         return "None";
     }

@@ -14,7 +14,7 @@ public class GameModeSelectionCanvas : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("Playground");
+            SceneManager.LoadScene(Define.Scene.Playground);
         }
 	}
 
@@ -22,7 +22,7 @@ public class GameModeSelectionCanvas : MonoBehaviour {
     void ChangeGameMode(GameModeController.GameMode gameMode)
     {
         PlayerPrefs.SetInt(PlayerGameData.GameModeKey, (int)gameMode);
-        SceneManager.LoadScene("Playground");
+        SceneManager.LoadScene(Define.Scene.Playground);
     }
 
     // 에너지바 모드 버튼 클릭

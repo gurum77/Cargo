@@ -15,6 +15,7 @@ public class PlayerSelectionCanvas : MonoBehaviour {
     public Text coinText;
     public Text diamondText;
     public Text selectText;
+    public Text nameText;
     InventoryGameData inventoryGameData;
     PlayerGameData playerGameData;
     public Image coinImage;
@@ -40,7 +41,7 @@ public class PlayerSelectionCanvas : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("Playground");
+            SceneManager.LoadScene(Define.Scene.Playground);
         }
 	}
 
@@ -75,6 +76,12 @@ public class PlayerSelectionCanvas : MonoBehaviour {
             curtain.SetActive(inventoryGameData.characterInfo[index].Enabled ? false : true);
         }
 
+        // 캐릭터 이름
+        if (nameText)
+        {
+            nameText.text = inventoryGameData.characterInfo[index].Name;
+        }
+
         // price text
         if(coinText)
         {
@@ -86,6 +93,8 @@ public class PlayerSelectionCanvas : MonoBehaviour {
             diamondText.text = playerGameData.Diamonds.ToString();
         }
 
+        
+
         // 비활성화 인 경우 글자를 Get로 바꾼다.
         if(selectText)
         {
@@ -96,7 +105,7 @@ public class PlayerSelectionCanvas : MonoBehaviour {
                 if (diamondImage)
                     diamondImage.enabled = false;
 
-                    selectText.text = "SELECT";
+                    selectText.text = LocalizationText.GetText("SELECT");
             }
                 
             else
@@ -201,7 +210,7 @@ public class PlayerSelectionCanvas : MonoBehaviour {
         playerGameData.Save();
         
         inventoryGameData.Save();
-        SceneManager.LoadScene("Playground");
+        SceneManager.LoadScene(Define.Scene.Playground);
     }
 
     // grand ma 버튼 클릭

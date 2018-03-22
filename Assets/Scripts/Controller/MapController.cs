@@ -227,10 +227,14 @@ public class MapController : MonoBehaviour {
                 enabledItem[ix] = false;
             }
 
-            // coin, diamond은 항상 활성화 한다.
+            // coin, diamond, life은 항상 활성화 한다.
             EnableItem(MapBlockProperty.ItemType.eCoin, true);
             EnableItem(MapBlockProperty.ItemType.eBigCoin, true);
             EnableItem(MapBlockProperty.ItemType.eDiamond, true);
+            EnableItem(MapBlockProperty.ItemType.eLife, true);
+
+            // test
+            EnableItem(MapBlockProperty.ItemType.eRock, true);
         }
 	}
 

@@ -12,7 +12,7 @@ namespace Assets.Scripts.Controller
         public static string GetBestScoreString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("Best ");
+            sb.Append(LocalizationText.GetText("Best "));
             // 모드별로 다르게 표시한다.
             GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
             if (curGameMode == GameModeController.GameMode.eEnergyBarMode)

@@ -19,7 +19,7 @@ public class MapSelectionCanvas : MonoBehaviour {
 		
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("Playground");
+            SceneManager.LoadScene(Define.Scene.Playground);
         }
 	}
 
@@ -28,7 +28,7 @@ public class MapSelectionCanvas : MonoBehaviour {
     void ChangeMap(MapController.Map mapType)
     {
         PlayerPrefs.SetInt(PlayerGameData.MapKey, (int)mapType);
-        SceneManager.LoadScene("Playground");
+        SceneManager.LoadScene(Define.Scene.Playground);
     }
 
     

@@ -72,7 +72,7 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eVwVan].Name = LocalizationText.GetText("Van");
                 
         characterInfo[(int)Player.Character.ePoliceHelicopter].Price = 0;
-        characterInfo[(int)Player.Character.ePoliceHelicopter].Diamond  = 100;
+        characterInfo[(int)Player.Character.ePoliceHelicopter].Diamond  = 1;
         characterInfo[(int)Player.Character.ePoliceHelicopter].Name = LocalizationText.GetText("Police helicopter");
 
 

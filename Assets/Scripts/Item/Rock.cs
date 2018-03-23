@@ -8,7 +8,7 @@ public class Rock : MonoBehaviour {
     // 기본 체력
     public int health;
 
-    Vector3 firstPosition;
+    float firstPosition;
     int totalDamage;  // 총 damage
     Animator ani;
     public ParticleSystem damageEffect;
@@ -16,11 +16,9 @@ public class Rock : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
-        // 최초 위치를 보관
-        firstPosition = transform.position;
 
-        totalDamage = 0;
+        // 최초 위치를 보관
+        firstPosition = transform.position.y;
 
         ani = GetComponentInChildren<Animator>();
 	}
@@ -70,8 +68,17 @@ public class Rock : MonoBehaviour {
     // Y scale을 조정한다.
     void AdjustYPosition()
     {
-        Vector3 position = firstPosition;
-        position.y = firstPosition.y - (firstPosition.y * (float)((float)totalDamage / (float)health));
+        Vector3 position = transform.position;
+        position.y = firstPosition - (firstPosition * (float)((float)totalDamage / (float)health));
         transform.position = position;
+    }
+
+
+    void OnEnable()
+    {
+
+        totalDamage = 0;
+
+        
     }
 }

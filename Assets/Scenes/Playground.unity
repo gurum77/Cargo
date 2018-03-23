@@ -1045,7 +1045,7 @@ RectTransform:
   m_Children:
   - {fileID: 1684600962}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1514,7 +1514,7 @@ RectTransform:
   m_Children:
   - {fileID: 1695150231}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2641,7 +2641,7 @@ Prefab:
     - target: {fileID: 114154392330025212, guid: b07dc56ba5bfc674b94c0765ea162bc3,
         type: 2}
       propertyPath: itemGenerationCycle.Array.data[5]
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 114154392330025212, guid: b07dc56ba5bfc674b94c0765ea162bc3,
         type: 2}
@@ -2707,7 +2707,7 @@ Prefab:
     - target: {fileID: 114154392330025212, guid: b07dc56ba5bfc674b94c0765ea162bc3,
         type: 2}
       propertyPath: itemGenerationCycle.Array.data[8]
-      value: 1
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b07dc56ba5bfc674b94c0765ea162bc3, type: 2}
@@ -3136,7 +3136,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &787488376
 GameObject:
@@ -3578,8 +3578,44 @@ MonoBehaviour:
     poolSize: 10
     fixedSize: 0
   - poolName: Flag
-    prefab: {fileID: 1651178460506150, guid: cd2a1fa2adc1276479fc9c4b634b8efb, type: 2}
-    poolSize: 10
+    prefab: {fileID: 1062638580620614, guid: cd2a1fa2adc1276479fc9c4b634b8efb, type: 2}
+    poolSize: 5
+    fixedSize: 0
+  - poolName: Rock
+    prefab: {fileID: 1143428880888822, guid: 7f1473ea1287d8c4cb5f348a9d86738f, type: 2}
+    poolSize: 2
+    fixedSize: 0
+  - poolName: Water4Simple
+    prefab: {fileID: 1695097231796230, guid: 2360d6a7068fcbc49ad5086610d9ec2c, type: 2}
+    poolSize: 2
+    fixedSize: 0
+  - poolName: Fish
+    prefab: {fileID: 1396765729504650, guid: 1f8375eac1c3df944b5039b9ecb65152, type: 2}
+    poolSize: 5
+    fixedSize: 0
+  - poolName: FishBig
+    prefab: {fileID: 1892954588157004, guid: 8343ac096eb49604c9675db1c90bb32b, type: 2}
+    poolSize: 5
+    fixedSize: 0
+  - poolName: Fish2
+    prefab: {fileID: 1445542899361614, guid: 09dffa75258296b44a0693e7e4019728, type: 2}
+    poolSize: 5
+    fixedSize: 0
+  - poolName: Fish3
+    prefab: {fileID: 1488063992277402, guid: 9ef9b6c847a3fe44283233f11516b3e8, type: 2}
+    poolSize: 5
+    fixedSize: 0
+  - poolName: Diamondo
+    prefab: {fileID: 1000013931470818, guid: 5c02591794acece409986647ed6329a7, type: 2}
+    poolSize: 2
+    fixedSize: 0
+  - poolName: life
+    prefab: {fileID: 1133398593192248, guid: 8b22578bfb1b16e479299c83a4459f8d, type: 2}
+    poolSize: 2
+    fixedSize: 0
+  - poolName: Ef_Explosion_01 (1)
+    prefab: {fileID: 1422490939470046, guid: c8860fa225a80f7478e795056d959c8e, type: 2}
+    poolSize: 2
     fixedSize: 0
 --- !u!4 &883610216
 Transform:
@@ -3592,7 +3628,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &885045478 stripped
 RectTransform:
@@ -3915,7 +3951,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &995565825 stripped
 MonoBehaviour:
@@ -4023,7 +4059,7 @@ RectTransform:
   m_Children:
   - {fileID: 488950392}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4241,7 +4277,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1271209307
 GameObject:
@@ -4414,6 +4450,9 @@ MonoBehaviour:
   - {fileID: 1527043043155158, guid: 4933a2542455ded4cae7c30216fefc63, type: 2}
   - {fileID: 1975509104324868, guid: 19eab2c0ecfd0684a875aaa75634fb35, type: 2}
   - {fileID: 1072192278710370, guid: 653a4c8f8b8010b429257bb1bd17aa34, type: 2}
+  - {fileID: 1993070692023474, guid: af68f6ffff31ff64c93521a587d234b1, type: 2}
+  - {fileID: 1866390378080362, guid: ea09f74638baa144b976a6d30cfeb5c0, type: 2}
+  - {fileID: 1127895931938010, guid: 6a3c3be630de526439747694c0304cc2, type: 2}
   audioSourceTick: {fileID: 1301157846}
   audioSourceCoin: {fileID: 1301157845}
   audioSourceDiamond: {fileID: 0}
@@ -4715,7 +4754,7 @@ Transform:
   - {fileID: 526823097}
   - {fileID: 546324612}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1309954301
 MonoBehaviour:
@@ -5173,7 +5212,7 @@ RectTransform:
   m_Children:
   - {fileID: 1350455119}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5446,48 +5485,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 401279735}
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
---- !u!1001 &1748396163
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4816106922954470, guid: c7734b1fc7360b143bd5654f399774fc, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816106922954470, guid: c7734b1fc7360b143bd5654f399774fc, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816106922954470, guid: c7734b1fc7360b143bd5654f399774fc, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816106922954470, guid: c7734b1fc7360b143bd5654f399774fc, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816106922954470, guid: c7734b1fc7360b143bd5654f399774fc, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816106922954470, guid: c7734b1fc7360b143bd5654f399774fc, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816106922954470, guid: c7734b1fc7360b143bd5654f399774fc, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4816106922954470, guid: c7734b1fc7360b143bd5654f399774fc, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: c7734b1fc7360b143bd5654f399774fc, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1760352600 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1272764793128792, guid: 050398d72feab6548a37911525d63756,
@@ -5547,6 +5544,9 @@ MonoBehaviour:
   - {fileID: 1527043043155158, guid: 4933a2542455ded4cae7c30216fefc63, type: 2}
   - {fileID: 1975509104324868, guid: 19eab2c0ecfd0684a875aaa75634fb35, type: 2}
   - {fileID: 1072192278710370, guid: 653a4c8f8b8010b429257bb1bd17aa34, type: 2}
+  - {fileID: 1993070692023474, guid: af68f6ffff31ff64c93521a587d234b1, type: 2}
+  - {fileID: 1866390378080362, guid: ea09f74638baa144b976a6d30cfeb5c0, type: 2}
+  - {fileID: 1127895931938010, guid: 6a3c3be630de526439747694c0304cc2, type: 2}
   audioSourceTick: {fileID: 1765644315}
   audioSourceCoin: {fileID: 1765644316}
   audioSourceDiamond: {fileID: 0}
@@ -7038,7 +7038,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2143675365
 GameObject:

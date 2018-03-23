@@ -21,7 +21,7 @@ namespace Assets.Scripts.Controller
             // 등록이 안된 경우이다. 에러 방지를 위해서 등록해준다.
             if(obj == null)
             {
-                EasyObjectPool.instance.AddPools(prefab.name, prefab, 10, false);
+                EasyObjectPool.instance.AddPools(prefab.name, prefab, 2, false);
                 obj = EasyObjectPool.instance.GetObjectFromPool(prefab.name, position, rotation);
             }
 

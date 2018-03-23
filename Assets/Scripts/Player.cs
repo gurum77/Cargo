@@ -22,6 +22,9 @@ public class Player : MonoBehaviour {
         eInterceptor,
         eCybog,
         eDevil,
+        eChicken,
+        eCondor,
+        eDragon,
         eCount
     };
 

@@ -88,6 +88,18 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eDevil].Price = 0;
         characterInfo[(int)Player.Character.eDevil].Diamond = 200;
         characterInfo[(int)Player.Character.eDevil].Name = LocalizationText.GetText("Devil");
+
+        characterInfo[(int)Player.Character.eChicken].Price = 100000;
+        characterInfo[(int)Player.Character.eChicken].Diamond = 0;
+        characterInfo[(int)Player.Character.eChicken].Name = LocalizationText.GetText("Chicken");
+
+        characterInfo[(int)Player.Character.eCondor].Price = 100000;
+        characterInfo[(int)Player.Character.eCondor].Diamond = 0;
+        characterInfo[(int)Player.Character.eCondor].Name = LocalizationText.GetText("Condor");
+
+        characterInfo[(int)Player.Character.eDragon].Price = 300000;
+        characterInfo[(int)Player.Character.eDragon].Diamond = 0;
+        characterInfo[(int)Player.Character.eDragon].Name = LocalizationText.GetText("Dragon");
     }
     #region 게임 데이타 저장 키 정의
     

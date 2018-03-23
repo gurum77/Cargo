@@ -12,6 +12,7 @@ public class GameMode_Flag : MonoBehaviour {
     // level 10단위로 추가 출현하는 장애물
     public GameObject[] obstacleItemByLevel10;  // 
 
+
     // 현재 단계에서의 목표 깃발개수를 생성한다.
     int curTargetFlagCount;
     void GenerateCurTargetFlagCount()
@@ -117,8 +118,6 @@ public class GameMode_Flag : MonoBehaviour {
         {
             GameController.Me.GameOver();
         }
-
-
     }
 
     int GetLevel()
@@ -147,6 +146,7 @@ public class GameMode_Flag : MonoBehaviour {
     {
         GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eExplosion, false);
         GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eBlank, false);
+        GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eRock, false);
     }
 
     // 레벨별 출현 장애물 설정
@@ -206,43 +206,97 @@ public class GameMode_Flag : MonoBehaviour {
         }
 
         // ai player를 활성화 한다.
-        if(com)
+        SetAIPlayer();
+        
+        // 보스 레벨 설정
+        if(IsBossLevel())
         {
-            CargoAI ai = com.GetComponent<CargoAI>();
-            if(ai)
+            SetBossLevel();
+        }
+    }
+
+    // AI player를 설정한다.
+    void SetAIPlayer()
+    {
+        if (com == null)
+            return;
+
+
+        CargoAI ai = com.GetComponent<CargoAI>();
+        if (ai)
+        {
+            // com의 이동 간격
+            ai.targetMovingInterval = startComMovingInterval;
+
+            // level에 따라서 제곱근 만큼씩 줄어든다.
+            int level = GetLevel();
+            float diff = 0.0f;
+            for (int ix = 0; ix < level; ++ix)
             {
-                // com의 이동 간격
-                ai.targetMovingInterval = startComMovingInterval;
+                diff = ai.targetMovingInterval * (decreaseRateComMovingIntervalByLevel / (ix + 1));
 
-                // level에 따라서 제곱근 만큼씩 줄어든다.
-                int level = GetLevel();
-                float diff = 0.0f;
-                for (int ix = 0; ix < level; ++ix)
-                {
-                    diff = ai.targetMovingInterval * (decreaseRateComMovingIntervalByLevel / (ix+1));
-                    
-                    ai.targetMovingInterval = ai.targetMovingInterval - diff;
-                }
+                ai.targetMovingInterval = ai.targetMovingInterval - diff;
             }
-
-            // com 캐릭터를 랜덤하게 정해준다.
-            com.GameData.CharacterType = (Player.Character)Random.Range(0, (int)Player.Character.eCount - 1);
-            com.MakeCharacterGameObject();
-            com.enabled = true;
-
-            // com 캐릭터의 위치
-            com.DistXFromCenter = distXFromCenter;
-
-            // com 캐릭터의 스케일
-            com.transform.localScale = new Vector3(playerScale, playerScale, playerScale);
-
-            // player의 위치
-            GameController.Me.Player.DistXFromCenter = distXFromCenter * -1;
-
-            // player의 스케일
-            GameController.Me.Player.transform.localScale = new Vector3(playerScale, playerScale, playerScale);
         }
 
+        // com 캐릭터를 랜덤하게 정해준다.
+        com.GameData.CharacterType = (Player.Character)Random.Range(0, (int)Player.Character.eCount - 1);
+        com.MakeCharacterGameObject();
+        com.enabled = true;
+
+        // com 캐릭터의 위치
+        com.DistXFromCenter = distXFromCenter;
+
+        // com 캐릭터의 스케일
+        com.transform.localScale = new Vector3(playerScale, playerScale, playerScale);
+
+        // player의 위치
+        GameController.Me.Player.DistXFromCenter = distXFromCenter * -1;
+
+        // player의 스케일
+        GameController.Me.Player.transform.localScale = new Vector3(playerScale, playerScale, playerScale);
+    }
+
+    // com player가 item으로 공격을 한다.
+    void Attack(int position, MapBlockProperty.ItemType itemType)
+    {
+        // 3번째 칸에 바위를 하나 던진다.
+        MapBlockProperty prop = GameController.Me.mapController.GetMapBlockProperty(position);
+        if (prop != null)
+        {
+            // 기존 item game object가 있다면 지운다.
+            prop.DeleteItemGameObject();
+
+            // 새로운 item type을 설정한다.
+            prop.Item = itemType;
+
+            // item game object를 만든다.
+            GameController.Me.mapController.MakeItem(position, prop.Position, position);
+        }
+    }
+
+    // 보스 레벨을 설정한다.
+    void SetBossLevel()
+    {
+        // com을 10칸 앞에서 시작한다.
+        com.MoveForwardToValidWay(10);
+
+        
+        // 3칸에 바위 공격을 한다.
+        Attack(3, MapBlockProperty.ItemType.eRock);
+
+        // 보스는 좀 크게 한다.
+        com.transform.localScale = new Vector3(2, 2, 2);
+    }
+
+    // 보스 레벨인지?
+    bool IsBossLevel()
+    {
+        int level = GetLevel();
+        if (level > 0 && level % 10 == 0)
+            return true;
+
+        return false;
     }
 
     void InitImageList()

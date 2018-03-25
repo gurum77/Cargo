@@ -240,7 +240,7 @@ public class PlayerSelectionCanvas : MonoBehaviour {
     // Car 버튼 클릭
     public void OnCarButtonClicked()
     {
-        ChangePlayer(Player.Character.eCar);
+        ChangePlayer(Player.Character.eSportsCar);
     }
 
     // Truck 버튼 클릭

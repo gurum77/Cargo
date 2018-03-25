@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Controller;
+using Assets.Scripts;
 
 /// <summary>
 /// player game object 스크립트
@@ -14,7 +15,7 @@ public class Player : MonoBehaviour {
         eAmbulance=0,
         eFiretruck,
         ePolice,
-        eCar,
+        eSportsCar,
         eTruck,
         eTaxi,
         eVwVan,
@@ -50,6 +51,8 @@ public class Player : MonoBehaviour {
         get { return playerPosition; } 
     }
 
+    PlayerGroggy groggy = new PlayerGroggy();
+
     int score;  // 현재 점수
     int flagCount;   // 현재 깃발 개수
     int combo;  // 정해진 시간내에 이동한 횟수
@@ -63,6 +66,7 @@ public class Player : MonoBehaviour {
 
     public GameObject targetGameObject;
     public ParticleSystem turnEffect;
+    public ParticleSystem groggyEffect;
 
 
     // 변신에 필요한 콤보
@@ -138,12 +142,7 @@ public class Player : MonoBehaviour {
     public void InitAnimation()
     {
         ani = GetComponentInChildren<Animator>();
-        if (ani != null)
-        {
-            ani.SetTrigger(Define.Trigger.Base);
-            ani.ResetTrigger(Define.Trigger.Level1);
-            ani.ResetTrigger(Define.Trigger.Destroy);
-        }
+        SetTrigger(Define.Trigger.Base);
     }
 
     public PlayerGameData GameData
@@ -157,7 +156,9 @@ public class Player : MonoBehaviour {
 
     void OnEnable()
     {
-        
+        // 그로기 상태를 끝낸다.
+        groggy.EndGroggy();
+
         transform.position = new Vector3(0, 0, 0);
         transform.rotation = Quaternion.Euler(0, 45, 0);
         targetPos = new Vector3(0, 0, 0);
@@ -253,8 +254,12 @@ public class Player : MonoBehaviour {
             }
         }
     }
-      
-  
+
+    private void FixedUpdate()
+    {
+        groggy.AddTimeInGroggy(Time.deltaTime);
+    }
+
 
     // Update is called once per frame
     void Update () {
@@ -266,7 +271,8 @@ public class Player : MonoBehaviour {
             combo = 0;
 
         // play 중인 경우에만 입력을 받는다.
-        if(GameController.Me.GameState == GameController.State.ePlay)
+        // groggy가 아닐때만 입력을 받는다.
+        if(GameController.Me.GameState == GameController.State.ePlay && !groggy.IsGroggy)
         {
             // 변신 체크
             CheckLevel();
@@ -588,13 +594,8 @@ public class Player : MonoBehaviour {
         Camera.main.SendMessage(Define.Message.Clash);
 
         // player destory 애니메이션 발동
-        if (ani != null)
-        {
-            ani.ResetTrigger(Define.Trigger.Base);
-            ani.ResetTrigger(Define.Trigger.Level1);
-            ani.SetTrigger(Define.Trigger.Destroy);
-        }
-
+        SetTrigger(Define.Trigger.Destroy);
+       
         // life를 하나 깐다.
         // 단 life가 0개가 되면 죽는다.
         life--;
@@ -606,15 +607,38 @@ public class Player : MonoBehaviour {
 
             return false;
         }
-        // 아니라면 올바른 위치로 이동시켜 준다.
+        // 아니라면 이전위치로 이동한다.
         else
         {
-            targetPos = RoadController().GetMapBlockProperty(playerPosition).Position;
+            MoveToPrevPosition();
+
+            // 1동안 움직이지 못한다.(그로기 상태이다)
+            groggy.StartGroggy();
+
+            // 그로기 효과
+            if (groggyEffect)
+                groggyEffect.Play();
         }
 
         return true;
     }
 
+    // 모든 animation을 reset을 하고 지정된 trigger만 set을 한다.
+    void SetTrigger(string trigger)
+    {
+        if (ani == null)
+            return;
+
+       
+        if(trigger != Define.Trigger.Base)
+            ani.ResetTrigger(Define.Trigger.Base);
+        if(trigger != Define.Trigger.Level1)
+            ani.ResetTrigger(Define.Trigger.Level1);
+        if(trigger != Define.Trigger.Destroy)
+            ani.ResetTrigger(Define.Trigger.Destroy);
+
+        ani.SetTrigger(trigger);
+    }
 
     // 이동한 위치가 성공인지 체크한다.
     bool CheckSuccess()

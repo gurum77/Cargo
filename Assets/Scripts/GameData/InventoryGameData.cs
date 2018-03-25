@@ -59,8 +59,9 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.ePolice].Price = 50000;
         characterInfo[(int)Player.Character.ePolice].Name = LocalizationText.GetText("Police car");
 
-        characterInfo[(int)Player.Character.eCar].Price = 50000;
-        characterInfo[(int)Player.Character.eCar].Name = LocalizationText.GetText("Just car");
+        characterInfo[(int)Player.Character.eSportsCar].Price = 0;
+        characterInfo[(int)Player.Character.eSportsCar].Diamond = 320;
+        characterInfo[(int)Player.Character.eSportsCar].Name = LocalizationText.GetText("Sports car");
 
         characterInfo[(int)Player.Character.eTruck].Price = 50000;
         characterInfo[(int)Player.Character.eTruck].Name = LocalizationText.GetText("Truck");

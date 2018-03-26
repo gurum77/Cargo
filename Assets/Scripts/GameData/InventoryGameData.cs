@@ -21,12 +21,29 @@ public class CharacterInfo
     public string Name
     { get; set; }
 
+    public float Speed
+    { get; set; }
+
+    public int DefaultLife
+    { get; set; }
+
+    public int Power
+    { get; set; }
+
+    // 코인 획득률
+    public float CoinRate
+    { get; set; }
+
     public CharacterInfo()
     {
         Price = 0;
         Diamond = 0;
         Enabled = false;
         Name = "";
+        Speed = 7.0f;
+        DefaultLife = 2;
+        Power = 1;
+        CoinRate = 1.0f;
     }
 }
 
@@ -36,6 +53,8 @@ public class InventoryGameData
     #region 데이타 
     public CharacterInfo []characterInfo   = new CharacterInfo[(int)Player.Character.eCount];
     #endregion
+
+    
 
     // 초기화
     // 1개만 빼고 모두 비활성화 한다.
@@ -58,37 +77,49 @@ public class InventoryGameData
 
         characterInfo[(int)Player.Character.ePolice].Price = 50000;
         characterInfo[(int)Player.Character.ePolice].Name = LocalizationText.GetText("Police car");
+        characterInfo[(int)Player.Character.ePolice].Speed = 8;
 
         characterInfo[(int)Player.Character.eSportsCar].Price = 0;
         characterInfo[(int)Player.Character.eSportsCar].Diamond = 320;
         characterInfo[(int)Player.Character.eSportsCar].Name = LocalizationText.GetText("Sports car");
+        characterInfo[(int)Player.Character.eSportsCar].Speed = 10;
 
         characterInfo[(int)Player.Character.eTruck].Price = 50000;
         characterInfo[(int)Player.Character.eTruck].Name = LocalizationText.GetText("Truck");
+        characterInfo[(int)Player.Character.eTruck].Speed = 4;
+        characterInfo[(int)Player.Character.eTruck].Power = 2;
 
         characterInfo[(int)Player.Character.eTaxi].Price = 50000;
         characterInfo[(int)Player.Character.eTaxi].Name = LocalizationText.GetText("Taxi");
 
         characterInfo[(int)Player.Character.eVwVan].Price = 50000;
         characterInfo[(int)Player.Character.eVwVan].Name = LocalizationText.GetText("Van");
+        characterInfo[(int)Player.Character.eVwVan].Speed = 6;
                 
         characterInfo[(int)Player.Character.ePoliceHelicopter].Price = 0;
-        characterInfo[(int)Player.Character.ePoliceHelicopter].Diamond  = 1;
+        characterInfo[(int)Player.Character.ePoliceHelicopter].Diamond  = 100;
         characterInfo[(int)Player.Character.ePoliceHelicopter].Name = LocalizationText.GetText("Police helicopter");
+        characterInfo[(int)Player.Character.ePoliceHelicopter].Speed = 7.5f;
+        characterInfo[(int)Player.Character.ePoliceHelicopter].CoinRate = 1.2f;
 
 
         characterInfo[(int)Player.Character.eInterceptor].Price = 0;
         characterInfo[(int)Player.Character.eInterceptor].Diamond = 100;
         characterInfo[(int)Player.Character.eInterceptor].Name = LocalizationText.GetText("International police car");
+        characterInfo[(int)Player.Character.eInterceptor].Speed = 7.5f;
+        characterInfo[(int)Player.Character.eInterceptor].CoinRate = 1.2f;
 
 
         characterInfo[(int)Player.Character.eCybog].Price = 0;
         characterInfo[(int)Player.Character.eCybog].Diamond = 100;
         characterInfo[(int)Player.Character.eCybog].Name = LocalizationText.GetText("Cybog");
+        characterInfo[(int)Player.Character.eCybog].Power = 3;
+        characterInfo[(int)Player.Character.eCybog].DefaultLife = 3;
 
         characterInfo[(int)Player.Character.eDevil].Price = 0;
         characterInfo[(int)Player.Character.eDevil].Diamond = 200;
         characterInfo[(int)Player.Character.eDevil].Name = LocalizationText.GetText("Devil");
+        characterInfo[(int)Player.Character.eDevil].DefaultLife = 3;
 
         characterInfo[(int)Player.Character.eChicken].Price = 100000;
         characterInfo[(int)Player.Character.eChicken].Diamond = 0;
@@ -101,6 +132,7 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eDragon].Price = 300000;
         characterInfo[(int)Player.Character.eDragon].Diamond = 0;
         characterInfo[(int)Player.Character.eDragon].Name = LocalizationText.GetText("Dragon");
+        characterInfo[(int)Player.Character.eDragon].Power = 4;
     }
     #region 게임 데이타 저장 키 정의
     

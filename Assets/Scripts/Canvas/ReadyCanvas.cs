@@ -132,5 +132,15 @@ public class ReadyCanvas : MonoBehaviour {
     public void OnLeaderBoardButtonClicked()
     {
         
+
+    }
+
+    public void OnGameDataEditorButtonClicked()
+    {
+        // game data를 저장한다.
+        GameController.Me.SaveGameData();
+
+        // player 선택 신으로 변경한다.
+        SceneManager.LoadScene(Define.Scene.PlayerDataEditor);
     }
 }

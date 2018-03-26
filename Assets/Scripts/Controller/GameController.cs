@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour {
     }
 
     // 캐릭터 정보 게임 데이타
-    InventoryGameData inventoryGameData = new InventoryGameData();
+    InventoryGameData inventoryGameData;
     public InventoryGameData InventoryGameData
     {
         get { return inventoryGameData; }
@@ -195,15 +195,16 @@ public class GameController : MonoBehaviour {
 
     void Awake()
     {
+        QualitySettings.vSyncCount = 0;
+
         SetLocalizationBySystemLanguage();
+        Me = this;
+        inventoryGameData = new InventoryGameData();
     }
 
 	// Use this for initialization
 	void Start () {
 
-        QualitySettings.vSyncCount = 0;
-    
-        Me = this;
 
         // control type 지정
         controlType = Control.eControl_MoveOnly;

@@ -36,6 +36,20 @@ public class PlayerGameData
 
     public int FlagModeLevel
     { get; set; }
+
+    public int AddedPower
+    { get; set; }
+
+    public float AddedSpeed
+    { get; set; }
+
+    public int AddedDefaultLife
+    { get; set; }
+
+    public float AddedCoinRate
+    { get; set; }
+
+    
     #endregion
 
     #region 게임 데이타 저장 키 정의
@@ -87,6 +101,27 @@ public class PlayerGameData
         get { return "FlagModeLevelKey"; }
     }
 
+    static public string AddedPowerKey
+    {
+        get{ return "AddedPowerKey"; }
+    }
+
+    static public string AddedSpeedKey
+    {
+        get{ return "AddedSpeedKey"; }
+    }
+
+    static public string AddedDefaultLifeKey
+    {
+        get{ return "AddedDefaultLifeKey"; }
+    }
+
+    static public string AddedCoinRateKey
+    {
+        get{ return "AddedCoinRateKey"; }
+    }
+
+   
     #endregion
 
     #region 게임 데이타를 저장하는 함수
@@ -119,6 +154,18 @@ public class PlayerGameData
 
         // flag 모드 레벨
         PlayerPrefs.SetInt(PlayerGameData.FlagModeLevelKey, FlagModeLevel);
+
+        // 추가된 power
+        PlayerPrefs.SetInt(PlayerGameData.AddedPowerKey, AddedPower);
+
+        // 추가된 speed
+        PlayerPrefs.SetFloat(PlayerGameData.AddedSpeedKey, AddedSpeed);
+
+        // 추가된 default life
+        PlayerPrefs.SetInt(PlayerGameData.AddedDefaultLifeKey, AddedDefaultLife);
+
+        // 추가된 coin rate
+        PlayerPrefs.SetFloat(PlayerGameData.AddedCoinRateKey, AddedCoinRate);
     }
 #endregion
 
@@ -153,6 +200,18 @@ public class PlayerGameData
 
         // flag 모드 레벨
         FlagModeLevel = PlayerPrefs.GetInt(PlayerGameData.FlagModeLevelKey);
+
+        // 추가된 power
+        AddedPower = PlayerPrefs.GetInt(PlayerGameData.AddedPowerKey);
+
+        // 추가된 speed
+        AddedSpeed  = PlayerPrefs.GetFloat(PlayerGameData.AddedSpeedKey);
+
+        // 추가된 default life
+        AddedDefaultLife    = PlayerPrefs.GetInt(PlayerGameData.AddedDefaultLifeKey);
+
+        // 추가된 coin rate
+        AddedCoinRate   = PlayerPrefs.GetFloat(PlayerGameData.AddedCoinRateKey);
 
     }
 #endregion

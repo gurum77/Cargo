@@ -42,8 +42,13 @@ public class Player : MonoBehaviour {
     public int Life
     { get { return life; } }
 
-    public int defaultLife;    // 기본 life 카운트
-    public float speed; // 진행 속도
+    // 추가된 속성들 ////////
+    public int addedDefaultLife;    // 추가된 기본 life 카운트
+    public float addedSpeed; // 추가된 진행 속도
+    public int addedPower;   // 파워(공격할때 힘)
+    public float addedCoinRate; // 추가된 코인 획득률
+    ////////////////////////
+
     public float rotationSpeed; // 회전 속도
     int playerPosition; // 현재 player의 position
     public int PlayerPosition
@@ -83,10 +88,28 @@ public class Player : MonoBehaviour {
     Vector3 targetPosWidthDistXFromCenter = new Vector3();  // 중심에서 x거리가 적용된 목표 위치
     Quaternion targetDir = new Quaternion();   // 목표 방향
 
-    // player의 파워(힘)
-    int PlayerPower
-    { get { return 1; } }
+    // 실제 스피드(기본 speed에 + 추가 speed)
+    float GetRealSpeed()
+    {
+        return addedSpeed + GameController.Me.InventoryGameData.characterInfo[(int)GameData.CharacterType].Speed;
+    }
 
+    int GetRealPower()
+    {
+        return addedPower + GameController.Me.InventoryGameData.characterInfo[(int)GameData.CharacterType].Power;
+    }
+
+    int GetRealDefaultLife()
+    {
+        return addedDefaultLife + GameController.Me.InventoryGameData.characterInfo[(int)GameData.CharacterType].DefaultLife;
+    }
+
+    float GetRealCoinRate()
+    {
+        return addedCoinRate + GameController.Me.InventoryGameData.characterInfo[(int)GameData.CharacterType].CoinRate;
+    }
+
+   
     Animator ani;
     public Animator Ani
     {
@@ -167,7 +190,7 @@ public class Player : MonoBehaviour {
         playerPosition = 0;
         score = 0;
         flagCount = 0;
-        life = defaultLife;
+        life = GetRealDefaultLife();
 
         InitAnimation();
         
@@ -177,7 +200,7 @@ public class Player : MonoBehaviour {
     public void AddCoins(int addCoins)
     {
         // 현재 레벨에 따라 곱해준다.
-        gameData.Coins = gameData.Coins + (addCoins * (GetLevel()+1));
+        gameData.Coins = gameData.Coins + (int)((addCoins * (GetLevel()+1)) * GetRealCoinRate());
     }
 
     // diamond를 추가한다.
@@ -303,7 +326,7 @@ public class Player : MonoBehaviour {
             targetPosWidthDistXFromCenter = targetPos;
             targetPosWidthDistXFromCenter.x += DistXFromCenter;
 
-            transform.position = Vector3.Lerp(transform.position, targetPosWidthDistXFromCenter, speed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, targetPosWidthDistXFromCenter, GetRealSpeed() * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetDir, rotationSpeed * Time.deltaTime);
         }
 
@@ -602,7 +625,6 @@ public class Player : MonoBehaviour {
 
         if (life <= 0)
         {
-            // 3초간 대기한다.
             GameController.Me.GameOver();
 
             return false;
@@ -736,7 +758,7 @@ public class Player : MonoBehaviour {
             if (prop.IsRemainHealth())
             {
                 // damage를 준다.
-                prop.AddDamage(PlayerPower);
+                prop.AddDamage(GetRealPower());
 
                 // 원래 위치로 이동
                 MoveToPrevPosition();

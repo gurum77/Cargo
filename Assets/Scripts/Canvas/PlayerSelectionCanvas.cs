@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Assets.Scripts.Controller;
 using UnityEngine.UI;
+using ProgressBar;
 
 public class PlayerSelectionCanvas : MonoBehaviour {
 
@@ -20,6 +21,9 @@ public class PlayerSelectionCanvas : MonoBehaviour {
     PlayerGameData playerGameData;
     public Image coinImage;
     public Image diamondImage;
+    public ProgressBarBehaviour powerProgressbar;
+    public ProgressBarBehaviour speedProgressbar;
+    public ProgressBarBehaviour coinProgressbar;
 
 	// Use this for initialization
 	void Start () {
@@ -35,6 +39,9 @@ public class PlayerSelectionCanvas : MonoBehaviour {
 
         previewCharacterType = (Player.Character)PlayerPrefs.GetInt(PlayerGameData.CharacterKey);
         CreatePreviewCharacter();
+
+        if(powerProgressbar)
+            powerProgressbar.SetFillerSize(100);
     }
 	
 	// Update is called once per frame
@@ -93,7 +100,20 @@ public class PlayerSelectionCanvas : MonoBehaviour {
             diamondText.text = playerGameData.Diamonds.ToString();
         }
 
-        
+        if(powerProgressbar)
+        {
+            powerProgressbar.Value = ((float)(playerGameData.AddedPower + inventoryGameData.characterInfo[index].Power) / (float)Define.Max.MaxPower) * 100.0f;  
+        }
+
+        if (speedProgressbar)
+        {
+            speedProgressbar.Value = ((float)(playerGameData.AddedSpeed + inventoryGameData.characterInfo[index].Speed) / (float)Define.Max.MaxSpeed) * 100.0f;
+        }
+
+        if (coinProgressbar)
+        {
+            coinProgressbar.Value = ((float)(playerGameData.AddedCoinRate + inventoryGameData.characterInfo[index].CoinRate) / (float)Define.Max.MaxCoinRate) * 100.0f;
+        }
 
         // 비활성화 인 경우 글자를 Get로 바꾼다.
         if(selectText)

@@ -82,6 +82,9 @@ public class GameModeController : MonoBehaviour {
             item.transform.SetParent(hiddenItemByGameMode.transform);
         }
 
+        // item 활성화를 기본값을 설정한다.
+        GameController.Me.mapController.SetDefaultEnableItem();
+
         // hidden item은 숨기고
         hiddenItemByGameMode.SetActive(false);
 

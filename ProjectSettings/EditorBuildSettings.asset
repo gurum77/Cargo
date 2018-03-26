@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MapSelection.unity
     guid: cc098f6e8928b7c439befec2da6319f2
+  - enabled: 1
+    path: Assets/Scenes/PlayerDataEditor.unity
+    guid: 08483e44c3b39de4695d8df73e4da3d0

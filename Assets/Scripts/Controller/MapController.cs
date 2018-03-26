@@ -219,10 +219,17 @@ public class MapController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        SetDefaultEnableItem();
+	}
+
+    // item 활성화를 기본값으로 설정한다.
+    // 나와야 하는 것만 나오게 한다.
+    public void SetDefaultEnableItem()
+    {
         // enabled item 배열 초기화
         {
             System.Array.Resize<bool>(ref enabledItem, (int)MapBlockProperty.ItemType.eCount);
-            for(int ix = 0; ix < enabledItem.Length; ++ix)
+            for (int ix = 0; ix < enabledItem.Length; ++ix)
             {
                 enabledItem[ix] = false;
             }
@@ -232,11 +239,8 @@ public class MapController : MonoBehaviour {
             EnableItem(MapBlockProperty.ItemType.eBigCoin, true);
             EnableItem(MapBlockProperty.ItemType.eDiamond, true);
             EnableItem(MapBlockProperty.ItemType.eLife, true);
-
-            // test
-            EnableItem(MapBlockProperty.ItemType.eRock, true);
         }
-	}
+    }
 
     // road block 목록을 만든다.
     // 랜덤하게 만든다.(추후에 알고리즘 적용할 필요가 있다)

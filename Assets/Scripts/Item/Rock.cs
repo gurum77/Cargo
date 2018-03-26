@@ -51,7 +51,7 @@ public class Rock : MonoBehaviour {
         if(destroyEffect)
         {
             // 남은 채력이 없거나 반이하로 남았을때
-            if (!IsRemainHealth() || (totalDamage > health / 2 && !destroyEffect.isPlaying))
+            if (!IsRemainHealth())
             {
                 destroyEffect.Play();
             }

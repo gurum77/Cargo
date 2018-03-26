@@ -27,10 +27,19 @@ namespace Define
         static public readonly string GameModeSelection = "GameModeSelection";
         static public readonly string MapSelection = "MapSelection";
         static public readonly string PlayerSelection = "PlayerSelection";
+        static public readonly string PlayerDataEditor = "PlayerDataEditor";
     }
 
     public class Message
     {
         static public readonly string Clash = "Clash";
+    }
+
+    public class Max
+    {
+        static public readonly int MaxDefaultLife = 5;
+        static public readonly int MaxPower = 10;
+        static public readonly float MaxSpeed = 20.0f;
+        static public readonly float MaxCoinRate = 5.0f;
     }
 }

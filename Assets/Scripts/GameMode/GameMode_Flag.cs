@@ -279,7 +279,7 @@ public class GameMode_Flag : MonoBehaviour {
     void SetBossLevel()
     {
         // com을 10칸 앞에서 시작한다.
-        com.MoveForwardToValidWay(10);
+        com.MoveForwardToValidWay(15);
 
         
         // 3칸에 바위 공격을 한다.

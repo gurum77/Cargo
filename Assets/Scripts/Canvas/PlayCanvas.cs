@@ -12,9 +12,13 @@ public class PlayCanvas : MonoBehaviour {
     public Text diamondText;
     public Text comboText;
     public Text lifeText;
+    public Text realDefaultLifeText;
+    public Text realCoinText;
+    public Text realPowerText;
+    public Text realSpeedText;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -35,6 +39,9 @@ public class PlayCanvas : MonoBehaviour {
 
         // display life
         DisplayLife();
+
+        // display added property
+        DisplayAddedProperty();
 	}
 
     // 카메라 버튼 클릭
@@ -131,5 +138,19 @@ public class PlayCanvas : MonoBehaviour {
         }
 
         lifeText.text = GameController.Me.player.Life.ToString();
+    }
+
+    // 추가된 속성 출력
+    void DisplayAddedProperty()
+    {
+
+        if (realDefaultLifeText)
+            realDefaultLifeText.text = StringMaker.GetRealDefaultLifeString();
+        if (realCoinText)
+            realCoinText.text = StringMaker.GetRealCoinRateString();
+        if (realPowerText)
+            realPowerText.text = StringMaker.GetRealPowerString();
+        if (realSpeedText)
+            realSpeedText.text = StringMaker.GetRealSpeedString();
     }
 }

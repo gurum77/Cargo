@@ -89,22 +89,22 @@ public class Player : MonoBehaviour {
     Quaternion targetDir = new Quaternion();   // 목표 방향
 
     // 실제 스피드(기본 speed에 + 추가 speed)
-    float GetRealSpeed()
+    public float GetRealSpeed()
     {
         return addedSpeed + GameController.Me.InventoryGameData.characterInfo[(int)GameData.CharacterType].Speed;
     }
 
-    int GetRealPower()
+    public int GetRealPower()
     {
         return addedPower + GameController.Me.InventoryGameData.characterInfo[(int)GameData.CharacterType].Power;
     }
 
-    int GetRealDefaultLife()
+    public int GetRealDefaultLife()
     {
         return addedDefaultLife + GameController.Me.InventoryGameData.characterInfo[(int)GameData.CharacterType].DefaultLife;
     }
 
-    float GetRealCoinRate()
+    public float GetRealCoinRate()
     {
         return addedCoinRate + GameController.Me.InventoryGameData.characterInfo[(int)GameData.CharacterType].CoinRate;
     }
@@ -344,7 +344,7 @@ public class Player : MonoBehaviour {
         transform.position = targetPos;
         transform.rotation = targetDir;
     }
-    int GetLevel()
+    public int GetLevel()
     {
         if (level1Combo < Combo)
             return 1;

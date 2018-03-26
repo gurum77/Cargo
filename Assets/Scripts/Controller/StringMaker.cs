@@ -104,6 +104,53 @@ namespace Assets.Scripts.Controller
 
             return "";
         }
-        
+
+        //  실제 기본 하트 문자열
+        public static string GetRealDefaultLifeString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("+");
+            sb.Append(GameController.Me.player.GetRealDefaultLife().ToString());
+
+          
+
+            return sb.ToString();
+        }
+
+        //  실제 코인 획득률 문자열 
+        public static string GetRealCoinRateString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("+");
+            sb.Append(((GameController.Me.player.GetRealCoinRate() - 1.0f) * 100.0f).ToString());
+            sb.Append("%");
+            if (GameController.Me.player.GetLevel() > 0)
+            {
+                sb.Append(" +");
+                sb.Append((GameController.Me.player.GetLevel() * 100).ToString());
+                sb.Append("%");
+            }
+            return sb.ToString();
+        }
+
+        //  실제 파워 문자열 
+        public static string GetRealPowerString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("+");
+            sb.Append(GameController.Me.player.GetRealPower().ToString());
+
+            return sb.ToString();
+        }
+
+        //  실제 스피드 문자열
+        public static string GetRealSpeedString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("+");
+            sb.Append(GameController.Me.player.GetRealSpeed().ToString());
+
+            return sb.ToString();
+        }
     }
 }

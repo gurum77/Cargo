@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Controller;
 using UnityEngine.UI;
+using ProgressBar;
 
 public class GameMode_Flag : MonoBehaviour {
 
@@ -32,19 +33,17 @@ public class GameMode_Flag : MonoBehaviour {
     public GameObject flagModeItem;   // flag 모드 아이템
     public Text playerFlagCountText;
     public Text comFlagCountText;
-
-    public Image playerFlagImagePrefab;
-    public Image comFlagImagePrefab;
-    List<Image> playerFlagImageList = new List<Image>();
-    List<Image> comFlagImageList    = new List<Image>();
-    public float flagImageWidth;
-    public float flagImageHeight;
-
+    
     // com 이동 간격 시작값
     public float startComMovingInterval;
 
     // 레벨별 com 이동 간격 감소비율
     public float decreaseRateComMovingIntervalByLevel;
+
+    // flag progressbar
+    public ProgressBarBehaviour playerProgressbar;
+    public ProgressBarBehaviour comProgressbar;
+
 
 
     public Player com;
@@ -64,27 +63,22 @@ public class GameMode_Flag : MonoBehaviour {
         
 	}
 
+    // 목표개수와 현재 개수로 프로그래스바에 입력할 퍼센트 값을 계산하여 리턴한다.
+    float GetPercent(int target, int cur)
+    {
+        return (((float)target - (float)cur) / (float)target) * 100.0f;
+    }
+
     private void FixedUpdate()
     {
-        if (playerFlagCountText)
+        if(GameController.Me && playerProgressbar && comProgressbar)
         {
-            playerFlagCountText.text = (curTargetFlagCount - GameController.Me.Player.FlagCount).ToString();// StringMaker.GetPlayerFlagCountString();
-
-            if (playerFlagImagePrefab)
-            {
-                RecountFlagImage(playerFlagImageList, curTargetFlagCount - GameController.Me.Player.FlagCount);
-            }
+            playerProgressbar.Value = GetPercent(curTargetFlagCount, GameController.Me.player.FlagCount);
+            
+            comProgressbar.Value = GetPercent(curTargetFlagCount, Com.FlagCount);
         }
-
-        if (comFlagCountText)
-        {
-            comFlagCountText.text = (curTargetFlagCount - Com.FlagCount).ToString();// StringMaker.GetComFlagCountString();
-
-            if (comFlagImagePrefab)
-            {
-                RecountFlagImage(comFlagImageList, curTargetFlagCount - Com.FlagCount);
-            }
-        }
+       
+       
 
 
         CheckSuccess();
@@ -188,8 +182,8 @@ public class GameMode_Flag : MonoBehaviour {
         GenerateCurTargetFlagCount();
 
 
-        // 이미지 초기화
-        InitImageList();
+        // 프로그래스바 초기화
+        InitProgressbar();
       
 
         // 맵을 구성한다.
@@ -212,6 +206,21 @@ public class GameMode_Flag : MonoBehaviour {
         if(IsBossLevel())
         {
             SetBossLevel();
+        }
+    }
+
+    // 프로그래스바를 초기화한다.
+    void InitProgressbar()
+    {
+        if (playerProgressbar)
+        {
+            playerProgressbar.TransitoryValue = 0;
+            playerProgressbar.SetFillerSize(100);
+        }
+        if (comProgressbar)
+        {
+            comProgressbar.TransitoryValue = 0;
+            comProgressbar.SetFillerSize(100);
         }
     }
 
@@ -298,48 +307,6 @@ public class GameMode_Flag : MonoBehaviour {
 
         return false;
     }
+    
 
-    void InitImageList()
-    {
-        RecountFlagImage(playerFlagImageList, 0);
-        RecountFlagImage(comFlagImageList, 0);
-        
-        // 필요한만큼 만들어둔다.
-        if(playerFlagCountText && comFlagCountText && playerFlagImagePrefab && comFlagImagePrefab)
-        {
-            Vector3 playerFlagImagePos = playerFlagCountText.transform.position;
-
-            for (int ix = 0; ix < curTargetFlagCount; ++ix)
-            {
-                Image image = Instantiate(playerFlagImagePrefab, playerFlagCountText.transform);
-                playerFlagImagePos.x += flagImageWidth;
-                image.transform.position = playerFlagImagePos;
-                playerFlagImageList.Add(image);
-
-                if (ix == (curTargetFlagCount / 2) - 1)
-                {
-                    playerFlagImagePos = playerFlagCountText.transform.position;
-                    playerFlagImagePos.y -= flagImageHeight;
-                }
-            }
-
-            Vector3 comFlagImagePos = comFlagCountText.transform.position;
-            
-            for (int ix = 0; ix < curTargetFlagCount; ++ix)
-            {
-                Image image = Instantiate(comFlagImagePrefab, comFlagCountText.transform);
-                comFlagImagePos.x += flagImageWidth;
-                image.transform.position = comFlagImagePos;
-                comFlagImageList.Add(image);
-
-                if (ix == (curTargetFlagCount / 2) - 1)
-                {
-                    comFlagImagePos = comFlagCountText.transform.position;
-                    comFlagImagePos.y -= flagImageHeight;
-                }
-            }
-        
-        }
-        
-    }
 }

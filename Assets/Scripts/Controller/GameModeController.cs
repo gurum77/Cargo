@@ -13,6 +13,7 @@ public class GameModeController : MonoBehaviour {
         eEnergyBarMode,
         e100MMode,
         eFlagMode,
+        eMathMode,
         eUnknown,
         eCount
     };
@@ -39,6 +40,8 @@ public class GameModeController : MonoBehaviour {
             return LocalizationText.GetText("100M");
         else if (gameMode == GameMode.eFlagMode)
             return LocalizationText.GetText("Flag");
+        else if (gameMode == GameMode.eMathMode)
+            return LocalizationText.GetText("Math");
 
         return "None";
     }
@@ -81,6 +84,9 @@ public class GameModeController : MonoBehaviour {
         {
             item.transform.SetParent(hiddenItemByGameMode.transform);
         }
+
+        itemsByGameMode[(int)GetCurGameMode()].transform.SetParent(showItemByGameMode.transform);
+        
 
         // item 활성화를 기본값을 설정한다.
         GameController.Me.mapController.SetDefaultEnableItem();

@@ -42,4 +42,10 @@ public class GameModeSelectionCanvas : MonoBehaviour {
     {
         ChangeGameMode(GameModeController.GameMode.eFlagMode);
     }
+
+    // Math 모드 버튼 클릭
+    public void OnMathModeButtonClicked()
+    {
+        ChangeGameMode(GameModeController.GameMode.eMathMode);
+    }
 }

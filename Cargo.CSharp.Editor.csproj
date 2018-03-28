@@ -300,6 +300,13 @@
   <ItemGroup>
     <Compile Include="Assets\_ImportedAssets\PyroParticles\Prefab\Editor\PyroParticlesEditor.cs" />
     <Compile Include="Assets\_ImportedAssets\Standard Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
+    <Compile Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Code\Editor\ToD_Editor.cs" />
+    <Compile Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Code\Editor\WeatherCloudy_Editor.cs" />
+    <Compile Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Code\Editor\WeatherController_Editor.cs" />
+    <Compile Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Code\Editor\WeatherRain_Editor.cs" />
+    <Compile Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Code\Editor\WeatherSnow_Editor.cs" />
+    <Compile Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Code\Editor\WeatherSun_Editor.cs" />
+    <Compile Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Code\Editor\WeatherThunderstorm_Editor.cs" />
     <Compile Include="Assets\_ImportedAssets\WavySprite\Editor\WavySpriteEditor.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -413,6 +420,8 @@
     <None Include="Assets\_ImportedAssets\Standard Assets\Vehicles\Car\Shaders\ReflectiveDiffuseSpec.shader" />
     <None Include="Assets\_ImportedAssets\Standard Assets\Vehicles\Car\Shaders\ReflectiveDiffuseSpecTransp.shader" />
     <None Include="Assets\_ImportedAssets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
+    <None Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Documents\ContactInformation.txt" />
+    <None Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Documents\VersionInformation.txt" />
     <None Include="Assets\_ImportedAssets\WavySprite\Shaders\WavySprite.shader" />
     <None Include="Assets\_ImportedAssets\WavySprite\readme.txt" />
     <None Include="Assets\_ImportedAssets\nnj3de_crucarp\README.txt" />

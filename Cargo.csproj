@@ -477,6 +477,7 @@
     <Compile Include="Assets\Scripts\GameMode\GameMode_100M.cs" />
     <Compile Include="Assets\Scripts\GameMode\GameMode_EnergyBar.cs" />
     <Compile Include="Assets\Scripts\GameMode\GameMode_Flag.cs" />
+    <Compile Include="Assets\Scripts\GameMode\GameMode_Math.cs" />
     <Compile Include="Assets\Scripts\GameObjectRotation.cs" />
     <Compile Include="Assets\Scripts\Item\Rock.cs" />
     <Compile Include="Assets\Scripts\PanelManager.cs" />
@@ -487,6 +488,11 @@
     <Compile Include="Assets\Scripts\ShowSliderValue.cs" />
     <Compile Include="Assets\Scripts\TiltWindow.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerDataEditor.cs" />
+    <Compile Include="Assets\SmartTimersManager\ScriptExamples\BlueLightFlicker.cs" />
+    <Compile Include="Assets\SmartTimersManager\ScriptExamples\RedLightFlicker.cs" />
+    <Compile Include="Assets\SmartTimersManager\TimerManager\GUI_TimersList.cs" />
+    <Compile Include="Assets\SmartTimersManager\TimerManager\Timer.cs" />
+    <Compile Include="Assets\SmartTimersManager\TimerManager\TimersManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />

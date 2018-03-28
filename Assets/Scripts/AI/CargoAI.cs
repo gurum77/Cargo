@@ -42,6 +42,7 @@ public class CargoAI : MonoBehaviour {
         if(player)
         {
             player.EnableUserInput = false;
+            player.EnableReplaceMapByPlayerPosition = false;
 
                      
             // interval이 더 커지면 이동한다.

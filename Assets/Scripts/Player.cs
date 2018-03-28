@@ -126,6 +126,10 @@ public class Player : MonoBehaviour {
         get; set;
     }
 
+    // player의 위치에 따라 맵을 갱신할지?
+    public bool EnableReplaceMapByPlayerPosition
+    { get; set; }
+
     // child 중에서 tag를 가진 game object를 찾는다.
     GameObject FindChildGameObjectWithTag(string tag)
     {
@@ -175,7 +179,9 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         EnableUserInput = true;
-	}
+        EnableReplaceMapByPlayerPosition = true;
+
+    }
 
     void OnEnable()
     {
@@ -499,7 +505,7 @@ public class Player : MonoBehaviour {
                 CheckItem();
 
                 // map을 갱신한다.
-                if (EnableUserInput)
+                if (EnableReplaceMapByPlayerPosition)
                     ReplaceMapByPlayerPosition();
 
                 // combo를 체크한다.
@@ -611,7 +617,7 @@ public class Player : MonoBehaviour {
    
     // 데미지를 준다.
     // return false이면 게임 종료
-    bool ApplyDamage()
+    public bool ApplyDamage()
     {
         // 성공을 못 하면 카메라를 흔든다.
         Camera.main.SendMessage(Define.Message.Clash);
@@ -773,6 +779,9 @@ public class Player : MonoBehaviour {
     // player를 이전 위치로 옮긴다.
     void MoveToPrevPosition()
     {
+        if (playerPosition == 0)
+            return;
+
         playerPosition--;
         targetPos = GameController.Me.mapController.GetMapBlockProperty(playerPosition).Position;
         // 살짝 흔든다.
@@ -783,7 +792,7 @@ public class Player : MonoBehaviour {
     // 왼쪽 방향키
     bool IsInputTurnKey()
     {
-        if(Input.GetKeyDown("left"))
+        if(Input.GetKeyDown(Define.Key.Left))
             return true;
      
         return false;
@@ -793,7 +802,7 @@ public class Player : MonoBehaviour {
     // 스페이스
     bool IsInputJumpKey()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown(Define.Key.Space))
             return true;
 
         return false;
@@ -803,7 +812,7 @@ public class Player : MonoBehaviour {
     // 오른쪽 방향키
     bool IsInputMoveKey()
     {
-        if (Input.GetKeyDown("right"))
+        if (Input.GetKeyDown(Define.Key.Right))
             return true;
         
         return false;

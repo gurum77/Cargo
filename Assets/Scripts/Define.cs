@@ -42,4 +42,11 @@ namespace Define
         static public readonly float MaxSpeed = 20.0f;
         static public readonly float MaxCoinRate = 5.0f;
     }
+
+    public class Key
+    {
+        static public readonly string Left = "left";
+        static public readonly string Right = "right";
+        static public readonly string Space = "space";
+    }
 }

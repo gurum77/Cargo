@@ -97,6 +97,10 @@ public class GameModeController : MonoBehaviour {
         // show item은 보인다
         showItemByGameMode.SetActive(true);
 
+        // player의 입력을 활성화 한다.
+        // 필요하다면 게임별 모드에서 비활성화 한다.
+        GameController.Me.Player.EnableUserInput = true;
+
         // 게임 모드를 시작한다.
         curGameMode.SetActive(false);
         curGameMode.SetActive(true);

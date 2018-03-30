@@ -110,6 +110,11 @@ public class Player : MonoBehaviour {
     }
 
    
+    // 그로기 상태인지?
+    public bool IsGroggy
+    {
+        get { return groggy.IsGroggy; }
+    }
     Animator ani;
     public Animator Ani
     {
@@ -233,6 +238,10 @@ public class Player : MonoBehaviour {
 
     public void OnLeftKeyClicked()
     {
+        // 그로기 상태일때는 버튼 클릭 안됨
+        if (IsGroggy)
+            return;
+
         if (GameController.Me.ControlType == GameController.Control.eControl_TurnAndMove)
             TurnAndMove();
         else
@@ -241,6 +250,11 @@ public class Player : MonoBehaviour {
 
     public void OnRightKeyClicked()
     {
+        // 그로기 상태일때는 버튼 클릭 안됨
+        if (IsGroggy)
+            return;
+
+
         if (GameController.Me.ControlType == GameController.Control.eControl_TurnAndMove)
             Move();
         else
@@ -249,6 +263,11 @@ public class Player : MonoBehaviour {
 
     public void OnJumpKeyClicked()
     {
+        // 그로기 상태일때는 버튼 클릭 안됨
+        if (IsGroggy)
+            return;
+
+
         if(ani)
             ani.SetTrigger(Define.Trigger.Jump);
 
@@ -689,8 +708,10 @@ public class Player : MonoBehaviour {
         else
         {
             score = playerPosition;
-            GameData.EnergyBarModeBestScore = Score > GameData.EnergyBarModeBestScore ? Score : GameData.EnergyBarModeBestScore;
-        }
+
+            // 성공할때마다 현재 게임모드에 최고기록 갱신을 요청한다.
+            GameController.Me.gameModeController.RefreshBestScoreWithCurrentState();
+       }
 
         return true;
     }

@@ -23,6 +23,26 @@ public class GameModeController : MonoBehaviour {
     public GameObject showItemByGameMode; // 게임 모드별 보여지는 canvas item
     public GameObject[] itemsByGameMode;    // 게임 모드별 모든 아이템
 
+    // 현재 게임모드의 최고 기록을 갱신한다.
+    // 현재 상태로 기록을 갱신할 수 있는 모드반 반영한다.
+    // 나머지 모드는 게임 종료후에 갱신한다.
+    public void RefreshBestScoreWithCurrentState()
+    {
+        GameMode gameMode = GetCurGameMode();
+        if (gameMode == GameMode.eEnergyBarMode)
+        {
+            GameController.Me.Player.GameData.EnergyBarModeBestScore = GameController.Me.Player.Score > GameController.Me.Player.GameData.EnergyBarModeBestScore ? GameController.Me.Player.Score : GameController.Me.Player.GameData.EnergyBarModeBestScore;
+        }
+        else if (gameMode == GameMode.e100MMode)
+        { }
+        else if (gameMode == GameMode.eFlagMode)
+        { }
+        else if (gameMode == GameMode.eMathMode)
+        {
+            GameController.Me.Player.GameData.MathModeBestScore = GameController.Me.Player.Score > GameController.Me.Player.GameData.MathModeBestScore ? GameController.Me.Player.Score : GameController.Me.Player.GameData.MathModeBestScore;
+        }
+    }
+
     // 현재 게임 모드를 설정한다.
     public void SetCurGameMode(GameMode gameMode)
     {

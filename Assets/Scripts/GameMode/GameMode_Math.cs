@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using Assets.Scripts.Controller;
 using Timers;
 using ProgressBar;
+using System.Xml;
+using System.IO;
+
 
 // 문제 셋트
 // 문제와, 보기와, 답을 가진다.
@@ -46,6 +49,23 @@ public class GameMode_Math : MonoBehaviour {
     public Text answer3Text;
     public float timeOut;
     public ProgressBarBehaviour timeOutProgressbar;
+    public int scorePerQuestionLevel;    // 문제레벨당 점수
+    public int countRangeOfPerLevel;  // 문제레벨의 문제개수 범위
+
+    // 문제의 레벨
+    int QuestionLevel
+    {
+        get
+        {
+            if(GameController.Me == null)
+                return 1;
+
+            if (scorePerQuestionLevel == 0)
+                return 1;
+
+            return GameController.Me.Player.Score / scorePerQuestionLevel + 1;
+        }
+    }
 
     int questionIndex = -1;
     List<QuestionSet> questionList;
@@ -54,29 +74,151 @@ public class GameMode_Math : MonoBehaviour {
     void Awake()
     {
         MakeQuestionList();
-
-        
     }
 
+    // 데미지를 준다.
+    void ApplyDamage()
+    {
+        // 데미지를 주면 한칸 뒤로 밀려나기 때문에 우선 한칸 진행시킨다.
+        GameController.Me.Player.MoveForwardToValidWay(1);
+        GameController.Me.Player.ApplyDamage();
+
+    }
     // 이 함수가 호출된다면 time out이다.
     void OnTimeout()
     {
-        GameController.Me.Player.ApplyDamage();
+        // 데미지를 준다.
+        ApplyDamage();
 
         // 문제를 다시 낸다
         SelectQuestion();
         DisplayQuestion();
     }
+
+    // 사칙연산을 계산한다.
+    // form : 0 - 더하기, 1 - 빼기, 2 - 곱하기, 3 - 나누기
+    // 
+    float CalcArithmeticOperation(float x, float y, int form)
+    {
+        if (form == 0)
+            return x + y;
+        else if (form == 1)
+            return x - y;
+        else if (form == 2)
+            return x * y;
+
+        return x / y;
+    }
+
     // 문제 리스트를 만든다.
     void MakeQuestionList()
     {
         if (questionList == null)
             questionList = new List<QuestionSet>();
+        else
+            questionList.Clear();
 
-        questionList.Add(new QuestionSet("1+1", "1", "2", "3", 2));
-        questionList.Add(new QuestionSet("1+2", "1", "2", "3", 3));
-        questionList.Add(new QuestionSet("2+2", "3", "4", "5", 2));
+        // 하위 레벨 문제는 프로그램이 직접 만든다.
+        {
+            string question, answer1, answer2, answer3;
+            int correctanswer;
+            float x, y;
+            float result;
+
+            // 사칙연산
+            // + - * /
+            // 나누기는 제외한다. 소수점이 나올 수 있다.
+            for (int form = 0; form < 4; ++form)
+            {
+                // 1자리 ~ 2자리덧셈
+                int gap = 1;
+                for (int ix = 1; ix < 100; ix += gap)
+                {
+                    x = ix;
+                    for (int jx = 1; jx < 100; jx += gap)
+                    {
+                        y = jx;
+
+                        // x가 10보다 작을때는 y도 10보다 작은 수로 제한한다.(유아용)
+                        if (x < 10 && y > 10)
+                            break;
+
+                        // x와 y가 10보다 커지면 gap을 3으로 올린다.
+                        if (x > 10 && y > 10)
+                            gap = 3;
+
+                        // 뺄샘은 더 큰값을 y로 한다.
+                        if(form == 1)
+                        {
+                            if(y > x)
+                            {
+                                x = jx;
+                                y = ix;
+                            }
+                        }
+
+                        // 정답을 랜덤하게 정한다.
+                        correctanswer = Random.Range(1, 4); // max 는 exclusive
+
+                        // 정답 계산
+                        result = CalcArithmeticOperation(x, y, form);
+
+                        // 보기를 정한다.
+                        if (correctanswer == 1)
+                            answer1 = result.ToString();
+                        else
+                            answer1 = (result - Random.Range(1, 10)).ToString();
+
+                        if (correctanswer == 2)
+                            answer2 = (result).ToString();
+                        else
+                            answer2 = (result + Random.Range(1, 10)).ToString();
+
+                        if (correctanswer == 3)
+                            answer3 = (result).ToString();
+                        else
+                            answer3 = (result + Random.Range(1, 10) * 2).ToString();
+
+                        // 문제를 만든다.
+                        question = x.ToString() + "+" + y.ToString();
+
+                        questionList.Add(new QuestionSet(question, answer1, answer2, answer3, correctanswer));
+                    }
+                }
+            }
+        }
+
+
+        // 그다음 xml에서 불러온다.
+        {
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(Resources.Load("MathQuestions").ToString());
+            if (xmlDocument == null)
+            {
+                System.Console.WriteLine("Couldnt Load Xml");
+                return;
+            }
+
+            string question, answer1, answer2, answer3, correctAnswer;
+
+            XmlNode xNode = xmlDocument.ChildNodes.Item(1);
+            foreach (XmlNode node in xNode.ChildNodes)
+            {
+                if (node.LocalName == "Question")
+                {
+                    question = node.Attributes.GetNamedItem("question").Value;
+                    answer1 = node.Attributes.GetNamedItem("answer1").Value;
+                    answer2 = node.Attributes.GetNamedItem("answer2").Value;
+                    answer3 = node.Attributes.GetNamedItem("answer3").Value;
+                    correctAnswer = node.Attributes.GetNamedItem("correctanswer").Value;
+
+                    questionList.Add(new QuestionSet(question, answer1, answer2, answer3, System.Convert.ToInt32(correctAnswer)));
+                }
+            }
+        }
     }
+
+     
     // Use this for initialization
 	void Start () {
 	    	
@@ -97,7 +239,18 @@ public class GameMode_Math : MonoBehaviour {
     // 문제를 고른다.
     void SelectQuestion()
     {
-        questionIndex = Random.Range(0, questionList.Count);
+        // 문제레벨
+        int minIndex = QuestionLevel * countRangeOfPerLevel;
+        int maxIndex = minIndex + countRangeOfPerLevel;
+
+        // 문제 수보다 많아지면 전체 랜덤으로 제출한다.
+        if(minIndex >= questionList.Count || maxIndex >= questionList.Count)
+        {
+            minIndex = 0;
+            maxIndex = questionList.Count-1;
+        }
+
+        questionIndex = Random.Range(minIndex, maxIndex);
     }
 
     void FixedUpdate()
@@ -193,13 +346,7 @@ public class GameMode_Math : MonoBehaviour {
         // 맵을 구성한다.
         if (GameController.Me)
         {
-            // 시계 아이템 활성화
-            GameController.Me.mapController.EnableItem(Assets.Scripts.Controller.MapBlockProperty.ItemType.eClock, true);
-
             GameController.Me.mapController.MakeMap();
-
-            // 시계 아이템 비활성화
-            GameController.Me.mapController.EnableItem(Assets.Scripts.Controller.MapBlockProperty.ItemType.eClock, false);
         }
 
         timeOutProgressbar.SetFillerSize(100);
@@ -208,11 +355,18 @@ public class GameMode_Math : MonoBehaviour {
     //  답을 선택한다.
     void SelectAnswer(int answer)
     {
+        Player player = GameController.Me.Player;
+        MapController mapController = GameController.Me.MapController;
+
+        // 그로기 상태에서는 답선택이 불가하다
+        if (player.IsGroggy)
+            return;
+        
         QuestionSet q = CurrentQuestion;
         if(q != null)
         {
-            Player player = GameController.Me.Player;
-            MapController mapController = GameController.Me.MapController;
+            
+            
 
             // 정답이면 방향전환 전까지 자동 진행(최대 100칸)
             if (q.CorrectAnswer == answer)
@@ -240,9 +394,8 @@ public class GameMode_Math : MonoBehaviour {
             // 틀리면 데미지를 준다.
             else
             {
-                // 데미지를 주면 한칸 뒤로 밀려나기 때문에 우선 한칸 진행시킨다.
-                player.MoveForwardToValidWay(1);
-                player.ApplyDamage();
+                ApplyDamage();
+                
             }
         }
         

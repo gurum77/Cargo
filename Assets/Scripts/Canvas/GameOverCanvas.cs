@@ -90,13 +90,13 @@ public class GameOverCanvas : MonoBehaviour {
     {
         if (bestScoreText)
         {
+            GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
 
             // flag 모드에서는 현재 level을 찍어준다.
-            if (GameController.Me.gameModeController.GetCurGameMode() == GameModeController.GameMode.eFlagMode)
+            if (curGameMode == GameModeController.GameMode.eFlagMode)
             {
                 bestScoreText.text = StringMaker.GetFlagModeLevelString();
             }
-            
             else
             {
                 bestScoreText.text = StringMaker.GetBestScoreString();

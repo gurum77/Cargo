@@ -49,6 +49,9 @@ public class PlayerGameData
     public float AddedCoinRate
     { get; set; }
 
+    public int MathModeBestScore
+    { get; set; }
+
     
     #endregion
 
@@ -121,6 +124,11 @@ public class PlayerGameData
         get{ return "AddedCoinRateKey"; }
     }
 
+    static public string MathModeBestScoreKey
+    {
+        get { return "MathModeBestScore"; }
+    }
+
    
     #endregion
 
@@ -166,6 +174,9 @@ public class PlayerGameData
 
         // 추가된 coin rate
         PlayerPrefs.SetFloat(PlayerGameData.AddedCoinRateKey, AddedCoinRate);
+
+        // Math mode best score
+        PlayerPrefs.SetInt(PlayerGameData.MathModeBestScoreKey, MathModeBestScore);
     }
 #endregion
 
@@ -212,6 +223,9 @@ public class PlayerGameData
 
         // 추가된 coin rate
         AddedCoinRate   = PlayerPrefs.GetFloat(PlayerGameData.AddedCoinRateKey);
+
+        // Math mode best score
+        MathModeBestScore = PlayerPrefs.GetInt(PlayerGameData.MathModeBestScoreKey);
 
     }
 #endregion

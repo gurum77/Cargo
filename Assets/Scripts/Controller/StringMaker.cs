@@ -23,6 +23,10 @@ namespace Assets.Scripts.Controller
             {
                 sb.Append(GameMode_100M.TimeToString(GameController.Me.Player.GameData.HundredMBestTime));
             }
+            else if(curGameMode == GameModeController.GameMode.eMathMode)
+            {
+                sb.Append(GameController.Me.Player.GameData.MathModeBestScore.ToString());
+            }
             
             return sb.ToString();
         }
@@ -91,7 +95,8 @@ namespace Assets.Scripts.Controller
             // 모드별로 다르게 표시한다.
             GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
             if (curGameMode == GameModeController.GameMode.eEnergyBarMode ||
-                curGameMode == GameModeController.GameMode.eFlagMode)
+                curGameMode == GameModeController.GameMode.eFlagMode ||
+                curGameMode == GameModeController.GameMode.eMathMode)
             {
                 return GameController.Me.Player.Score.ToString();
             }

@@ -38,7 +38,7 @@ public class ReadyCanvas : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Escape) && exitCanvasItems)
         {
-            exitCanvasItems.SetActive(true);
+            exitCanvasItems.SetActive(exitCanvasItems.activeSelf ? false : true);
         }
 	}
 

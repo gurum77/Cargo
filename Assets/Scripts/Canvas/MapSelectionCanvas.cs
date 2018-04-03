@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class MapSelectionCanvas : MonoBehaviour {
 
+    public ImageSelector imageSelector;
 	// Use this for initialization
 	void Start () {
 		
@@ -32,27 +33,13 @@ public class MapSelectionCanvas : MonoBehaviour {
     }
 
     
-    // basic button 클릭
-    public void OnBasicButtonClicked()
-    {
-        ChangeMap(MapController.Map.eBasic);
-    }
+  
 
-    // sea button 클릭
-    public void OnSeaButtonClicked()
+    public void OnImageSelectorSelectButtonClicked()
     {
-        ChangeMap(MapController.Map.eSea);
-    }
-
-    // desert button 클릭
-    public void OnDesertButtonClicked()
-    {
-        ChangeMap(MapController.Map.eDesert);
-    }
-
-    // christmas button 클릭
-    public void OnChristmasButtonClicked()
-    {
-        ChangeMap(MapController.Map.eChristmas);
+        if(imageSelector)
+        {
+            ChangeMap((MapController.Map)imageSelector.SelectedImageIndex);
+        }
     }
 }

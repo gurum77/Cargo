@@ -5,6 +5,7 @@ using UnityEngine;
 public class ExitCanvas : MonoBehaviour {
 
     public GameObject items;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -12,7 +13,8 @@ public class ExitCanvas : MonoBehaviour {
 	
     void Update()
     {
-
+        
+    
     }
 	
     public void OnQuitButtonClicked()

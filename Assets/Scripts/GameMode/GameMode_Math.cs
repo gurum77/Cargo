@@ -51,6 +51,7 @@ public class GameMode_Math : MonoBehaviour {
     public ProgressBarBehaviour timeOutProgressbar;
     public int scorePerQuestionLevel;    // 문제레벨당 점수
     public int countRangeOfPerLevel;  // 문제레벨의 문제개수 범위
+    public GameObject mathModeItem;   // math 모드 아이템
 
     // 문제의 레벨
     int QuestionLevel
@@ -342,6 +343,10 @@ public class GameMode_Math : MonoBehaviour {
         {
             GameController.Me.Player.EnableUserInput = false;
         }
+
+        // 여기서 보여야 하는 item을 showItemByGameMode로 이동한다
+        if (mathModeItem && GameController.Me && GameController.Me.gameModeController && GameController.Me.gameModeController.showItemByGameMode)
+            mathModeItem.transform.SetParent(GameController.Me.gameModeController.showItemByGameMode.transform);
 
         // 맵을 구성한다.
         if (GameController.Me)

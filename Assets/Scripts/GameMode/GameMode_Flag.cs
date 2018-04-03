@@ -45,7 +45,6 @@ public class GameMode_Flag : MonoBehaviour {
     public ProgressBarBehaviour comProgressbar;
 
 
-
     public Player com;
     public Player Com
     {
@@ -59,9 +58,13 @@ public class GameMode_Flag : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-        
-	}
+        if(IsBossLevel())
+        {
+            // 보스는 15부터 시작
+            if(Com.PlayerPosition < 15)
+                Com.PlayerPosition = 15;
+        }
+    }
 
     // 목표개수와 현재 개수로 프로그래스바에 입력할 퍼센트 값을 계산하여 리턴한다.
     float GetPercent(int target, int cur)
@@ -234,18 +237,23 @@ public class GameMode_Flag : MonoBehaviour {
         CargoAI ai = com.GetComponent<CargoAI>();
         if (ai)
         {
-            // com의 이동 간격
-            ai.targetMovingInterval = startComMovingInterval;
-
-            // level에 따라서 제곱근 만큼씩 줄어든다.
+            // com의 능력치 결정
+            // 레벨별로 0.5%씩 빨라진다.
             int level = GetLevel();
-            float diff = 0.0f;
-            for (int ix = 0; ix < level; ++ix)
-            {
-                diff = ai.targetMovingInterval * (decreaseRateComMovingIntervalByLevel / (ix + 1));
 
-                ai.targetMovingInterval = ai.targetMovingInterval - diff;
+            // 보스는 레벨을 10올려서 계산한다.
+            if (IsBossLevel())
+            {
+                level += 10;
+
+                ai.Boss = true;
             }
+            else
+            {
+                ai.Boss = false;
+            }
+
+            ai.targetMovingInterval = startComMovingInterval - (startComMovingInterval * ((float)level / 100.0f) * 0.5f);
         }
 
         // com 캐릭터를 랜덤하게 정해준다.
@@ -266,33 +274,15 @@ public class GameMode_Flag : MonoBehaviour {
         GameController.Me.Player.transform.localScale = new Vector3(playerScale, playerScale, playerScale);
     }
 
-    // com player가 item으로 공격을 한다.
-    void Attack(int position, MapBlockProperty.ItemType itemType)
-    {
-        // 3번째 칸에 바위를 하나 던진다.
-        MapBlockProperty prop = GameController.Me.mapController.GetMapBlockProperty(position);
-        if (prop != null)
-        {
-            // 기존 item game object가 있다면 지운다.
-            prop.DeleteItemGameObject();
-
-            // 새로운 item type을 설정한다.
-            prop.Item = itemType;
-
-            // item game object를 만든다.
-            GameController.Me.mapController.MakeItem(position, prop.Position, position);
-        }
-    }
+  
 
     // 보스 레벨을 설정한다.
     void SetBossLevel()
     {
-        // com을 10칸 앞에서 시작한다.
-        com.MoveForwardToValidWay(15);
-
-        
         // 3칸에 바위 공격을 한다.
-        Attack(3, MapBlockProperty.ItemType.eRock);
+        CargoAI ai = com.GetComponent<CargoAI>();
+        if(ai)
+            ai.Attack(3, MapBlockProperty.ItemType.eRock);
 
         // 보스는 좀 크게 한다.
         com.transform.localScale = new Vector3(2, 2, 2);

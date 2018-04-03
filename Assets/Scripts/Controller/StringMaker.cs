@@ -122,6 +122,13 @@ namespace Assets.Scripts.Controller
             return sb.ToString();
         }
 
+        //  실제 하트 문자열
+        public static string GetRealLifeString()
+        {
+            return GameController.Me.player.Life.ToString();
+
+        }
+
         //  실제 코인 획득률 문자열 
         public static string GetRealCoinRateString()
         {

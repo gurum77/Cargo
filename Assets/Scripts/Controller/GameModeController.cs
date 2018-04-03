@@ -100,12 +100,13 @@ public class GameModeController : MonoBehaviour {
     public void StartGameMode()
     {
         // 시작할때 모드별 아이템을 숨김아이템 아래로 둔다
+        // 보여야 하는 아이템은 각 모드별로 보이도록 한다.
         foreach(var item in itemsByGameMode)
         {
             item.transform.SetParent(hiddenItemByGameMode.transform);
         }
 
-        itemsByGameMode[(int)GetCurGameMode()].transform.SetParent(showItemByGameMode.transform);
+        
         
 
         // item 활성화를 기본값을 설정한다.

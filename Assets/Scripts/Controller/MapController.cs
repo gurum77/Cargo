@@ -12,6 +12,7 @@ public class MapController : MonoBehaviour {
         eBasic,
         eSea,
         eDesert,
+        eChristmas,
         eCount
     };
 
@@ -66,6 +67,7 @@ public class MapController : MonoBehaviour {
     public GameObject[] basicMapPrefabs;    // 0 : mainMap prefab, 1 : road block 왼쪽, 2 : road block 오른쪽, 3 이후 : sub map prefab
     public GameObject[] seaMapPrefabs;      // 0 : mainMap prefab, 1 : road block 왼쪽, 2 : road block 오른쪽, 3 이후 : sub map prefab
     public GameObject[] desertMapPrefabs;      // 0 : mainMap prefab, 1 : road block 왼쪽, 2 : road block 오른쪽, 3 이후 : sub map prefab
+    public GameObject[] christmasMapPrefabs;      // 0 : mainMap prefab, 1 : road block 왼쪽, 2 : road block 오른쪽, 3 이후 : sub map prefab
     #endregion 
     
     public int leftTileColsFromPlayer;  // player의 좌측 tile columns 수
@@ -176,6 +178,10 @@ public class MapController : MonoBehaviour {
         else if(map == Map.eDesert)
         {
             mapPrefabs = desertMapPrefabs;
+        }
+        else if (map == Map.eChristmas)
+        {
+            mapPrefabs = christmasMapPrefabs;
         }
         else
             return;
@@ -340,6 +346,10 @@ public class MapController : MonoBehaviour {
     {
         // 몇번재 rectangle인지?
         int index = (int)(z / rectangleHeight);
+        if(z < 0)
+        {
+            index--;
+        }
 
         return (rectangleHeight * index) + (rectangleHeight / 2.0f);
     }
@@ -363,30 +373,38 @@ public class MapController : MonoBehaviour {
 
     // player 위치 좌우로 map block game object를 만든다.
     // 보이는 것만 만든다.
+    // index가 0보다 작으면 0 위치기준으로 앞쪽으로 만든다.
+    // index가 최대크기보다 크면 마지막 위치를 기준으로 뒤쪽으로 만든다.
     public void MakeMapBlockRoadSideByPlayerPosition(int index, int playerPosition)
     {
         // player 기준으로 보이지 않는 경우에는 만들지 않는다.
         if (!IsInVisibleRangeByPlayerPosition(index, playerPosition))
             return;
 
-        if (index < 0 || index >= mapBlocks.Count)
-            return;
+        
+        int mapBlocksIndex = index;
+        if (mapBlocksIndex < 0)
+            mapBlocksIndex = 0;
+        if (mapBlocksIndex >= mapBlocks.Count)
+            mapBlocksIndex = mapBlocks.Count - 1;
 
-        MapBlockProperty rb = mapBlocks[index];
+        MapBlockProperty rb = mapBlocks[mapBlocksIndex];
+        Vector3 position = rb.Position;
+        position.z += (index - mapBlocksIndex);
 
         Quaternion rotation = Quaternion.identity;
         Vector3 pos = new Vector3();
         GameObject obj;
 
         // road 측면에 main map block을 만든다.
-        if(GetZMainMapBlock(rb.Position.z, ref pos.z))
+        if (GetZMainMapBlock(position.z, ref pos.z))
         {
             lastMainMapBlockZ = pos.z;
 
             int count = GetMainMapBlockColumnsOnSide();
             
             // 좌 -> 우 로 main map block을 깐다.
-            pos.x = GetXMinMainMapBlock(rb.Position.x);
+            pos.x = GetXMinMainMapBlock(position.x);
 
             for (int ix = 0; ix < count; ++ix)
             {
@@ -414,7 +432,7 @@ public class MapController : MonoBehaviour {
                 Vector3 size = subMapSize[subMapIndex];
 
                 // sub map의 위치
-                pos = rb.Position;
+                pos = position;
                 {
                     // road block에 폭과 위차래에 방향으로 겹치지 않도록 조정
                     if (isLeft)
@@ -433,45 +451,11 @@ public class MapController : MonoBehaviour {
         
     }
 
-    // 시작위치의 아래에 기본 맵을 채운다.
-    void MakeMapBlocks_Base()
-    {
-        Quaternion rotation = Quaternion.identity;
-        Vector3 pos;
-
-        GameObject obj;
-        int count = 10;
-        int countSide = 5;
-        for (int jx = 0; jx < count; ++jx)
-        {
-            Vector3 posOrg = mapBlocks[0].Position;
-            posOrg.z -= (jx + 1);
-
-            // 좌
-            for (int ix = 0; ix < countSide; ++ix)
-            {
-
-                pos = posOrg;
-                pos.x -= (ix + 0);
-                obj = Mem.Instantiate(mainMapPrefab, pos, rotation);
-                obj.transform.parent = temp.transform;
-            }
-
-            // 우
-            for (int ix = 0; ix < countSide; ++ix)
-            {
-                pos = posOrg;
-                pos.x += (ix + 1);
-                obj = Mem.Instantiate(mainMapPrefab, pos, rotation);
-                obj.transform.parent = temp.transform;
-            }
-        }
-    }
-
+    
     // road 좌우로 생성되는 일반 map block을 만든다.
     void MakeMapBlocks_RoadSide()
     {
-        for (int ix = -5; ix < mapBlocks.Count; ++ix)
+        for (int ix = -10; ix < mapBlocks.Count; ++ix)
         {
             MakeMapBlockRoadSideByPlayerPosition(ix, 0);
         }
@@ -502,11 +486,6 @@ public class MapController : MonoBehaviour {
         {
             CalcMapGameObjectSize();
         }
-
-        //// 시작위치의 에서 아래에 기본 맵을 채운다.
-        //{
-        //    MakeMapBlocks_Base();
-        //}
 
         // road의 좌우 3개씩 일반 맵을 랜덤하게 추가한다.
         {

@@ -110,10 +110,16 @@ namespace ProgressBar
 
         void OnEnable()
         {
+            Init();
+        }
+
+        public void Init()
+        {
             //We set the Filler size to zero at the start.
             SetFillerSize(0);
             //We initialize m_Value
-            m_Value = new ProgressValue(0, FillerInfo.MaxWidth);
+            if(m_Value == null)
+                m_Value = new ProgressValue(0, FillerInfo.MaxWidth);
         }
 
         void Update()

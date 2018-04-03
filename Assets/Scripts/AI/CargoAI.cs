@@ -15,8 +15,13 @@ public class CargoAI : MonoBehaviour {
     // 10칸 마다 목표 이동 인터벌을 범위내에서 변경한다.
     // 인터벌 변경할 범위는 목표 이동 인터벌의 지정된 % 내에서 정해진다.
     public float targetMovingIntervalRangeRate;
-
+    public int bossAttackInterval;  // 보스가 공격하는 인터벌
+    
     Player player;
+
+    // 보스인지?
+    public bool Boss
+    { get; set; }
 
 	// Use this for initialization
 	void Start () {
@@ -43,7 +48,7 @@ public class CargoAI : MonoBehaviour {
         {
             player.EnableUserInput = false;
             player.EnableReplaceMapByPlayerPosition = false;
-
+            
                      
             // interval이 더 커지면 이동한다.
             if (curTargetMovingInterval <= player.MovingInterval)
@@ -56,15 +61,51 @@ public class CargoAI : MonoBehaviour {
                 player.MoveForwardToValidWay(1);
 
 
-                // 이동을 하고 나서 10칸마다 인터벌을 조정한다.
-                if (player.PlayerPosition % 10 == 0)
+                // 이동을 하고 나서 5칸마다 인터벌을 조정한다.
+                if (player.PlayerPosition % 5 == 0)
                 {
                     SetCurTargetMovingIntervalInRange();
+                }
+
+                // level 별로 바위 공격을 한다.
+                // 20칸 마다 공격하자
+                if(player.PlayerPosition % bossAttackInterval == 0)
+                {
+                    Attack(player.PlayerPosition - 1, MapBlockProperty.ItemType.eRock);
                 }
             }
         }
 	}
 
-    
+    // com player가 item으로 공격을 한다.
+    // 만약 앞,현재,뒤에 blank가 있다면 공격하지 못한다.
+    public void Attack(int position, MapBlockProperty.ItemType itemType)
+    {
+        // 3번째 칸에 바위를 하나 던진다.
+        MapBlockProperty prop = GameController.Me.mapController.GetMapBlockProperty(position);
+        if (prop != null)
+        {
+            MapBlockProperty propPrev   = GameController.Me.mapController.GetMapBlockProperty(position - 1);
+            MapBlockProperty propNext   = GameController.Me.mapController.GetMapBlockProperty(position + 1);
+            if(propPrev != null && propNext != null)
+            {
+                if (propPrev.Item == MapBlockProperty.ItemType.eBlank)
+                    return;
+                if (propNext.Item == MapBlockProperty.ItemType.eBlank)
+                    return;
+                if (prop.Item == MapBlockProperty.ItemType.eBlank)
+                    return;
+            }
+
+            // 기존 item game object가 있다면 지운다.
+            prop.DeleteItemGameObject();
+
+            // 새로운 item type을 설정한다.
+            prop.Item = itemType;
+
+            // item game object를 만든다.
+            GameController.Me.mapController.MakeItem(position, prop.Position, position);
+        }
+    }
     
 }

@@ -49,4 +49,10 @@ public class MapSelectionCanvas : MonoBehaviour {
     {
         ChangeMap(MapController.Map.eDesert);
     }
+
+    // christmas button 클릭
+    public void OnChristmasButtonClicked()
+    {
+        ChangeMap(MapController.Map.eChristmas);
+    }
 }

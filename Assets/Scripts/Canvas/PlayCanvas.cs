@@ -11,8 +11,7 @@ public class PlayCanvas : MonoBehaviour {
     public Text coinText;
     public Text diamondText;
     public Text comboText;
-    public Text lifeText;
-    public Text realDefaultLifeText;
+    public Text realLifeText;
     public Text realCoinText;
     public Text realPowerText;
     public Text realSpeedText;
@@ -36,9 +35,6 @@ public class PlayCanvas : MonoBehaviour {
 
         // display combo
         DisplayCombo();
-
-        // display life
-        DisplayLife();
 
         // display added property
         DisplayAddedProperty();
@@ -124,28 +120,17 @@ public class PlayCanvas : MonoBehaviour {
         }
         else
         {
-            comboText.text = LocalizationText.GetText("COMBO ") + GameController.Me.player.Combo.ToString();
+            comboText.text = "COMBO " + GameController.Me.player.Combo.ToString();
         }
     }
 
-    // 플레이어 life 출력
-    void DisplayLife()
-    {
-        if (!lifeText)
-        {
-            Debug.Assert(false);
-            return;
-        }
-
-        lifeText.text = GameController.Me.player.Life.ToString();
-    }
 
     // 추가된 속성 출력
     void DisplayAddedProperty()
     {
 
-        if (realDefaultLifeText)
-            realDefaultLifeText.text = StringMaker.GetRealDefaultLifeString();
+        if (realLifeText)
+            realLifeText.text = StringMaker.GetRealLifeString();
         if (realCoinText)
             realCoinText.text = StringMaker.GetRealCoinRateString();
         if (realPowerText)

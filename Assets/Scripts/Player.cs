@@ -53,7 +53,8 @@ public class Player : MonoBehaviour {
     int playerPosition; // 현재 player의 position
     public int PlayerPosition
     { 
-        get { return playerPosition; } 
+        get { return playerPosition; }
+        set { playerPosition = value; }
     }
 
     PlayerGroggy groggy = new PlayerGroggy();
@@ -134,6 +135,7 @@ public class Player : MonoBehaviour {
     // player의 위치에 따라 맵을 갱신할지?
     public bool EnableReplaceMapByPlayerPosition
     { get; set; }
+
 
     // child 중에서 tag를 가진 game object를 찾는다.
     GameObject FindChildGameObjectWithTag(string tag)

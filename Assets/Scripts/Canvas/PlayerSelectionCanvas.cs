@@ -38,10 +38,41 @@ public class PlayerSelectionCanvas : MonoBehaviour {
         inventoryGameData.Load();
 
         previewCharacterType = (Player.Character)PlayerPrefs.GetInt(PlayerGameData.CharacterKey);
+
+
+        if (powerProgressbar)
+            powerProgressbar.Init();
+        if (speedProgressbar)
+            speedProgressbar.Init();
+        if (coinProgressbar)
+            coinProgressbar.Init();
+
         CreatePreviewCharacter();
 
+        
+    }
+
+    // 프로그래스바를 표시한다.
+    void DisplayProgressbar()
+    {
+        int index = (int)previewCharacterType;
+        if (index < 0)
+            return;
+
         if(powerProgressbar)
-            powerProgressbar.SetFillerSize(100);
+        {
+            powerProgressbar.Value = ((float)(playerGameData.AddedPower + inventoryGameData.characterInfo[index].Power) / (float)Define.Max.MaxPower) * 100.0f;  
+        }
+
+        if (speedProgressbar)
+        {
+            speedProgressbar.Value = ((float)(playerGameData.AddedSpeed + inventoryGameData.characterInfo[index].Speed) / (float)Define.Max.MaxSpeed) * 100.0f;
+        }
+
+        if (coinProgressbar)
+        {
+            coinProgressbar.Value = ((float)(playerGameData.AddedCoinRate + inventoryGameData.characterInfo[index].CoinRate) / (float)Define.Max.MaxCoinRate) * 100.0f;
+        }
     }
 	
 	// Update is called once per frame
@@ -100,20 +131,7 @@ public class PlayerSelectionCanvas : MonoBehaviour {
             diamondText.text = playerGameData.Diamonds.ToString();
         }
 
-        if(powerProgressbar)
-        {
-            powerProgressbar.Value = ((float)(playerGameData.AddedPower + inventoryGameData.characterInfo[index].Power) / (float)Define.Max.MaxPower) * 100.0f;  
-        }
-
-        if (speedProgressbar)
-        {
-            speedProgressbar.Value = ((float)(playerGameData.AddedSpeed + inventoryGameData.characterInfo[index].Speed) / (float)Define.Max.MaxSpeed) * 100.0f;
-        }
-
-        if (coinProgressbar)
-        {
-            coinProgressbar.Value = ((float)(playerGameData.AddedCoinRate + inventoryGameData.characterInfo[index].CoinRate) / (float)Define.Max.MaxCoinRate) * 100.0f;
-        }
+     
 
         // 비활성화 인 경우 글자를 Get로 바꾼다.
         if(selectText)
@@ -150,6 +168,8 @@ public class PlayerSelectionCanvas : MonoBehaviour {
 
             }
         }
+
+        DisplayProgressbar();
 
     }
 

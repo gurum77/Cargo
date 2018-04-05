@@ -312,8 +312,11 @@
     <Compile Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Code\Editor\WeatherSun_Editor.cs" />
     <Compile Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Code\Editor\WeatherThunderstorm_Editor.cs" />
     <Compile Include="Assets\_ImportedAssets\WavySprite\Editor\WavySpriteEditor.cs" />
+    <Compile Include="Assets\DailyRewards\Editor\DailyRewardsEditor.cs" />
+    <Compile Include="Assets\DailyRewards\Editor\EditorTools.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\DailyRewards\README.txt" />
     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
     <None Include="Assets\MakakaIconPack\Fonts\Font_Read_Me.txt" />
     <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />

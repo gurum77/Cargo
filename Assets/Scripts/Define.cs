@@ -50,4 +50,10 @@ namespace Define
         static public readonly string Right = "right";
         static public readonly string Space = "space";
     }
+
+    public class Rewards
+    {
+        static public readonly string Coins = "Coins";
+        static public readonly string Diamonds = "Diamonds";
+    }
 }

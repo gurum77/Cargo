@@ -439,6 +439,12 @@
     <Compile Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Code\WeatherSystem\Weather_Sun.cs" />
     <Compile Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Code\WeatherSystem\Weather_Thunderstorm.cs" />
     <Compile Include="Assets\_ImportedAssets\WavySprite\Scripts\WavySprite.cs" />
+    <Compile Include="Assets\DailyRewards\Examples\Scripts\DailyRewardsInterface.cs" />
+    <Compile Include="Assets\DailyRewards\Examples\Scripts\DailyRewardUI.cs" />
+    <Compile Include="Assets\DailyRewards\Scripts\DailyRewards.cs" />
+    <Compile Include="Assets\DailyRewards\Scripts\DailyRewardsCore.cs" />
+    <Compile Include="Assets\DailyRewards\Scripts\IntegrationDailyRewards.cs" />
+    <Compile Include="Assets\DailyRewards\Scripts\Reward.cs" />
     <Compile Include="Assets\GPGSIds.cs" />
     <Compile Include="Assets\MakakaIconPack\Scripts\SampleControl.cs" />
     <Compile Include="Assets\Prefabs\Characters\_Gloomy_Animal\Script\CharacterSelect.cs" />
@@ -448,6 +454,7 @@
     <Compile Include="Assets\Prefabs\ProgressBar\Utils.cs" />
     <Compile Include="Assets\Scripts\ActiveStateToggler.cs" />
     <Compile Include="Assets\Scripts\AI\CargoAI.cs" />
+    <Compile Include="Assets\Scripts\Animation\PlayAudio.cs" />
     <Compile Include="Assets\Scripts\ApplicationManager.cs" />
     <Compile Include="Assets\Scripts\Behavior\GameObjectRotator.cs" />
     <Compile Include="Assets\Scripts\Canvas\ExitCanvas.cs" />
@@ -497,6 +504,7 @@
     <Compile Include="Assets\SmartTimersManager\TimerManager\TimersManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\DailyRewards\README.txt" />
     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
     <None Include="Assets\MakakaIconPack\Fonts\Font_Read_Me.txt" />
     <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />

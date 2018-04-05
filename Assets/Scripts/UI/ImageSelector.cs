@@ -13,9 +13,11 @@ public class ImageSelector : MonoBehaviour {
     public int SelectedImageIndex
     { get; set; }
 
+   
+
     private void Awake()
     {
-        SelectedImageIndex = 0;
+        
     }
     // Use this for initialization
     void Start () {
@@ -37,6 +39,12 @@ public class ImageSelector : MonoBehaviour {
         }
 
         RefreshSelectedImage();
+    }
+
+    public void SelectImage(int index)
+    {
+        SelectedImageIndex = index;
+        
     }
 
     // 선택된 이미지 갱신

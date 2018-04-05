@@ -14,9 +14,16 @@ public class MapSelectionCanvas : MonoBehaviour {
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void OnEnable()
+    {
+        if(imageSelector)
+        {
+            imageSelector.SelectImage(PlayerPrefs.GetInt(PlayerGameData.MapKey));
+        }
+    }
+    // Update is called once per frame
+    void Update () {
 		
         if(Input.GetKeyDown(KeyCode.Escape))
         {

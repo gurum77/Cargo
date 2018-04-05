@@ -117,7 +117,7 @@ public class GameMode_Flag : MonoBehaviour {
         }
     }
 
-    int GetLevel()
+    public int GetLevel()
     {
         if (GameController.Me)
         {
@@ -288,10 +288,15 @@ public class GameMode_Flag : MonoBehaviour {
         com.transform.localScale = new Vector3(2, 2, 2);
     }
 
-    // 보스 레벨인지?
+    // 현재 레벨이 보스 레벨인지?
     bool IsBossLevel()
     {
-        int level = GetLevel();
+        return IsBossLevelByLevel(GetLevel());
+    }
+
+    // 지정된 레벨이 보스레벨인지?
+    public bool IsBossLevelByLevel(int level)
+    {
         if (level > 0 && level % 10 == 0)
             return true;
 

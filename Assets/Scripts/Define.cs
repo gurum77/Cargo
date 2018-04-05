@@ -14,6 +14,7 @@ namespace Define
         static public readonly string Shake     = "shake";
         static public readonly string Rock_Damage   = "Rock_Damage";
         static public readonly string Groggy = "Groggy";
+        static public readonly string Stamp_Take = "Stamp_Take";
     }
 
     public class Tag

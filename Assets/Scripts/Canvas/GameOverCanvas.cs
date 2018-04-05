@@ -14,6 +14,9 @@ public class GameOverCanvas : MonoBehaviour {
     public float timeToShowButtons; // 버튼을 보이게 하는 시간
     float timeFromEnable;   // 활성화 된 이후 시간
     public Button[] hideButtons;    // 숨겨야 하는 버튼을
+    public Image successImage;
+    public Image failImage;
+    public Image bestImage;
 
 	// Use this for initialization
 	void Start () {
@@ -26,7 +29,7 @@ public class GameOverCanvas : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
+        
         // display score
         DisplayScore();
 
@@ -47,10 +50,32 @@ public class GameOverCanvas : MonoBehaviour {
         {
             timeFromEnable = 0.0f;
             HideButtons();
-            
         }
         
+        // 결과 이미지 표시
+        DisplayResultImage();
+       
 	}
+
+    // 결과 이미지를 표시한다.
+    void DisplayResultImage()
+    {
+        // 성공인지 실패에 따라 적절한 이미지를 보여준다.
+        Image resultImage   = failImage;
+        if (IsBest())
+            resultImage = bestImage;
+        else if (IsSuccess())
+            resultImage = successImage;
+
+        if (resultImage && resultImage.transform.localScale.x == 0)
+        {
+            Animator ani = resultImage.GetComponentInChildren<Animator>();
+            if (ani && ani.isActiveAndEnabled)
+            {
+                ani.SetTrigger(Define.Trigger.Stamp_Take);
+            }
+        }
+    }
     
     // button을 보여준다.
     // 지정된 시간 이후부터 보인다.
@@ -68,6 +93,8 @@ public class GameOverCanvas : MonoBehaviour {
     // game over canvas는 게임이 종료되고 나서 3초 뒤에 다른 버튼을 누를 수 있게 한다.
     void OnEnable()
     {
+      
+
     }
 
     void HideButtons()
@@ -103,6 +130,51 @@ public class GameOverCanvas : MonoBehaviour {
             }
             
         }
+    }
+
+    // best인지?
+    // 100M 모드에서 최고 기록 달성했으면 베스트
+    // energy 모드에서 최고 기록 달성했으면 베스트
+    // flag 모드에서 보스를 깼으면 베스트
+    bool IsBest()
+    {
+        GameModeController modeController   = GameController.Me.gameModeController;
+        Player player   = GameController.Me.Player;
+
+        if (modeController.GetCurGameMode() == GameModeController.GameMode.eFlagMode)
+        {
+            GameMode_Flag flagMode = modeController.curGameMode.GetComponent<GameMode_Flag>();
+            if (flagMode && flagMode.IsWin() && flagMode.IsBossLevelByLevel(flagMode.GetLevel() - 1))
+                return flagMode.IsWin();
+        }
+        else if(modeController.GetCurGameMode() == GameModeController.GameMode.eEnergyBarMode)
+        {
+            if (player.Score == player.GameData.EnergyBarModeBestScore)
+                return true;
+        }
+        else if(modeController.GetCurGameMode() == GameModeController.GameMode.e100MMode)
+        {
+            GameMode_100M hundredMode = modeController.curGameMode.GetComponent<GameMode_100M>();
+            if (hundredMode && hundredMode.Time100M == player.GameData.HundredMBestTime)
+                return true;
+        }
+
+        return false;
+    }
+
+    // 성공인지?
+    // flag 모드에서를 제외하고 모든 모드는 캐릭터가 데미지를 입어서 끝났다면 실패다.
+    bool IsSuccess()
+    {
+        // flag 모드에서는 이기면 win, 지면 lost를 찍는다.
+        if (GameController.Me.gameModeController.GetCurGameMode() == GameModeController.GameMode.eFlagMode)
+        {
+            GameMode_Flag flagMode = GameController.Me.gameModeController.curGameMode.GetComponent<GameMode_Flag>();
+            if (flagMode)
+                return flagMode.IsWin();
+        }
+
+        return GameController.Me.Player.Life == 0 ? false : true;
     }
 
     private void DisplayScore()

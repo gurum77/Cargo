@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameModeSelectionCanvas : MonoBehaviour {
 
+    public ImageSelector imageSelector;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -25,27 +27,13 @@ public class GameModeSelectionCanvas : MonoBehaviour {
         SceneManager.LoadScene(Define.Scene.Playground);
     }
 
-    // 에너지바 모드 버튼 클릭
-    public void OnEnergybarModeButtonClicked()
+   
+    // 이미지 선택기에서 선택 버튼을 클릭
+    public void OnImageSelectorSelectButtonClicked()
     {
-        ChangeGameMode(GameModeController.GameMode.eEnergyBarMode);        
-    }
+        if (imageSelector == null)
+            return;
 
-    // 100M 모드 버튼 클릭
-    public void On100MModeButtonClicked()
-    {
-        ChangeGameMode(GameModeController.GameMode.e100MMode);
-    }
-
-    // Flag 모드 버튼 클릭
-    public void OnFlagModeButtonClicked()
-    {
-        ChangeGameMode(GameModeController.GameMode.eFlagMode);
-    }
-
-    // Math 모드 버튼 클릭
-    public void OnMathModeButtonClicked()
-    {
-        ChangeGameMode(GameModeController.GameMode.eMathMode);
+        ChangeGameMode((GameModeController.GameMode)imageSelector.SelectedImageIndex);
     }
 }

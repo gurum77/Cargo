@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class GameController : MonoBehaviour {
 
@@ -205,6 +206,8 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        // 광고 초기화
+        Advertisement.Initialize(Define.UnityAds.gameID);
 
         // control type 지정
         controlType = Control.eControl_MoveOnly;

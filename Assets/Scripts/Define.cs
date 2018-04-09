@@ -57,4 +57,10 @@ namespace Define
         static public readonly string Coins = "Coins";
         static public readonly string Diamonds = "Diamonds";
     }
+
+    public class UnityAds
+    {
+        static public readonly string gameID = "1763076";
+        static public readonly string rewardedVideo = "rewardedVideo";
+    }
 }

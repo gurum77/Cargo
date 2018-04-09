@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scripts.Controller;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 
 public class GameOverCanvas : MonoBehaviour {
 
@@ -63,10 +64,24 @@ public class GameOverCanvas : MonoBehaviour {
         DisplayRewards();
 	}
 
+
+    private void HandleShowResult(ShowResult result)
+    {
+        if(result == ShowResult.Finished)
+        {
+            GameController.Me.Player.DuplicateRewards();
+        }
+    }
+
     // 광고 버튼 클릭
     public void OnADButtonClicked()
     {
-        GameController.Me.Player.DuplicateRewards();
+        if(Advertisement.IsReady(Define.UnityAds.rewardedVideo))
+        {
+            var options = new ShowOptions { resultCallback = HandleShowResult };
+            Advertisement.Show(Define.UnityAds.rewardedVideo, options);
+        }
+        
     }
 
     // 결과 이미지를 표시한다.

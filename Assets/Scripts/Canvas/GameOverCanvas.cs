@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scripts.Controller;
+using UnityEngine.SceneManagement;
 
 public class GameOverCanvas : MonoBehaviour {
 
@@ -17,6 +18,9 @@ public class GameOverCanvas : MonoBehaviour {
     public Image successImage;
     public Image failImage;
     public Image bestImage;
+
+    public Text collectedCoinsText;
+    public Text collectedDiamondsText;
 
 	// Use this for initialization
 	void Start () {
@@ -54,8 +58,16 @@ public class GameOverCanvas : MonoBehaviour {
         
         // 결과 이미지 표시
         DisplayResultImage();
-       
+
+        // 보상 표시
+        DisplayRewards();
 	}
+
+    // 광고 버튼 클릭
+    public void OnADButtonClicked()
+    {
+        GameController.Me.Player.DuplicateRewards();
+    }
 
     // 결과 이미지를 표시한다.
     void DisplayResultImage()
@@ -76,6 +88,20 @@ public class GameOverCanvas : MonoBehaviour {
             }
         }
     }
+
+    // 보상을 표시한다.
+    void DisplayRewards()
+    {
+        if(collectedCoinsText)
+        {
+            collectedCoinsText.text = StringMaker.GetCollectedCoinsString();
+        }
+
+        if(collectedDiamondsText)
+        {
+            collectedDiamondsText.text = StringMaker.GetCollectedDiamondsString();
+        }
+    }
     
     // button을 보여준다.
     // 지정된 시간 이후부터 보인다.
@@ -86,7 +112,8 @@ public class GameOverCanvas : MonoBehaviour {
 
         foreach (var b in hideButtons)
         {
-            b.gameObject.SetActive(true);
+            if(b)
+                b.gameObject.SetActive(true);
         }
     }
 
@@ -196,5 +223,14 @@ public class GameOverCanvas : MonoBehaviour {
             }
         }
             
+    }
+
+    // 받기 버튼을 누르면 보상을 받는다.
+    // 보상을 받고 나서 ready canvas를 연다.
+    public void OnGetButtonClicked()
+    {
+        GameController.Me.Player.GetRewards();
+        GameController.Me.Ready();
+        
     }
 }

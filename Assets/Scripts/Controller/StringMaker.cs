@@ -42,6 +42,18 @@ namespace Assets.Scripts.Controller
         {
             return GameController.Me.Player.GameData.Diamonds.ToString();
         }
+
+        // collected coin text 리턴
+        public static string GetCollectedCoinsString()
+        {
+            return GameController.Me.Player.CollectedCoins.ToString();
+        }
+
+        // collected diamond text 리턴
+        public static string GetCollectedDiamondsString()
+        {
+            return GameController.Me.Player.CollectedDiamonds.ToString();
+        }
         
 
         // flag 모드 레벨 문자열

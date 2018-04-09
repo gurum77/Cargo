@@ -51,6 +51,8 @@ public class GameMode_Flag : MonoBehaviour {
         get { return com; }
     }
 
+    public GameObject bossLevelAlert;
+
 	// Use this for initialization
 	void Start () {
         curTargetFlagCount = targetFlagCount;
@@ -286,6 +288,12 @@ public class GameMode_Flag : MonoBehaviour {
 
         // 보스는 좀 크게 한다.
         com.transform.localScale = new Vector3(2, 2, 2);
+
+        // 경고를 띄운다.
+        if(bossLevelAlert)
+        {
+            bossLevelAlert.SetActive(true);
+        }
     }
 
     // 현재 레벨이 보스 레벨인지?

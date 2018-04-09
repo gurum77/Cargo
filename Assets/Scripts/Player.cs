@@ -36,6 +36,20 @@ public class Player : MonoBehaviour {
         set;
     }
 
+    // 이번 게임에서 얻은 코인과 다이아 몬드 ///
+    int collectedCoins;
+    public int CollectedCoins
+    {
+        get { return collectedCoins; }
+    }
+    int collectedDiamonds;
+    public int CollectedDiamonds
+    {
+        get { return collectedDiamonds; }
+    }
+
+    ////////////////////////////////////////////
+
     float movingDist = 1.0f;
     // 현재 life
     int life;
@@ -203,24 +217,41 @@ public class Player : MonoBehaviour {
         playerPosition = 0;
         score = 0;
         flagCount = 0;
+        collectedCoins = 0;
+        collectedDiamonds = 0;
         life = GetRealDefaultLife();
 
         InitAnimation();
         
     }
 
-    // coin을 추가한다.
-    public void AddCoins(int addCoins)
+    // coin을 수집한다.
+    public void CollectCoins(int addCoins)
     {
         // 현재 레벨에 따라 곱해준다.
-        gameData.Coins = gameData.Coins + (int)((addCoins * (GetLevel()+1)) * GetRealCoinRate());
+        collectedCoins = collectedCoins + (int)((addCoins * (GetLevel() + 1)) * GetRealCoinRate());
     }
 
-    // diamond를 추가한다.
-    public void AddDiamonds(int addDimonds)
+    // diamond를 수집한다.
+    public void CollectDiamonds(int addDimonds)
     {
         // 현재 레벨에 따라 곱해준다.
-        gameData.Diamonds = gameData.Diamonds + (addDimonds * (GetLevel() + 1));
+        collectedDiamonds = collectedDiamonds + (addDimonds * (GetLevel() + 1));
+    }
+
+    // 보상(coin, diamond)을 2배로 늘린다.
+    public void DuplicateRewards()
+    {
+        collectedCoins *= 2;
+        collectedDiamonds *= 2;
+    }
+
+    // 보상을 받아서 ame data에 저장한다.
+    public void GetRewards()
+    {
+        gameData.Coins += collectedCoins;
+        gameData.Diamonds += collectedDiamonds;
+        gameData.Save();
     }
 
     public int Combo
@@ -735,7 +766,7 @@ public class Player : MonoBehaviour {
                 audioSourceCoin.Play();
 
             // 동전개수를 증가시킨다.
-            AddCoins(prop.GetCoinNums());
+            CollectCoins(prop.GetCoinNums());
         }
         // Diamond인 경우
         else if (prop.Item == MapBlockProperty.ItemType.eDiamond)
@@ -744,7 +775,7 @@ public class Player : MonoBehaviour {
                 audioSourceDiamond.Play();
 
             // diamond 개수를 증가시킨다.
-            AddDiamonds(prop.GetDiamondNums());
+            CollectDiamonds(prop.GetDiamondNums());
         }
         // flag인 경우
         else if(prop.Item == MapBlockProperty.ItemType.eFlag)

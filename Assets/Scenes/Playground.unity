@@ -239,7 +239,7 @@ Prefab:
       objectReference: {fileID: 1765507052}
     - target: {fileID: 11439030, guid: a7404eeab8d5e49489a17e15938e8ec1, type: 2}
       propertyPath: en_CurrWeather
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11439030, guid: a7404eeab8d5e49489a17e15938e8ec1, type: 2}
       propertyPath: _iMinAmountOfDaysToNewWeather
@@ -1600,15 +1600,13 @@ MonoBehaviour:
   diamondText: {fileID: 1731892273}
   gameOverText: {fileID: 1604560396}
   timeToShowButtons: 1
-  hideButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  hideButtons: []
   successImage: {fileID: 1061134520}
   failImage: {fileID: 456338993}
   bestImage: {fileID: 356545188}
   collectedCoinsText: {fileID: 1177543173}
   collectedDiamondsText: {fileID: 622839925}
+  adButton: {fileID: 998504831}
 --- !u!224 &284551001 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22409990, guid: 81154777d5417884981849c5243f6c01,
@@ -2010,6 +2008,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &361674668 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114365938486253852, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+    type: 2}
+  m_PrefabInternal: {fileID: 531867090}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &362034582
 GameObject:
   m_ObjectHideFlags: 0
@@ -4091,6 +4095,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114402079882025362, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224867263941117780, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -4180,6 +4189,85 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114947040235303730, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114947040235303730, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_ScreenMatchMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661470675089300, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114402079882025362, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114402079882025362, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114402079882025362, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 837037581}
+    - target: {fileID: 114402079882025362, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLifeADButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 114402079882025362, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 224552511710269150, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224552511710269150, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 224552511710269150, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224552511710269150, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 224552511710269150, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224552511710269150, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224552511710269150, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224552511710269150, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9, type: 2}
@@ -5521,6 +5609,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb16f333095ed444d9aa29b4bd390f0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timerText: {fileID: 361674668}
+  startTime: 5
+--- !u!223 &837037584 stripped
+Canvas:
+  m_PrefabParentObject: {fileID: 223963378201960040, guid: 6b1e3e8b0cb0c714d8082f7c161fbaa9,
+    type: 2}
+  m_PrefabInternal: {fileID: 531867090}
 --- !u!224 &838534024 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224180593075233738, guid: 864a21420feee684c8b42dcbf0480b02,
@@ -5797,143 +5892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd53aa52f082d402bbb1db7e3b67072a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolInfo:
-  - poolName: BigCoin
-    prefab: {fileID: 100000, guid: 4c3d06e90bf3c9243b7377db43614b25, type: 2}
-    poolSize: 20
-    fixedSize: 0
-  - poolName: barrel
-    prefab: {fileID: 1319930702440686, guid: 55eac99f5049e5045a42f2528f476504, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: barrel_group
-    prefab: {fileID: 1174801331850410, guid: 84573fa2e72500d49835406b46d71622, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: civilian_house_31_d
-    prefab: {fileID: 1926537472777868, guid: bb52af47d9faec74fad8e086984bd265, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: civilian_house_41_a
-    prefab: {fileID: 1630727849953740, guid: aef726a0461cc9c449f006030651d154, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: Map_BrownStony
-    prefab: {fileID: 1046117450869822, guid: a5d4913381e8df742b211d0a4bbec2ae, type: 2}
-    poolSize: 0
-    fixedSize: 0
-  - poolName: Map_Grass
-    prefab: {fileID: 1642411033091984, guid: 7938ca583fb46ea479c8f50e8e3355aa, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: RoadBlock_Right
-    prefab: {fileID: 1798550002445404, guid: 3fb1985fb59083b44a04917c62ad3707, type: 2}
-    poolSize: 20
-    fixedSize: 0
-  - poolName: roof_building_6_a
-    prefab: {fileID: 1875141103647894, guid: 84d3360cbaae9bd458e10b9265f52b72, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: roof_building_7
-    prefab: {fileID: 1962918792180490, guid: 99ca7ca24bc92344b9ec3beb51dd5728, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: standard_rooftop_funnel
-    prefab: {fileID: 1446841308356098, guid: 838a00f69fcd53e42ace6ea32ad80c68, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: Coin
-    prefab: {fileID: 100000, guid: 8645a0f5dbe846a4bae22a67d2144035, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: pine_b
-    prefab: {fileID: 1238566819580450, guid: 5db841ccc057fc54d896da56796529ba, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: city_tower_a
-    prefab: {fileID: 1605505815187340, guid: bce5fc2f859a0234baae5543a7f5e668, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: boat_01
-    prefab: {fileID: 1751408369645596, guid: c3f5eece0f81b3944990d6c0d91d442f, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: boat_02
-    prefab: {fileID: 1200368573225118, guid: 571a69f902adb9846a5eabd744415ecc, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: boat_03
-    prefab: {fileID: 1372221035203834, guid: 6feceae911d87fa43973eb944d04162f, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: Map_WaterDeep
-    prefab: {fileID: 1027809041521438, guid: 3eba2eaaed4adaa458b91f36c6c78111, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: terrain_08
-    prefab: {fileID: 1675079169142442, guid: ffbc74fb0bbcfde41861fd2317cf65e7, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: RoadBlock_StrightLeft
-    prefab: {fileID: 1292885810442624, guid: 30a91e10c1ef0ec4eae325ad77816a0f, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: RoadBlock_StrightRight
-    prefab: {fileID: 1688438947817286, guid: 471adf91f09e920438b34d7b41573458, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: RoadBlock_TurnLeft
-    prefab: {fileID: 1484350317577300, guid: 34622af430b72c846b67b2584a3896f3, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: RoadBlock_TurnRight
-    prefab: {fileID: 1213640992733978, guid: 829289cfbe8db8d408d78aad5a60846e, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: RoadBlock_Left
-    prefab: {fileID: 1211354525459786, guid: 294d7bc1f104be54195fd4db6f043442, type: 2}
-    poolSize: 10
-    fixedSize: 0
-  - poolName: Flag
-    prefab: {fileID: 1062638580620614, guid: cd2a1fa2adc1276479fc9c4b634b8efb, type: 2}
-    poolSize: 5
-    fixedSize: 0
-  - poolName: Rock
-    prefab: {fileID: 1143428880888822, guid: 7f1473ea1287d8c4cb5f348a9d86738f, type: 2}
-    poolSize: 2
-    fixedSize: 0
-  - poolName: Water4Simple
-    prefab: {fileID: 1695097231796230, guid: 2360d6a7068fcbc49ad5086610d9ec2c, type: 2}
-    poolSize: 2
-    fixedSize: 0
-  - poolName: Fish
-    prefab: {fileID: 1396765729504650, guid: 1f8375eac1c3df944b5039b9ecb65152, type: 2}
-    poolSize: 5
-    fixedSize: 0
-  - poolName: FishBig
-    prefab: {fileID: 1892954588157004, guid: 8343ac096eb49604c9675db1c90bb32b, type: 2}
-    poolSize: 5
-    fixedSize: 0
-  - poolName: Fish2
-    prefab: {fileID: 1445542899361614, guid: 09dffa75258296b44a0693e7e4019728, type: 2}
-    poolSize: 5
-    fixedSize: 0
-  - poolName: Fish3
-    prefab: {fileID: 1488063992277402, guid: 9ef9b6c847a3fe44283233f11516b3e8, type: 2}
-    poolSize: 5
-    fixedSize: 0
-  - poolName: Diamondo
-    prefab: {fileID: 1000013931470818, guid: 5c02591794acece409986647ed6329a7, type: 2}
-    poolSize: 2
-    fixedSize: 0
-  - poolName: life
-    prefab: {fileID: 1133398593192248, guid: 8b22578bfb1b16e479299c83a4459f8d, type: 2}
-    poolSize: 2
-    fixedSize: 0
-  - poolName: Ef_Explosion_01 (1)
-    prefab: {fileID: 1422490939470046, guid: c8860fa225a80f7478e795056d959c8e, type: 2}
-    poolSize: 2
-    fixedSize: 0
+  poolInfo: []
 --- !u!4 &883610216
 Transform:
   m_ObjectHideFlags: 0
@@ -7720,6 +7679,7 @@ MonoBehaviour:
   - {fileID: 1993070692023474, guid: af68f6ffff31ff64c93521a587d234b1, type: 2}
   - {fileID: 1866390378080362, guid: ea09f74638baa144b976a6d30cfeb5c0, type: 2}
   - {fileID: 1127895931938010, guid: 6a3c3be630de526439747694c0304cc2, type: 2}
+  revivedByADCanvas: {fileID: 0}
   audioSourceTick: {fileID: 1301157846}
   audioSourceCoin: {fileID: 1301157845}
   audioSourceDiamond: {fileID: 0}
@@ -7898,8 +7858,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetMovingInterval: 0.5
-  targetMovingIntervalRangeRate: 0.2
-  bossAttackInterval: 100
+  targetMovingIntervalRangeRate: 0.5
+  bossAttackInterval: 0
 --- !u!82 &1301157848
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8035,14 +7995,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066c61c7375237744a6b9e191c430fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetFrameRate: 30
+  targetFrameRate: 0
   mapController: {fileID: 1076280502}
   gameModeController: {fileID: 526823096}
   playCanvasItems: {fileID: 1350455118}
   readyCanvasItems: {fileID: 1695150230}
   gameOverCanvasItems: {fileID: 1684600961}
-  characterPrefab: {fileID: 1000012898607606, guid: c6fd786275d4cdb4abd8effce60cf681,
-    type: 2}
   player: {fileID: 1765644313}
 --- !u!1 &1334945029
 GameObject:
@@ -9390,7 +9348,7 @@ MonoBehaviour:
   comboTime: 0.5
   targetGameObject: {fileID: 141683947}
   turnEffect: {fileID: 1727427023}
-  groggyEffect: {fileID: 1727427023}
+  groggyEffect: {fileID: 0}
   level1Combo: 10
   characterPrefabs:
   - {fileID: 1000012898607606, guid: c6fd786275d4cdb4abd8effce60cf681, type: 2}
@@ -9407,6 +9365,7 @@ MonoBehaviour:
   - {fileID: 1993070692023474, guid: af68f6ffff31ff64c93521a587d234b1, type: 2}
   - {fileID: 1866390378080362, guid: ea09f74638baa144b976a6d30cfeb5c0, type: 2}
   - {fileID: 1127895931938010, guid: 6a3c3be630de526439747694c0304cc2, type: 2}
+  revivedByADCanvas: {fileID: 837037584}
   audioSourceTick: {fileID: 1765644315}
   audioSourceCoin: {fileID: 1765644316}
   audioSourceDiamond: {fileID: 0}
@@ -10873,7 +10832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1765644312}
-  followingSpeed: 3
+  followingSpeed: 10
   skyView: 1
 --- !u!114 &2061274071
 MonoBehaviour:
@@ -11651,7 +11610,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 100}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 250, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2143675367
 MonoBehaviour:

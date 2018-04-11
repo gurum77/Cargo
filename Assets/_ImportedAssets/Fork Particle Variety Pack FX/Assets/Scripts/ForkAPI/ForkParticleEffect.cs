@@ -400,7 +400,7 @@ public class ForkParticleEffect : MonoBehaviour
 
 	void Update() {
         // Wait for the Fork SDK to be initialized
-		if (ForkParticlePlugin.Instance.bForkSDKInit == false)
+        if (ForkParticlePlugin.Instance && ForkParticlePlugin.Instance.bForkSDKInit == false)
 			return;
 
         if (bEffectLoaded == false)
@@ -485,6 +485,9 @@ public class ForkParticleEffect : MonoBehaviour
 	}
 
     private void ForkEffectCreate() {
+        if (!ForkParticlePlugin.Instance)
+            return;
+
 		string sEffectName = gameObject.name.Remove(gameObject.name.IndexOf("prefab"));
 		string sEffectPathName = ForkParticlePlugin.Instance.TexturePath + sEffectName + XMLExtensionPrefix;
 
@@ -569,7 +572,8 @@ public class ForkParticleEffect : MonoBehaviour
 
 	void OnDestroy()
 	{
-		ForkParticlePlugin.Instance.RemoveEffect (this.gameObject);
+        if (ForkParticlePlugin.Instance)
+		    ForkParticlePlugin.Instance.RemoveEffect (this.gameObject);
 		gameObject.SetActive (false);
 		if (bValidEffect)
 			_frkParticlePluginDestroyEffect (pFrkEffect);

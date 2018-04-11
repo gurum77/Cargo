@@ -58,13 +58,13 @@ public class GameMode_Math : MonoBehaviour {
     {
         get
         {
-            if(GameController.Me == null)
+            if(GameController.Instance == null)
                 return 1;
 
             if (scorePerQuestionLevel == 0)
                 return 1;
 
-            return GameController.Me.Player.Score / scorePerQuestionLevel + 1;
+            return GameController.Instance.Player.Score / scorePerQuestionLevel + 1;
         }
     }
 
@@ -81,8 +81,8 @@ public class GameMode_Math : MonoBehaviour {
     void ApplyDamage()
     {
         // 데미지를 주면 한칸 뒤로 밀려나기 때문에 우선 한칸 진행시킨다.
-        GameController.Me.Player.MoveForwardToValidWay(1);
-        GameController.Me.Player.ApplyDamage();
+        GameController.Instance.Player.MoveForwardToValidWay(1);
+        GameController.Instance.Player.ApplyDamage();
 
     }
     // 이 함수가 호출된다면 time out이다.
@@ -256,6 +256,9 @@ public class GameMode_Math : MonoBehaviour {
 
     void FixedUpdate()
     {
+        if (GameController.Instance.IsWaitingToRevive())
+            return;
+
         // 풀리지 않은 문제가 없다면 문제를 제출한다.
         if(!IsExistQuestion())
         {
@@ -339,19 +342,19 @@ public class GameMode_Math : MonoBehaviour {
             rightButton.SetActive(false);
 
         // 사용자 입력을 막는다.
-        if(GameController.Me)
+        if(GameController.Instance)
         {
-            GameController.Me.Player.EnableUserInput = false;
+            GameController.Instance.Player.EnableUserInput = false;
         }
 
         // 여기서 보여야 하는 item을 showItemByGameMode로 이동한다
-        if (mathModeItem && GameController.Me && GameController.Me.gameModeController && GameController.Me.gameModeController.showItemByGameMode)
-            mathModeItem.transform.SetParent(GameController.Me.gameModeController.showItemByGameMode.transform);
+        if (mathModeItem && GameController.Instance && GameController.Instance.gameModeController && GameController.Instance.gameModeController.showItemByGameMode)
+            mathModeItem.transform.SetParent(GameController.Instance.gameModeController.showItemByGameMode.transform);
 
         // 맵을 구성한다.
-        if (GameController.Me)
+        if (GameController.Instance)
         {
-            GameController.Me.mapController.MakeMap();
+            GameController.Instance.mapController.MakeMap();
         }
 
         timeOutProgressbar.SetFillerSize(100);
@@ -360,8 +363,8 @@ public class GameMode_Math : MonoBehaviour {
     //  답을 선택한다.
     void SelectAnswer(int answer)
     {
-        Player player = GameController.Me.Player;
-        MapController mapController = GameController.Me.MapController;
+        Player player = GameController.Instance.Player;
+        MapController mapController = GameController.Instance.MapController;
 
         // 그로기 상태에서는 답선택이 불가하다
         if (player.IsGroggy)

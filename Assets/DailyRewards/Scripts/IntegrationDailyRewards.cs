@@ -31,13 +31,13 @@ public class IntegrationDailyRewards : MonoBehaviour
 
         if(myReward.unit == Define.Rewards.Coins)
         {
-            GameController.Me.Player.GameData.Coins += myReward.reward;
+            GameController.Instance.Player.GameData.Coins += myReward.reward;
         }
         else if(myReward.unit == Define.Rewards.Diamonds)
         {
-            GameController.Me.Player.GameData.Diamonds += myReward.reward;
+            GameController.Instance.Player.GameData.Diamonds += myReward.reward;
         }
 
-        GameController.Me.Player.GameData.Save();
+        GameController.Instance.Player.GameData.Save();
     }
 }

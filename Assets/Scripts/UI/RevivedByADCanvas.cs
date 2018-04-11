@@ -8,7 +8,7 @@ public class RevivedByADCanvas : MonoBehaviour {
 
     public Text timerText;
     public int startTime;
-    int remainTime;
+    float remainTime;
 
 	// Use this for initialization
 	void Start () {
@@ -22,7 +22,13 @@ public class RevivedByADCanvas : MonoBehaviour {
 
         if(remainTime <= 0)
         {
-            GameObject.Destroy(gameObject);
+            CloseCanvas();
+        }
+
+        if(timerText)
+        {
+            int remainTimeInt = Mathf.RoundToInt(remainTime);
+            timerText.text = remainTimeInt.ToString();
         }
 	}
 
@@ -33,22 +39,38 @@ public class RevivedByADCanvas : MonoBehaviour {
     }
 
 
+    // canvas를 닫는다.
+    // 게임 object를 삭제하고 pause를 푼다
+    void CloseCanvas()
+    {
+        gameObject.SetActive(false);
+
+        if (GameController.Instance.Player.Life <= 0)
+        {
+            GameController.Instance.GameOver();
+        }
+    }
+
     void HandleShowResult(ShowResult result)
     {
         if(result == ShowResult.Finished)
         {
-            GameController.Me.Player.Life = GameController.Me.Player.Life + 1;
-            GameController.Me.Player.RevivedByAD = true;
+            GameController.Instance.Player.Life = GameController.Instance.Player.Life + 1;
+            GameController.Instance.Player.RevivedByAD = true;
+            CloseCanvas();
         }
     }
 
     
 
-    void OnLifeADButtonClicked()
+    public void OnLifeADButtonClicked()
     {
         // 이미 받았으면 실행불가
-        if (GameController.Me.Player.RevivedByAD)
+        if (GameController.Instance.Player.RevivedByAD)
+        {
+            CloseCanvas();
             return;
+        }
 
         // 광고 시청
         if(Advertisement.IsReady(Define.UnityAds.rewardedVideo))
@@ -56,15 +78,5 @@ public class RevivedByADCanvas : MonoBehaviour {
             var options = new ShowOptions { resultCallback = HandleShowResult };
             Advertisement.Show(Define.UnityAds.rewardedVideo, options);
         }
-
-        if(Advertisement.IsReady(Define.UnityAds.rewardedVideo))
-        {
-            Advertisement.Show()
-            
-        }
-
-        
-
-        
     }
 }

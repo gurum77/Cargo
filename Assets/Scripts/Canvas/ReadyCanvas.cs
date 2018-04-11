@@ -46,11 +46,11 @@ public class ReadyCanvas : MonoBehaviour {
     void DisplayGameMode()
     {
         if (gameModeText)
-            gameModeText.text = GameController.Me.gameModeController.GetCurGameModeDisplayName();
+            gameModeText.text = GameController.Instance.gameModeController.GetCurGameModeDisplayName();
 
         if(gameModeSubText)
         {
-            if(GameController.Me.gameModeController.GetCurGameMode() == GameModeController.GameMode.eFlagMode)
+            if(GameController.Instance.gameModeController.GetCurGameMode() == GameModeController.GameMode.eFlagMode)
             {
                 gameModeSubText.text = StringMaker.GetFlagModeLevelString();
             }
@@ -63,7 +63,7 @@ public class ReadyCanvas : MonoBehaviour {
 
     public void OnStartButtonClicked()
     {
-        GameController.Me.Play();
+        GameController.Instance.Play();
     }
 
 
@@ -73,11 +73,11 @@ public class ReadyCanvas : MonoBehaviour {
         if (bestScoreText)
         {
             // 모드별로 다르게 표시한다.
-            GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
+            GameModeController.GameMode curGameMode = GameController.Instance.gameModeController.GetCurGameMode();
             if (curGameMode == GameModeController.GameMode.eEnergyBarMode)
-                bestScoreText.text = LocalizationText.GetText("Best ") + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
+                bestScoreText.text = LocalizationText.GetText("Best ") + GameController.Instance.Player.GameData.EnergyBarModeBestScore.ToString();
             else if (curGameMode == GameModeController.GameMode.e100MMode)
-                bestScoreText.text = LocalizationText.GetText("Best ") + GameMode_100M.TimeToString(GameController.Me.Player.GameData.HundredMBestTime);
+                bestScoreText.text = LocalizationText.GetText("Best ") + GameMode_100M.TimeToString(GameController.Instance.Player.GameData.HundredMBestTime);
         }
     }
 
@@ -86,7 +86,7 @@ public class ReadyCanvas : MonoBehaviour {
     void DisplayScore()
     {
         if(scoreText)
-            scoreText.text = GameController.Me.Player.Score.ToString();
+            scoreText.text = GameController.Instance.Player.Score.ToString();
     }
 
     // coins 출력
@@ -102,7 +102,7 @@ public class ReadyCanvas : MonoBehaviour {
     public void OnGameModeSelectionButtonClicked()
     {
         // game data를 저장한다.
-        GameController.Me.SaveGameData();
+        GameController.Instance.SaveGameData();
 
         // player 선택 신으로 변경한다.
         SceneManager.LoadScene(Define.Scene.GameModeSelection);
@@ -112,7 +112,7 @@ public class ReadyCanvas : MonoBehaviour {
     public void OnMapSelectionButtonClicked()
     {
         // game data를 저장한다.
-        GameController.Me.SaveGameData();
+        GameController.Instance.SaveGameData();
 
         // map 선택 신으로 변경한다.
         SceneManager.LoadScene(Define.Scene.MapSelection);
@@ -122,7 +122,7 @@ public class ReadyCanvas : MonoBehaviour {
     public void OnPlayerSelectionButtonClicked()
     {
         // game data를 저장한다.
-        GameController.Me.SaveGameData();
+        GameController.Instance.SaveGameData();
         
         // player 선택 신으로 변경한다.
         SceneManager.LoadScene(Define.Scene.PlayerSelection);
@@ -138,7 +138,7 @@ public class ReadyCanvas : MonoBehaviour {
     public void OnGameDataEditorButtonClicked()
     {
         // game data를 저장한다.
-        GameController.Me.SaveGameData();
+        GameController.Instance.SaveGameData();
 
         // player 선택 신으로 변경한다.
         SceneManager.LoadScene(Define.Scene.PlayerDataEditor);

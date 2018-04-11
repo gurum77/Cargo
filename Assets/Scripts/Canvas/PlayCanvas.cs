@@ -43,28 +43,28 @@ public class PlayCanvas : MonoBehaviour {
     // 카메라 버튼 클릭
     public void OnCameraButtonClicked()
     {
-        GameController.Me.SettingGameData.CameraSkyView = GameController.Me.SettingGameData.CameraSkyView == 1 ? 0 : 1;
-        GameController.Me.SyncSettingGameDataToGameObject();
+        GameController.Instance.SettingGameData.CameraSkyView = GameController.Instance.SettingGameData.CameraSkyView == 1 ? 0 : 1;
+        GameController.Instance.SyncSettingGameDataToGameObject();
     }
 
     // 왼쪽 버튼 클릭
     // 턴
     public void OnLeftButtonClicked()
     {
-        GameController.Me.Player.OnLeftKeyClicked();
+        GameController.Instance.Player.OnLeftKeyClicked();
     }
 
     // 오른쪽 버튼 클릭
     // 이동
     public void OnRightButtonClicked()
     {
-        GameController.Me.Player.OnRightKeyClicked();
+        GameController.Instance.Player.OnRightKeyClicked();
     }
 
     // 점프 버튼 클릭
     public void OnJumpButtonClicked()
     {
-        GameController.Me.Player.OnJumpKeyClicked();
+        GameController.Instance.Player.OnJumpKeyClicked();
     }
 
     // 최고점수 출력
@@ -77,11 +77,11 @@ public class PlayCanvas : MonoBehaviour {
         }
 
         // 모드별로 다르게 표시한다.
-        GameModeController.GameMode curMode = GameController.Me.gameModeController.GetCurGameMode();
+        GameModeController.GameMode curMode = GameController.Instance.gameModeController.GetCurGameMode();
         if (curMode == GameModeController.GameMode.eEnergyBarMode)
-            bestScoreText.text = LocalizationText.GetText("Best ") + GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString();
+            bestScoreText.text = LocalizationText.GetText("Best ") + GameController.Instance.Player.GameData.EnergyBarModeBestScore.ToString();
         else if (curMode == GameModeController.GameMode.e100MMode)
-            bestScoreText.text = LocalizationText.GetText("Best ") + GameMode_100M.TimeToString(GameController.Me.Player.GameData.HundredMBestTime);
+            bestScoreText.text = LocalizationText.GetText("Best ") + GameMode_100M.TimeToString(GameController.Instance.Player.GameData.HundredMBestTime);
     }
 
     // 점수 출력
@@ -93,7 +93,7 @@ public class PlayCanvas : MonoBehaviour {
             return;
         }
 
-        scoreText.text = GameController.Me.Player.Score.ToString();
+        scoreText.text = GameController.Instance.Player.Score.ToString();
     }
 
     // coins 출력
@@ -114,13 +114,13 @@ public class PlayCanvas : MonoBehaviour {
             return;
         }
 
-        if(GameController.Me.player.Combo <= 0)
+        if(GameController.Instance.player.Combo <= 0)
         {
             comboText.text = "";
         }
         else
         {
-            comboText.text = "COMBO " + GameController.Me.player.Combo.ToString();
+            comboText.text = "COMBO " + GameController.Instance.player.Combo.ToString();
         }
     }
 

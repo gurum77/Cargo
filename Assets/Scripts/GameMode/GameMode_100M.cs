@@ -27,6 +27,9 @@ public class GameMode_100M : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (GameController.Instance.IsWaitingToRevive())
+            return;
+
         // 시간 증가
         IncreaseTime100M();
 
@@ -55,8 +58,8 @@ public class GameMode_100M : MonoBehaviour {
     void OnEnable()
     {
         // 여기서 보여야 하는 item을 showItemByGameMode로 이동한다
-        if (hundredMItem && GameController.Me && GameController.Me.gameModeController && GameController.Me.gameModeController.showItemByGameMode)
-            hundredMItem.transform.SetParent(GameController.Me.gameModeController.showItemByGameMode.transform);
+        if (hundredMItem && GameController.Instance && GameController.Instance.gameModeController && GameController.Instance.gameModeController.showItemByGameMode)
+            hundredMItem.transform.SetParent(GameController.Instance.gameModeController.showItemByGameMode.transform);
 
         // 시간 초기화
         time100M = 0.0f;
@@ -64,12 +67,12 @@ public class GameMode_100M : MonoBehaviour {
 
         // 맵을 구성한다. 100개만 한다
         // 맵을 구성한다.
-        if (GameController.Me)
+        if (GameController.Instance)
         {
-            int maxRoadBlockOld = GameController.Me.mapController.maxRoadBlock;
-            GameController.Me.mapController.maxRoadBlock = meter+1;
-            GameController.Me.mapController.MakeMap();
-            GameController.Me.mapController.maxRoadBlock = maxRoadBlockOld;
+            int maxRoadBlockOld = GameController.Instance.mapController.maxRoadBlock;
+            GameController.Instance.mapController.maxRoadBlock = meter+1;
+            GameController.Instance.mapController.MakeMap();
+            GameController.Instance.mapController.maxRoadBlock = maxRoadBlockOld;
         }
     }
 
@@ -86,20 +89,20 @@ public class GameMode_100M : MonoBehaviour {
     /// </summary>
     void CheckGameOver()
     {
-        if(GameController.Me.Player.Score >= meter)
+        if(GameController.Instance.Player.Score >= meter)
         {
             // 결과를 저장한다.
-            if (GameController.Me.Player.GameData.HundredMBestTime != 0)
-                GameController.Me.Player.GameData.HundredMBestTime = Mathf.Min(time100M, GameController.Me.Player.GameData.HundredMBestTime);
+            if (GameController.Instance.Player.GameData.HundredMBestTime != 0)
+                GameController.Instance.Player.GameData.HundredMBestTime = Mathf.Min(time100M, GameController.Instance.Player.GameData.HundredMBestTime);
             else
-                GameController.Me.Player.GameData.HundredMBestTime = time100M;
+                GameController.Instance.Player.GameData.HundredMBestTime = time100M;
 
-            GameController.Me.Player.GameData.Save();
+            GameController.Instance.Player.GameData.Save();
 
             // player를 목표위치로 이동한다.
-            GameController.Me.Player.MoveToTarget();
+            GameController.Instance.Player.MoveToTarget();
             // 게임을 종료한다
-            GameController.Me.GameOver();
+            GameController.Instance.GameOver();
         }
     }
 }

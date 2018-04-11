@@ -29,14 +29,14 @@ public class SettingCanvas : MonoBehaviour {
     // play 버튼 클릭
     public void OnStartButtonClicked()
     {
-        GameController.Me.Play();
+        GameController.Instance.Play();
     }
 
     // mode 선택 버튼 클릭
     public void OnGameModeSelectionButtonClicked()
     {
         // game data를 저장한다.
-        GameController.Me.SaveGameData();
+        GameController.Instance.SaveGameData();
 
         // player 선택 신으로 변경한다.
         SceneManager.LoadScene(Define.Scene.GameModeSelection);
@@ -46,7 +46,7 @@ public class SettingCanvas : MonoBehaviour {
     public void OnMapSelectionButtonClicked()
     {
         // game data를 저장한다.
-        GameController.Me.SaveGameData();
+        GameController.Instance.SaveGameData();
 
         // map 선택 신으로 변경한다.
         SceneManager.LoadScene(Define.Scene.MapSelection);
@@ -56,7 +56,7 @@ public class SettingCanvas : MonoBehaviour {
     public void OnPlayerSelectionButtonClicked()
     {
         // game data를 저장한다.
-        GameController.Me.SaveGameData();
+        GameController.Instance.SaveGameData();
 
         // player 선택 신으로 변경한다.
         SceneManager.LoadScene(Define.Scene.PlayerSelection);

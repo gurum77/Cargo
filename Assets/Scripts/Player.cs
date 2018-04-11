@@ -98,17 +98,20 @@ public class Player : MonoBehaviour {
     public ParticleSystem turnEffect;
     public ParticleSystem groggyEffect;
 
-
     // 변신에 필요한 콤보
     public int level1Combo; // level1 변신에 필요한 콤보
 
     public GameObject[] characterPrefabs;   // player의 캐릭터
+
+    public Canvas revivedByADCanvas;    // 광고로 되살리기 canvas
     public AudioSource audioSourceTick;
     public AudioSource audioSourceCoin;
     public AudioSource audioSourceDiamond;
     public AudioSource audioSourceClock;
     public AudioSource audioSourceLife;
     public AudioSource audioSourceRock;
+
+
     Vector3 targetPos   = new Vector3();  // 목표 위치
     Vector3 targetPosWidthDistXFromCenter = new Vector3();  // 중심에서 x거리가 적용된 목표 위치
     Quaternion targetDir = new Quaternion();   // 목표 방향
@@ -116,22 +119,22 @@ public class Player : MonoBehaviour {
     // 실제 스피드(기본 speed에 + 추가 speed)
     public float GetRealSpeed()
     {
-        return addedSpeed + GameController.Me.InventoryGameData.characterInfo[(int)GameData.CharacterType].Speed;
+        return addedSpeed + GameController.Instance.InventoryGameData.characterInfo[(int)GameData.CharacterType].Speed;
     }
 
     public int GetRealPower()
     {
-        return addedPower + GameController.Me.InventoryGameData.characterInfo[(int)GameData.CharacterType].Power;
+        return addedPower + GameController.Instance.InventoryGameData.characterInfo[(int)GameData.CharacterType].Power;
     }
 
     public int GetRealDefaultLife()
     {
-        return addedDefaultLife + GameController.Me.InventoryGameData.characterInfo[(int)GameData.CharacterType].DefaultLife;
+        return addedDefaultLife + GameController.Instance.InventoryGameData.characterInfo[(int)GameData.CharacterType].DefaultLife;
     }
 
     public float GetRealCoinRate()
     {
-        return addedCoinRate + GameController.Me.InventoryGameData.characterInfo[(int)GameData.CharacterType].CoinRate;
+        return addedCoinRate + GameController.Instance.InventoryGameData.characterInfo[(int)GameData.CharacterType].CoinRate;
     }
 
    
@@ -286,7 +289,7 @@ public class Player : MonoBehaviour {
         if (IsGroggy)
             return;
 
-        if (GameController.Me.ControlType == GameController.Control.eControl_TurnAndMove)
+        if (GameController.Instance.ControlType == GameController.Control.eControl_TurnAndMove)
             TurnAndMove();
         else
             MoveLeft();
@@ -299,7 +302,7 @@ public class Player : MonoBehaviour {
             return;
 
 
-        if (GameController.Me.ControlType == GameController.Control.eControl_TurnAndMove)
+        if (GameController.Instance.ControlType == GameController.Control.eControl_TurnAndMove)
             Move();
         else
             MoveRight();
@@ -325,7 +328,7 @@ public class Player : MonoBehaviour {
         for (int ix = 0; ix < step; ++ix)
         {
             // 다음 칸이 blank라면 점프를 한다.
-            MapBlockProperty prop = GameController.Me.mapController.GetMapBlockProperty(PlayerPosition+1);
+            MapBlockProperty prop = GameController.Instance.mapController.GetMapBlockProperty(PlayerPosition+1);
             if (prop != null)
             {
                 if(prop.Item == MapBlockProperty.ItemType.eBlank)
@@ -336,7 +339,7 @@ public class Player : MonoBehaviour {
                 
             }
 
-            prop = GameController.Me.mapController.GetMapBlockProperty(PlayerPosition);
+            prop = GameController.Instance.mapController.GetMapBlockProperty(PlayerPosition);
             if (prop != null)
             {
                 if (prop.Left)
@@ -355,6 +358,9 @@ public class Player : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (GameController.Instance.IsWaitingToRevive())
+            return;
+
         // 이동에 걸린 시간을 누적시킨다.
         movingInterval += Time.deltaTime;
 
@@ -364,7 +370,7 @@ public class Player : MonoBehaviour {
 
         // play 중인 경우에만 입력을 받는다.
         // groggy가 아닐때만 입력을 받는다.
-        if(GameController.Me.GameState == GameController.State.ePlay && !groggy.IsGroggy)
+        if(GameController.Instance.GameState == GameController.State.ePlay && !groggy.IsGroggy)
         {
             // 변신 체크
             CheckLevel();
@@ -500,26 +506,22 @@ public class Player : MonoBehaviour {
             targetDir   = Quaternion.Euler(new Vector3(0, -45, 0));
         }
 
-        if(turnEffect)
+        if(turnEffect && !turnEffect.isPlaying)
         {
-            if(!turnEffect.isPlaying)
-            {
                 
-                turnEffect.playOnAwake = true;
-                turnEffect.Play();
-                turnEffect.enableEmission = true;
-            }
-                
+            turnEffect.playOnAwake = true;
+            turnEffect.Play();
+            turnEffect.enableEmission = true;
         }
     }
     
     // player가 이동할 목표 위치를 계산한다.
     void MoveTargetPos()
     {
-        if (GameController.Me.mapController.GetMapBlockProperty(playerPosition) == null)
+        if (GameController.Instance.mapController.GetMapBlockProperty(playerPosition) == null)
             return;
 
-        targetPos = GameController.Me.mapController.GetMapBlockProperty(playerPosition).Position;
+        targetPos = GameController.Instance.mapController.GetMapBlockProperty(playerPosition).Position;
 
         // 이번에 player가 이동해야 할 위치
         targetPos.z += movingDist;
@@ -672,10 +674,10 @@ public class Player : MonoBehaviour {
 
     MapController RoadController()
     {
-        if(GameController.Me == false)
+        if(GameController.Instance == false)
             return null;
 
-        return GameController.Me.MapController;
+        return GameController.Instance.MapController;
     }
    
     // 데미지를 준다.
@@ -692,22 +694,14 @@ public class Player : MonoBehaviour {
         // 단 life가 0개가 되면 죽는다.
         life--;
 
-        // life가 0인데 광고로 살아난 적이 없다면
-        // 광고 시청 기회를 준다.
-        if (EnableUserInput && life <= 0 && RevivedByAD == false)
+        // 아직 살아있다면 이전위치로 이동한다.
+        if (life > 0 || (EnableUserInput && life <= 0 && RevivedByAD == false && revivedByADCanvas))
         {
-            
-        }
+            // life가 0인데 광고로 살아난 적이 없다면
+            // 광고 시청 기회를 준다.
+            if (life <= 0)
+                revivedByADCanvas.gameObject.SetActive(true);
 
-        if (life <= 0)
-        {
-            GameController.Me.GameOver();
-
-            return false;
-        }
-        // 아니라면 이전위치로 이동한다.
-        else
-        {
             MoveToPrevPosition();
 
             // 1동안 움직이지 못한다.(그로기 상태이다)
@@ -717,7 +711,13 @@ public class Player : MonoBehaviour {
             if (groggyEffect)
                 groggyEffect.Play();
         }
+        else
+        {
+            GameController.Instance.GameOver();
 
+            return false;
+        }
+        
         return true;
     }
 
@@ -762,7 +762,7 @@ public class Player : MonoBehaviour {
             score = playerPosition;
 
             // 성공할때마다 현재 게임모드에 최고기록 갱신을 요청한다.
-            GameController.Me.gameModeController.RefreshBestScoreWithCurrentState();
+            GameController.Instance.gameModeController.RefreshBestScoreWithCurrentState();
        }
 
         return true;
@@ -812,7 +812,7 @@ public class Player : MonoBehaviour {
                 audioSourceClock.Play();
 
             // 시간을 늘린다.
-            GameMode_EnergyBar energyBarMode = GameController.Me.gameModeController.curGameMode.GetComponent < GameMode_EnergyBar>();
+            GameMode_EnergyBar energyBarMode = GameController.Instance.gameModeController.curGameMode.GetComponent < GameMode_EnergyBar>();
             if(energyBarMode)
             {
                 energyBarMode.IncreateEnergyByAmount(5);
@@ -856,7 +856,7 @@ public class Player : MonoBehaviour {
             return;
 
         playerPosition--;
-        targetPos = GameController.Me.mapController.GetMapBlockProperty(playerPosition).Position;
+        targetPos = GameController.Instance.mapController.GetMapBlockProperty(playerPosition).Position;
         // 살짝 흔든다.
         
     }

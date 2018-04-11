@@ -22,6 +22,7 @@ public class GameOverCanvas : MonoBehaviour {
 
     public Text collectedCoinsText;
     public Text collectedDiamondsText;
+    public Button adButton;
 
 	// Use this for initialization
 	void Start () {
@@ -46,7 +47,7 @@ public class GameOverCanvas : MonoBehaviour {
 
         // 시간 누적
         // score text가 안보이면 시간은 항상 0
-        if(scoreText.IsActive())
+        if (scoreText && scoreText.IsActive())
         {
             timeFromEnable += Time.deltaTime;
             ShowButtons();
@@ -69,8 +70,14 @@ public class GameOverCanvas : MonoBehaviour {
     {
         if(result == ShowResult.Finished)
         {
-            GameController.Me.Player.DuplicateRewards();
+            GameController.Instance.Player.DuplicateRewards();
+            if (adButton)
+            {
+                adButton.gameObject.SetActive(false);
+            }
         }
+
+        
     }
 
     // 광고 버튼 클릭
@@ -135,8 +142,10 @@ public class GameOverCanvas : MonoBehaviour {
     // game over canvas는 게임이 종료되고 나서 3초 뒤에 다른 버튼을 누를 수 있게 한다.
     void OnEnable()
     {
-      
-
+        if(adButton)
+        {
+            adButton.gameObject.SetActive(true);
+        }
     }
 
     void HideButtons()
@@ -159,7 +168,7 @@ public class GameOverCanvas : MonoBehaviour {
     {
         if (bestScoreText)
         {
-            GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
+            GameModeController.GameMode curGameMode = GameController.Instance.gameModeController.GetCurGameMode();
 
             // flag 모드에서는 현재 level을 찍어준다.
             if (curGameMode == GameModeController.GameMode.eFlagMode)
@@ -180,8 +189,8 @@ public class GameOverCanvas : MonoBehaviour {
     // flag 모드에서 보스를 깼으면 베스트
     bool IsBest()
     {
-        GameModeController modeController   = GameController.Me.gameModeController;
-        Player player   = GameController.Me.Player;
+        GameModeController modeController   = GameController.Instance.gameModeController;
+        Player player   = GameController.Instance.Player;
 
         if (modeController.GetCurGameMode() == GameModeController.GameMode.eFlagMode)
         {
@@ -209,14 +218,14 @@ public class GameOverCanvas : MonoBehaviour {
     bool IsSuccess()
     {
         // flag 모드에서는 이기면 win, 지면 lost를 찍는다.
-        if (GameController.Me.gameModeController.GetCurGameMode() == GameModeController.GameMode.eFlagMode)
+        if (GameController.Instance.gameModeController.GetCurGameMode() == GameModeController.GameMode.eFlagMode)
         {
-            GameMode_Flag flagMode = GameController.Me.gameModeController.curGameMode.GetComponent<GameMode_Flag>();
+            GameMode_Flag flagMode = GameController.Instance.gameModeController.curGameMode.GetComponent<GameMode_Flag>();
             if (flagMode)
                 return flagMode.IsWin();
         }
 
-        return GameController.Me.Player.Life == 0 ? false : true;
+        return GameController.Instance.Player.Life == 0 ? false : true;
     }
 
     private void DisplayScore()
@@ -224,9 +233,9 @@ public class GameOverCanvas : MonoBehaviour {
         if (scoreText)
         {
             // flag 모드에서는 이기면 win, 지면 lost를 찍는다.
-            if (GameController.Me.gameModeController.GetCurGameMode() == GameModeController.GameMode.eFlagMode)
+            if (GameController.Instance.gameModeController.GetCurGameMode() == GameModeController.GameMode.eFlagMode)
             {
-                GameMode_Flag flagMode = GameController.Me.gameModeController.curGameMode.GetComponent<GameMode_Flag>();
+                GameMode_Flag flagMode = GameController.Instance.gameModeController.curGameMode.GetComponent<GameMode_Flag>();
                 if (flagMode)
                 {
                     scoreText.text = flagMode.IsWin() ? "Win" : "Lost";
@@ -244,8 +253,8 @@ public class GameOverCanvas : MonoBehaviour {
     // 보상을 받고 나서 ready canvas를 연다.
     public void OnGetButtonClicked()
     {
-        GameController.Me.Player.GetRewards();
-        GameController.Me.Ready();
+        GameController.Instance.Player.GetRewards();
+        GameController.Instance.Ready();
         
     }
 }

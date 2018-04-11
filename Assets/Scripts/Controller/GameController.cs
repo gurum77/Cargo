@@ -21,15 +21,13 @@ public class GameController : MonoBehaviour {
     };
 
     public int targetFrameRate;
-    static public GameController Me;
+    static public GameController Instance;
     public MapController mapController;
     public GameModeController gameModeController;
    
     public GameObject playCanvasItems;
     public GameObject readyCanvasItems;
     public GameObject gameOverCanvasItems;
-
-    public GameObject characterPrefab;
 
     // 게임 셋팅을 저장하는 데이타
     SettingGameData settingGameData = new SettingGameData();
@@ -84,6 +82,15 @@ public class GameController : MonoBehaviour {
         settingGameData.Save();
     }
 
+    // 재생을 위해 기다리는 중인지?
+    public bool IsWaitingToRevive()
+    {
+        if (!Player.revivedByADCanvas)
+            return false;
+
+        return Player.revivedByADCanvas.gameObject.activeSelf ? true : false;
+    }
+
     // game over를 한다.
     public void GameOver()
     {
@@ -116,6 +123,7 @@ public class GameController : MonoBehaviour {
         
         // player 활성화
         player.enabled = true;
+        player.RevivedByAD = false;
         player.DistXFromCenter = 0.0f;
         player.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
@@ -199,7 +207,7 @@ public class GameController : MonoBehaviour {
         QualitySettings.vSyncCount = 0;
 
         SetLocalizationBySystemLanguage();
-        Me = this;
+        Instance = this;
         inventoryGameData = new InventoryGameData();
     }
 

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using Assets.Scripts.Controller;
 using UnityEngine.UI;
 using ProgressBar;
+using UnityEngine.Advertisements;
 
 public class PlayerSelectionCanvas : MonoBehaviour {
 
@@ -21,6 +22,7 @@ public class PlayerSelectionCanvas : MonoBehaviour {
     PlayerGameData playerGameData;
     public Image coinImage;
     public Image diamondImage;
+    public Image adImage;
     public ProgressBarBehaviour powerProgressbar;
     public ProgressBarBehaviour speedProgressbar;
     public ProgressBarBehaviour coinProgressbar;
@@ -142,6 +144,8 @@ public class PlayerSelectionCanvas : MonoBehaviour {
                     coinImage.enabled = false;
                 if (diamondImage)
                     diamondImage.enabled = false;
+                if (adImage)
+                    adImage.enabled = false;
 
                     selectText.text = LocalizationText.GetText("SELECT");
             }
@@ -156,14 +160,30 @@ public class PlayerSelectionCanvas : MonoBehaviour {
                         coinImage.enabled = false;
                     if (diamondImage)
                         diamondImage.enabled = true;
+                    if (adImage)
+                        adImage.enabled = false;
                 }
-                else
+                // coin으로 살수 있는 경우
+                else if(inventoryGameData.characterInfo[index].Price > 0)
                 {
                     selectText.text = string.Format("${0}", inventoryGameData.characterInfo[index].Price.ToString());
                     if (coinImage)
                         coinImage.enabled = true;
                     if (diamondImage)
                         diamondImage.enabled = false;
+                    if (adImage)
+                        adImage.enabled = false;
+                }
+                // AD로 살수 있는 경우
+                else if(inventoryGameData.characterInfo[index].AD > 0)
+                {
+                    selectText.text = string.Format(" x {0}", inventoryGameData.characterInfo[index].AD.ToString());
+                    if (coinImage)
+                        coinImage.enabled = false;
+                    if (diamondImage)
+                        diamondImage.enabled = false;
+                    if (adImage)
+                        adImage.enabled = true;
                 }
 
             }
@@ -211,6 +231,24 @@ public class PlayerSelectionCanvas : MonoBehaviour {
         }
     }
 
+    private void HandleShowResult(ShowResult result)
+    {
+        if (result == ShowResult.Finished)
+        {
+            int index = (int)previewCharacterType;
+            if (index > -1 && previewCharacterType < Player.Character.eCount)
+            {
+                inventoryGameData.characterInfo[index].AD--;
+                if (inventoryGameData.characterInfo[index].AD == 0)
+                {
+                    inventoryGameData.characterInfo[index].Enabled = true;
+                }
+
+                CreatePreviewCharacter();
+            }
+        }
+    }
+
     // 선택된 캐릭터를 산다.
     bool BuyCharacter()
     {
@@ -227,7 +265,7 @@ public class PlayerSelectionCanvas : MonoBehaviour {
                     return true;
                 }
             }
-            else
+            else if(inventoryGameData.characterInfo[index].Price > 0)
             {
                 if (playerGameData.Coins >= inventoryGameData.characterInfo[index].Price)
                 {
@@ -237,7 +275,16 @@ public class PlayerSelectionCanvas : MonoBehaviour {
                     return true;
                 }
             }
-            
+            else if (inventoryGameData.characterInfo[index].AD > 0)
+            {
+                if (Advertisement.IsReady(Define.UnityAds.rewardedVideo))
+                {
+                    var options = new ShowOptions { resultCallback = HandleShowResult };
+                    Advertisement.Show(Define.UnityAds.rewardedVideo, options);
+
+                    return true;
+                }
+            }
         }
 
         return false;

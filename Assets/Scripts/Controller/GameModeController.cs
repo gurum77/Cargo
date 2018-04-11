@@ -31,7 +31,7 @@ public class GameModeController : MonoBehaviour {
         GameMode gameMode = GetCurGameMode();
         if (gameMode == GameMode.eEnergyBarMode)
         {
-            GameController.Me.Player.GameData.EnergyBarModeBestScore = GameController.Me.Player.Score > GameController.Me.Player.GameData.EnergyBarModeBestScore ? GameController.Me.Player.Score : GameController.Me.Player.GameData.EnergyBarModeBestScore;
+            GameController.Instance.Player.GameData.EnergyBarModeBestScore = GameController.Instance.Player.Score > GameController.Instance.Player.GameData.EnergyBarModeBestScore ? GameController.Instance.Player.Score : GameController.Instance.Player.GameData.EnergyBarModeBestScore;
         }
         else if (gameMode == GameMode.e100MMode)
         { }
@@ -39,7 +39,7 @@ public class GameModeController : MonoBehaviour {
         { }
         else if (gameMode == GameMode.eMathMode)
         {
-            GameController.Me.Player.GameData.MathModeBestScore = GameController.Me.Player.Score > GameController.Me.Player.GameData.MathModeBestScore ? GameController.Me.Player.Score : GameController.Me.Player.GameData.MathModeBestScore;
+            GameController.Instance.Player.GameData.MathModeBestScore = GameController.Instance.Player.Score > GameController.Instance.Player.GameData.MathModeBestScore ? GameController.Instance.Player.Score : GameController.Instance.Player.GameData.MathModeBestScore;
         }
     }
 
@@ -110,7 +110,7 @@ public class GameModeController : MonoBehaviour {
         
 
         // item 활성화를 기본값을 설정한다.
-        GameController.Me.mapController.SetDefaultEnableItem();
+        GameController.Instance.mapController.SetDefaultEnableItem();
 
         // hidden item은 숨기고
         hiddenItemByGameMode.SetActive(false);
@@ -120,7 +120,7 @@ public class GameModeController : MonoBehaviour {
 
         // player의 입력을 활성화 한다.
         // 필요하다면 게임별 모드에서 비활성화 한다.
-        GameController.Me.Player.EnableUserInput = true;
+        GameController.Instance.Player.EnableUserInput = true;
 
         // 게임 모드를 시작한다.
         curGameMode.SetActive(false);

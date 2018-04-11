@@ -26,6 +26,9 @@ public class GameMode_EnergyBar : MonoBehaviour {
   
 	// Update is called once per frame
 	void Update () {
+        if (GameController.Instance.IsWaitingToRevive())
+            return;
+
         // 점수가 변경된 경우 변경된 점수만큼 에너지를 늘린다.
         IncreaseEnergy();
 
@@ -44,7 +47,7 @@ public class GameMode_EnergyBar : MonoBehaviour {
         // 에너지가 0이면 게임을 종료시킨다.
         if(remainEnergy <= 0)
         {
-            GameController.Me.GameOver();
+            GameController.Instance.GameOver();
         }
     }
 
@@ -53,8 +56,8 @@ public class GameMode_EnergyBar : MonoBehaviour {
     void OnEnable()
     {
         // 여기서 보여야 하는 item을 showItemByGameMode로 이동한다
-        if (energyBarModeItem && GameController.Me && GameController.Me.gameModeController && GameController.Me.gameModeController.showItemByGameMode)
-            energyBarModeItem.transform.SetParent(GameController.Me.gameModeController.showItemByGameMode.transform);
+        if (energyBarModeItem && GameController.Instance && GameController.Instance.gameModeController && GameController.Instance.gameModeController.showItemByGameMode)
+            energyBarModeItem.transform.SetParent(GameController.Instance.gameModeController.showItemByGameMode.transform);
 
         // 값 초기화
         lastScore = 0;
@@ -66,15 +69,15 @@ public class GameMode_EnergyBar : MonoBehaviour {
         progressBar.SetFillerSize(remainEnergy);
 
         // 맵을 구성한다.
-        if (GameController.Me)
+        if (GameController.Instance)
         {
             // 시계 아이템 활성화
-            GameController.Me.mapController.EnableItem(Assets.Scripts.Controller.MapBlockProperty.ItemType.eClock, true);
+            GameController.Instance.mapController.EnableItem(Assets.Scripts.Controller.MapBlockProperty.ItemType.eClock, true);
 
-            GameController.Me.mapController.MakeMap();
+            GameController.Instance.mapController.MakeMap();
 
             // 시계 아이템 비활성화
-            GameController.Me.mapController.EnableItem(Assets.Scripts.Controller.MapBlockProperty.ItemType.eClock, false);
+            GameController.Instance.mapController.EnableItem(Assets.Scripts.Controller.MapBlockProperty.ItemType.eClock, false);
         }
 
     }
@@ -91,7 +94,7 @@ public class GameMode_EnergyBar : MonoBehaviour {
     void IncreaseEnergy()
     {
         // 현재 점수
-        int curScore = GameController.Me.Player.Score;
+        int curScore = GameController.Instance.Player.Score;
         // 점수차
         int diffScore = curScore - lastScore;
         

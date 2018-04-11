@@ -69,7 +69,7 @@ public class CargoAI : MonoBehaviour {
 
                 // level 별로 바위 공격을 한다.
                 // 20칸 마다 공격하자
-                if(player.PlayerPosition % bossAttackInterval == 0)
+                if(bossAttackInterval != 0 && player.PlayerPosition % bossAttackInterval == 0)
                 {
                     Attack(player.PlayerPosition - 1, MapBlockProperty.ItemType.eRock);
                 }
@@ -82,11 +82,11 @@ public class CargoAI : MonoBehaviour {
     public void Attack(int position, MapBlockProperty.ItemType itemType)
     {
         // 3번째 칸에 바위를 하나 던진다.
-        MapBlockProperty prop = GameController.Me.mapController.GetMapBlockProperty(position);
+        MapBlockProperty prop = GameController.Instance.mapController.GetMapBlockProperty(position);
         if (prop != null)
         {
-            MapBlockProperty propPrev   = GameController.Me.mapController.GetMapBlockProperty(position - 1);
-            MapBlockProperty propNext   = GameController.Me.mapController.GetMapBlockProperty(position + 1);
+            MapBlockProperty propPrev   = GameController.Instance.mapController.GetMapBlockProperty(position - 1);
+            MapBlockProperty propNext   = GameController.Instance.mapController.GetMapBlockProperty(position + 1);
             if(propPrev != null && propNext != null)
             {
                 if (propPrev.Item == MapBlockProperty.ItemType.eBlank)
@@ -104,7 +104,7 @@ public class CargoAI : MonoBehaviour {
             prop.Item = itemType;
 
             // item game object를 만든다.
-            GameController.Me.mapController.MakeItem(position, prop.Position, position);
+            GameController.Instance.mapController.MakeItem(position, prop.Position, position);
         }
     }
     

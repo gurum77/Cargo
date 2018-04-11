@@ -76,9 +76,9 @@ public class GameMode_Flag : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        if(GameController.Me && playerProgressbar && comProgressbar)
+        if(GameController.Instance && playerProgressbar && comProgressbar)
         {
-            playerProgressbar.Value = GetPercent(curTargetFlagCount, GameController.Me.player.FlagCount);
+            playerProgressbar.Value = GetPercent(curTargetFlagCount, GameController.Instance.player.FlagCount);
             
             comProgressbar.Value = GetPercent(curTargetFlagCount, Com.FlagCount);
         }
@@ -107,23 +107,23 @@ public class GameMode_Flag : MonoBehaviour {
     void CheckSuccess()
     {
         // player가 깃발 개수를 먼저 채우면 성공
-        if (GameController.Me.Player.FlagCount >= curTargetFlagCount)
+        if (GameController.Instance.Player.FlagCount >= curTargetFlagCount)
         {
-            GameController.Me.Player.GameData.FlagModeLevel++;
-            GameController.Me.GameOver();
+            GameController.Instance.Player.GameData.FlagModeLevel++;
+            GameController.Instance.GameOver();
         }
 
         else if (com.FlagCount >= curTargetFlagCount)
         {
-            GameController.Me.GameOver();
+            GameController.Instance.GameOver();
         }
     }
 
     public int GetLevel()
     {
-        if (GameController.Me)
+        if (GameController.Instance)
         {
-            return GameController.Me.Player.GameData.FlagModeLevel;
+            return GameController.Instance.Player.GameData.FlagModeLevel;
         }
 
         return 1;
@@ -133,7 +133,7 @@ public class GameMode_Flag : MonoBehaviour {
     public bool IsWin()
     {
         // player가 깃발 개수를 먼저 채우면 성공
-        if (GameController.Me.Player.FlagCount >= curTargetFlagCount && GameController.Me.Player.FlagCount >= com.FlagCount)
+        if (GameController.Instance.Player.FlagCount >= curTargetFlagCount && GameController.Instance.Player.FlagCount >= com.FlagCount)
             return true;
 
         return false;
@@ -143,9 +143,9 @@ public class GameMode_Flag : MonoBehaviour {
     // 모든 장애물을 비활성화 한다.
     void DisableAllObstacleItem()
     {
-        GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eExplosion, false);
-        GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eBlank, false);
-        GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eRock, false);
+        GameController.Instance.mapController.EnableItem(MapBlockProperty.ItemType.eExplosion, false);
+        GameController.Instance.mapController.EnableItem(MapBlockProperty.ItemType.eBlank, false);
+        GameController.Instance.mapController.EnableItem(MapBlockProperty.ItemType.eRock, false);
     }
 
     // 레벨별 출현 장애물 설정
@@ -162,26 +162,26 @@ public class GameMode_Flag : MonoBehaviour {
             if(obstacleItemByLevel10.Length <= i)
                 break;
 
-            int idx = GameController.Me.mapController.GetItemPrefabIndex(obstacleItemByLevel10[i]);
+            int idx = GameController.Instance.mapController.GetItemPrefabIndex(obstacleItemByLevel10[i]);
             if(idx < 0)
                 continue;
 
-            GameController.Me.mapController.EnableItem((MapBlockProperty.ItemType)idx, true);
+            GameController.Instance.mapController.EnableItem((MapBlockProperty.ItemType)idx, true);
         }
     }
 
     // 모드별 게임 시작할때 호출된다.
     void OnEnable()
     {
-        if(GameController.Me == null)
+        if(GameController.Instance == null)
         {
             Debug.Assert(false);
             return;
         }
 
         // 여기서 보여야 하는 item을 showItemByGameMode로 이동한다
-        if (flagModeItem && GameController.Me && GameController.Me.gameModeController && GameController.Me.gameModeController.showItemByGameMode)
-            flagModeItem.transform.SetParent(GameController.Me.gameModeController.showItemByGameMode.transform);
+        if (flagModeItem && GameController.Instance && GameController.Instance.gameModeController && GameController.Instance.gameModeController.showItemByGameMode)
+            flagModeItem.transform.SetParent(GameController.Instance.gameModeController.showItemByGameMode.transform);
 
         // 목표 깃발 개수를 지정
         GenerateCurTargetFlagCount();
@@ -192,14 +192,14 @@ public class GameMode_Flag : MonoBehaviour {
       
 
         // 맵을 구성한다.
-        if (GameController.Me)
+        if (GameController.Instance)
         {
             DisableAllObstacleItem();
             InitEnableObstacleItem();
 
-            GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eFlag, true);
-            GameController.Me.mapController.MakeMap();
-            GameController.Me.mapController.EnableItem(MapBlockProperty.ItemType.eFlag, false);
+            GameController.Instance.mapController.EnableItem(MapBlockProperty.ItemType.eFlag, true);
+            GameController.Instance.mapController.MakeMap();
+            GameController.Instance.mapController.EnableItem(MapBlockProperty.ItemType.eFlag, false);
 
             DisableAllObstacleItem();
         }
@@ -270,10 +270,10 @@ public class GameMode_Flag : MonoBehaviour {
         com.transform.localScale = new Vector3(playerScale, playerScale, playerScale);
 
         // player의 위치
-        GameController.Me.Player.DistXFromCenter = distXFromCenter * -1;
+        GameController.Instance.Player.DistXFromCenter = distXFromCenter * -1;
 
         // player의 스케일
-        GameController.Me.Player.transform.localScale = new Vector3(playerScale, playerScale, playerScale);
+        GameController.Instance.Player.transform.localScale = new Vector3(playerScale, playerScale, playerScale);
     }
 
   

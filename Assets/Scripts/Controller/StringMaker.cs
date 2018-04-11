@@ -14,18 +14,18 @@ namespace Assets.Scripts.Controller
             StringBuilder sb = new StringBuilder();
             sb.Append(LocalizationText.GetText("Best "));
             // 모드별로 다르게 표시한다.
-            GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
+            GameModeController.GameMode curGameMode = GameController.Instance.gameModeController.GetCurGameMode();
             if (curGameMode == GameModeController.GameMode.eEnergyBarMode)
             {
-                sb.Append(GameController.Me.Player.GameData.EnergyBarModeBestScore.ToString());
+                sb.Append(GameController.Instance.Player.GameData.EnergyBarModeBestScore.ToString());
             }
             else if (curGameMode == GameModeController.GameMode.e100MMode)
             {
-                sb.Append(GameMode_100M.TimeToString(GameController.Me.Player.GameData.HundredMBestTime));
+                sb.Append(GameMode_100M.TimeToString(GameController.Instance.Player.GameData.HundredMBestTime));
             }
             else if(curGameMode == GameModeController.GameMode.eMathMode)
             {
-                sb.Append(GameController.Me.Player.GameData.MathModeBestScore.ToString());
+                sb.Append(GameController.Instance.Player.GameData.MathModeBestScore.ToString());
             }
             
             return sb.ToString();
@@ -34,25 +34,25 @@ namespace Assets.Scripts.Controller
         // coin text 리턴
         public static string GetCoinsString()
         {
-            return GameController.Me.Player.GameData.Coins.ToString();
+            return GameController.Instance.Player.GameData.Coins.ToString();
         }
 
         // diamond text 리턴
         public static string GetDiamondsString()
         {
-            return GameController.Me.Player.GameData.Diamonds.ToString();
+            return GameController.Instance.Player.GameData.Diamonds.ToString();
         }
 
         // collected coin text 리턴
         public static string GetCollectedCoinsString()
         {
-            return GameController.Me.Player.CollectedCoins.ToString();
+            return GameController.Instance.Player.CollectedCoins.ToString();
         }
 
         // collected diamond text 리턴
         public static string GetCollectedDiamondsString()
         {
-            return GameController.Me.Player.CollectedDiamonds.ToString();
+            return GameController.Instance.Player.CollectedDiamonds.ToString();
         }
         
 
@@ -62,10 +62,10 @@ namespace Assets.Scripts.Controller
             StringBuilder sb = new StringBuilder();
             sb.Append("LEVEL ");
 
-            GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
+            GameModeController.GameMode curGameMode = GameController.Instance.gameModeController.GetCurGameMode();
             if (curGameMode == GameModeController.GameMode.eFlagMode)
             {
-                sb.Append(GameController.Me.Player.GameData.FlagModeLevel.ToString());
+                sb.Append(GameController.Instance.Player.GameData.FlagModeLevel.ToString());
             }
 
             return sb.ToString();
@@ -75,10 +75,10 @@ namespace Assets.Scripts.Controller
         public static string GetPlayerFlagCountString()
         {
             StringBuilder sb = new StringBuilder();
-            GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
+            GameModeController.GameMode curGameMode = GameController.Instance.gameModeController.GetCurGameMode();
             if(curGameMode == GameModeController.GameMode.eFlagMode)
             {
-                sb.Append(GameController.Me.Player.FlagCount.ToString());
+                sb.Append(GameController.Instance.Player.FlagCount.ToString());
             }
 
             return sb.ToString();
@@ -88,10 +88,10 @@ namespace Assets.Scripts.Controller
         public static string GetComFlagCountString()
         {
             StringBuilder sb = new StringBuilder();
-            GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
+            GameModeController.GameMode curGameMode = GameController.Instance.gameModeController.GetCurGameMode();
             if (curGameMode == GameModeController.GameMode.eFlagMode)
             {
-                GameMode_Flag mode = GameController.Me.gameModeController.gameModes[(int)curGameMode].GetComponent<GameMode_Flag>();
+                GameMode_Flag mode = GameController.Instance.gameModeController.gameModes[(int)curGameMode].GetComponent<GameMode_Flag>();
                 if(mode)
                 {
                     sb.Append(mode.Com.FlagCount.ToString());
@@ -105,16 +105,16 @@ namespace Assets.Scripts.Controller
         public static string GetScoreString()
         {
             // 모드별로 다르게 표시한다.
-            GameModeController.GameMode curGameMode = GameController.Me.gameModeController.GetCurGameMode();
+            GameModeController.GameMode curGameMode = GameController.Instance.gameModeController.GetCurGameMode();
             if (curGameMode == GameModeController.GameMode.eEnergyBarMode ||
                 curGameMode == GameModeController.GameMode.eFlagMode ||
                 curGameMode == GameModeController.GameMode.eMathMode)
             {
-                return GameController.Me.Player.Score.ToString();
+                return GameController.Instance.Player.Score.ToString();
             }
             else if (curGameMode == GameModeController.GameMode.e100MMode)
             {
-                GameMode_100M gameMode100M = GameController.Me.gameModeController.gameModes[(int)curGameMode].GetComponent<GameMode_100M>();
+                GameMode_100M gameMode100M = GameController.Instance.gameModeController.gameModes[(int)curGameMode].GetComponent<GameMode_100M>();
                 if(gameMode100M)
                     return GameMode_100M.TimeToString(gameMode100M.Time100M);
             }
@@ -127,7 +127,7 @@ namespace Assets.Scripts.Controller
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("+");
-            sb.Append(GameController.Me.player.GetRealDefaultLife().ToString());
+            sb.Append(GameController.Instance.player.GetRealDefaultLife().ToString());
 
           
 
@@ -137,7 +137,7 @@ namespace Assets.Scripts.Controller
         //  실제 하트 문자열
         public static string GetRealLifeString()
         {
-            return GameController.Me.player.Life.ToString();
+            return GameController.Instance.player.Life.ToString();
 
         }
 
@@ -146,12 +146,12 @@ namespace Assets.Scripts.Controller
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("+");
-            sb.Append(((GameController.Me.player.GetRealCoinRate() - 1.0f) * 100.0f).ToString());
+            sb.Append(((GameController.Instance.player.GetRealCoinRate() - 1.0f) * 100.0f).ToString());
             sb.Append("%");
-            if (GameController.Me.player.GetLevel() > 0)
+            if (GameController.Instance.player.GetLevel() > 0)
             {
                 sb.Append(" +");
-                sb.Append((GameController.Me.player.GetLevel() * 100).ToString());
+                sb.Append((GameController.Instance.player.GetLevel() * 100).ToString());
                 sb.Append("%");
             }
             return sb.ToString();
@@ -162,7 +162,7 @@ namespace Assets.Scripts.Controller
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("+");
-            sb.Append(GameController.Me.player.GetRealPower().ToString());
+            sb.Append(GameController.Instance.player.GetRealPower().ToString());
 
             return sb.ToString();
         }
@@ -172,7 +172,7 @@ namespace Assets.Scripts.Controller
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("+");
-            sb.Append(GameController.Me.player.GetRealSpeed().ToString());
+            sb.Append(GameController.Instance.player.GetRealSpeed().ToString());
 
             return sb.ToString();
         }

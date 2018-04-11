@@ -15,6 +15,10 @@ public class CharacterInfo
     public int Diamond
     { get; set; }
 
+    public int AD
+    { get; set; }
+
+
     public bool Enabled
     { get; set; }
 
@@ -38,6 +42,7 @@ public class CharacterInfo
     {
         Price = 0;
         Diamond = 0;
+        AD = 0;
         Enabled = false;
         Name = "";
         Speed = 7.0f;
@@ -75,7 +80,7 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eFiretruck].Price = 50000;
         characterInfo[(int)Player.Character.eFiretruck].Name = LocalizationText.GetText("Firetruck");
 
-        characterInfo[(int)Player.Character.ePolice].Price = 50000;
+        characterInfo[(int)Player.Character.ePolice].Price = 100000;
         characterInfo[(int)Player.Character.ePolice].Name = LocalizationText.GetText("Police car");
         characterInfo[(int)Player.Character.ePolice].Speed = 8;
 
@@ -84,53 +89,54 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eSportsCar].Name = LocalizationText.GetText("Sports car");
         characterInfo[(int)Player.Character.eSportsCar].Speed = 10;
 
-        characterInfo[(int)Player.Character.eTruck].Price = 50000;
+        characterInfo[(int)Player.Character.eTruck].Price = 100000;
         characterInfo[(int)Player.Character.eTruck].Name = LocalizationText.GetText("Truck");
         characterInfo[(int)Player.Character.eTruck].Speed = 4;
         characterInfo[(int)Player.Character.eTruck].Power = 2;
 
-        characterInfo[(int)Player.Character.eTaxi].Price = 50000;
+        characterInfo[(int)Player.Character.eTaxi].Price = 200000;
         characterInfo[(int)Player.Character.eTaxi].Name = LocalizationText.GetText("Taxi");
 
-        characterInfo[(int)Player.Character.eVwVan].Price = 50000;
+        characterInfo[(int)Player.Character.eVwVan].Price = 200000;
         characterInfo[(int)Player.Character.eVwVan].Name = LocalizationText.GetText("Van");
         characterInfo[(int)Player.Character.eVwVan].Speed = 6;
                 
         characterInfo[(int)Player.Character.ePoliceHelicopter].Price = 0;
-        characterInfo[(int)Player.Character.ePoliceHelicopter].Diamond  = 100;
+        characterInfo[(int)Player.Character.ePoliceHelicopter].Diamond  = 200;
         characterInfo[(int)Player.Character.ePoliceHelicopter].Name = LocalizationText.GetText("Police helicopter");
         characterInfo[(int)Player.Character.ePoliceHelicopter].Speed = 7.5f;
         characterInfo[(int)Player.Character.ePoliceHelicopter].CoinRate = 1.2f;
 
 
         characterInfo[(int)Player.Character.eInterceptor].Price = 0;
-        characterInfo[(int)Player.Character.eInterceptor].Diamond = 100;
+        characterInfo[(int)Player.Character.eInterceptor].Diamond = 250;
         characterInfo[(int)Player.Character.eInterceptor].Name = LocalizationText.GetText("International police car");
         characterInfo[(int)Player.Character.eInterceptor].Speed = 7.5f;
         characterInfo[(int)Player.Character.eInterceptor].CoinRate = 1.2f;
 
 
         characterInfo[(int)Player.Character.eCybog].Price = 0;
-        characterInfo[(int)Player.Character.eCybog].Diamond = 100;
+        characterInfo[(int)Player.Character.eCybog].Diamond = 300;
         characterInfo[(int)Player.Character.eCybog].Name = LocalizationText.GetText("Cybog");
         characterInfo[(int)Player.Character.eCybog].Power = 3;
         characterInfo[(int)Player.Character.eCybog].DefaultLife = 3;
 
         characterInfo[(int)Player.Character.eDevil].Price = 0;
-        characterInfo[(int)Player.Character.eDevil].Diamond = 200;
+        characterInfo[(int)Player.Character.eDevil].Diamond = 400;
         characterInfo[(int)Player.Character.eDevil].Name = LocalizationText.GetText("Devil");
         characterInfo[(int)Player.Character.eDevil].DefaultLife = 3;
 
-        characterInfo[(int)Player.Character.eChicken].Price = 100000;
+        characterInfo[(int)Player.Character.eChicken].Price = 1000000;
         characterInfo[(int)Player.Character.eChicken].Diamond = 0;
         characterInfo[(int)Player.Character.eChicken].Name = LocalizationText.GetText("Chicken");
 
-        characterInfo[(int)Player.Character.eCondor].Price = 100000;
+        characterInfo[(int)Player.Character.eCondor].Price = 1000000;
         characterInfo[(int)Player.Character.eCondor].Diamond = 0;
         characterInfo[(int)Player.Character.eCondor].Name = LocalizationText.GetText("Condor");
 
-        characterInfo[(int)Player.Character.eDragon].Price = 300000;
+        characterInfo[(int)Player.Character.eDragon].Price = 0;
         characterInfo[(int)Player.Character.eDragon].Diamond = 0;
+        characterInfo[(int)Player.Character.eDragon].AD = 5;
         characterInfo[(int)Player.Character.eDragon].Name = LocalizationText.GetText("Dragon");
         characterInfo[(int)Player.Character.eDragon].Power = 4;
     }
@@ -139,6 +145,11 @@ public class InventoryGameData
     static string EnabledKey(Player.Character character)
     {
         return character.ToString() + ".Enabled";
+    }
+
+    static string ADKey(Player.Character character)
+    {
+        return character.ToString() + ".AD";
     }
 
     #endregion
@@ -156,6 +167,9 @@ public class InventoryGameData
 
             // enabled
             PlayerPrefs.SetInt(InventoryGameData.EnabledKey(character), characterInfo[ix].Enabled ? 1 : 0);
+
+            // 남은 AD
+            PlayerPrefs.SetInt(InventoryGameData.ADKey(character), characterInfo[ix].AD);
         }
     }
     #endregion
@@ -173,6 +187,9 @@ public class InventoryGameData
 
             // enabled
             characterInfo[ix].Enabled = PlayerPrefs.GetInt(InventoryGameData.EnabledKey(character), characterInfo[ix].Enabled ? 1 : 0) == 0 ? false : true;
+
+            // 남은 AD
+            characterInfo[ix].AD = PlayerPrefs.GetInt(InventoryGameData.ADKey(character), characterInfo[ix].AD);
         }
     }
     #endregion

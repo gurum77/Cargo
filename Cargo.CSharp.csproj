@@ -496,6 +496,7 @@
     <Compile Include="Assets\Scripts\UI\BossLevelAlert.cs" />
     <Compile Include="Assets\Scripts\UI\ImageSelector.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerDataEditor.cs" />
+    <Compile Include="Assets\Scripts\UI\RevivedByADCanvas.cs" />
     <Compile Include="Assets\SmartTimersManager\ScriptExamples\BlueLightFlicker.cs" />
     <Compile Include="Assets\SmartTimersManager\ScriptExamples\RedLightFlicker.cs" />
     <Compile Include="Assets\SmartTimersManager\TimerManager\GUI_TimersList.cs" />

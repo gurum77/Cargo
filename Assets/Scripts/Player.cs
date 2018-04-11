@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Controller;
 using Assets.Scripts;
+using UnityEngine.Advertisements;
 
 /// <summary>
 /// player game object 스크립트
@@ -54,7 +55,10 @@ public class Player : MonoBehaviour {
     // 현재 life
     int life;
     public int Life
-    { get { return life; } }
+    { 
+        get { return life; }
+        set { life = value; }
+    }
 
     // 추가된 속성들 ////////
     public int addedDefaultLife;    // 추가된 기본 life 카운트
@@ -71,6 +75,12 @@ public class Player : MonoBehaviour {
         set { playerPosition = value; }
     }
 
+    // 되살아 난적이 있는지?(광고 시청후 되살아 났었는지?)
+    public bool RevivedByAD
+    {
+        get;
+        set;
+    }
     PlayerGroggy groggy = new PlayerGroggy();
 
     int score;  // 현재 점수
@@ -201,6 +211,7 @@ public class Player : MonoBehaviour {
 	void Start () {
         EnableUserInput = true;
         EnableReplaceMapByPlayerPosition = true;
+        RevivedByAD = false;
 
     }
 
@@ -681,6 +692,13 @@ public class Player : MonoBehaviour {
         // 단 life가 0개가 되면 죽는다.
         life--;
 
+        // life가 0인데 광고로 살아난 적이 없다면
+        // 광고 시청 기회를 준다.
+        if (EnableUserInput && life <= 0 && RevivedByAD == false)
+        {
+            
+        }
+
         if (life <= 0)
         {
             GameController.Me.GameOver();
@@ -725,6 +743,7 @@ public class Player : MonoBehaviour {
     {
         if(!RoadController())
             return false;
+
         MapBlockProperty prop = RoadController().GetMapBlockProperty(playerPosition);
         if (prop == null)
             return false;

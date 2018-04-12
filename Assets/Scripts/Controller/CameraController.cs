@@ -28,8 +28,8 @@ public class CameraController : MonoBehaviour {
             }
             else
             {
-                pos.y += 2;
-                pos.z -= 2;
+                pos.y += 4;
+                pos.z -= 3;
             }
 
 

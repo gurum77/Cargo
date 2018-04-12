@@ -142,7 +142,7 @@ public class GameOverCanvas : MonoBehaviour {
     // game over canvas는 게임이 종료되고 나서 3초 뒤에 다른 버튼을 누를 수 있게 한다.
     void OnEnable()
     {
-        if(adButton)
+        if (adButton)
         {
             adButton.gameObject.SetActive(true);
         }

@@ -458,6 +458,7 @@
     <Compile Include="Assets\Scripts\Canvas\ExitCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\GameModeSelectionCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\GameOverCanvas.cs" />
+    <Compile Include="Assets\Scripts\Canvas\GameOverCanvasItems.cs" />
     <Compile Include="Assets\Scripts\Canvas\MapSelectionCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\PlayCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\PlayerSelectionCanvas.cs" />

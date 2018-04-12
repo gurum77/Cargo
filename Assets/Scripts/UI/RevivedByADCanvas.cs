@@ -79,4 +79,10 @@ public class RevivedByADCanvas : MonoBehaviour {
             Advertisement.Show(Define.UnityAds.rewardedVideo, options);
         }
     }
+
+    // 닫기 버튼 누른 경우
+    public void OnCloseButtonClicked()
+    {
+        CloseCanvas();
+    }
 }

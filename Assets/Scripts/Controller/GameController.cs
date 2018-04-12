@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour {
         eControl_MoveOnly       // move만
     };
 
+    public GameObject[] enableGameObjectOnStartup;  // 시작할때 enable 해야 하는 object들..
     public int targetFrameRate;
     static public GameController Instance;
     public MapController mapController;
@@ -158,6 +159,12 @@ public class GameController : MonoBehaviour {
         playCanvasItems.SetActive(false);
         readyCanvasItems.SetActive(true);
         gameOverCanvasItems.SetActive(false);
+
+        // revive canvas 안 보이게 한다.
+        if(Player.revivedByADCanvas)
+        {
+            Player.revivedByADCanvas.gameObject.SetActive(false);
+        }
     }
 
 
@@ -216,6 +223,12 @@ public class GameController : MonoBehaviour {
 
         // 광고 초기화
         Advertisement.Initialize(Define.UnityAds.gameID);
+
+        // 시작할때 활성화해야 하는 아이템
+        foreach(var obj in enableGameObjectOnStartup)
+        {
+            obj.SetActive(true);
+        }
 
         // control type 지정
         controlType = Control.eControl_MoveOnly;

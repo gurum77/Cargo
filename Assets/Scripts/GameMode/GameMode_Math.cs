@@ -83,11 +83,14 @@ public class GameMode_Math : MonoBehaviour {
         // 데미지를 주면 한칸 뒤로 밀려나기 때문에 우선 한칸 진행시킨다.
         GameController.Instance.Player.MoveForwardToValidWay(1);
         GameController.Instance.Player.ApplyDamage();
-
     }
+
     // 이 함수가 호출된다면 time out이다.
     void OnTimeout()
     {
+        if (GameController.Instance.Player.Life <= 0)
+            return;
+
         // 데미지를 준다.
         ApplyDamage();
 
@@ -259,6 +262,10 @@ public class GameMode_Math : MonoBehaviour {
         if (GameController.Instance.IsWaitingToRevive())
             return;
 
+        // life가 없다면 업데이트 하지 않는다.
+        if (GameController.Instance.Player.Life == 0)
+            return;
+
         // 풀리지 않은 문제가 없다면 문제를 제출한다.
         if(!IsExistQuestion())
         {
@@ -327,6 +334,7 @@ public class GameMode_Math : MonoBehaviour {
 
 
         // timer를 시작한다.
+        TimersManager.ClearTimer(OnTimeout);
         TimersManager.SetLoopableTimer(this, timeOut, OnTimeout);
         elapsedTimeFromStartingTimer = 0.0f;
     }

@@ -38,6 +38,8 @@ namespace Assets.Scripts.Controller
         public bool Left
         { get; set; }
 
+      
+
         // item의 health가 남아 있는지?
         public bool IsRemainHealth()
         {
@@ -74,9 +76,11 @@ namespace Assets.Scripts.Controller
         
         // item object
         GameObject itemGameObject;
-        public void SetItemGameObject(GameObject newItem)
+        public GameObject ItemGameObject
         {
-            itemGameObject = newItem;
+            get { return itemGameObject; }
+            set { itemGameObject = value; }
+            
         }
 
       

@@ -4,6 +4,7 @@ using UnityEngine;
 using Assets.Scripts.Controller;
 using Assets.Scripts;
 using UnityEngine.Advertisements;
+using UnityEngine.UI;
 
 /// <summary>
 /// player game object 스크립트
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour {
         eChicken,
         eCondor,
         eDragon,
+        eSnowman,
         eCount
     };
 
@@ -102,6 +104,9 @@ public class Player : MonoBehaviour {
     public int level1Combo; // level1 변신에 필요한 콤보
 
     public GameObject[] characterPrefabs;   // player의 캐릭터
+
+    public HUDText hudTextPrefabs;
+    public Canvas hudTextCanvas;
 
     public Canvas revivedByADCanvas;    // 광고로 되살리기 canvas
     public AudioSource audioSourceTick;
@@ -239,18 +244,81 @@ public class Player : MonoBehaviour {
         
     }
 
+    
+    // HUDText를 만든다.
+    void CreateHUDText(string str)
+    {
+        // coin을 수집하면 hud text를 띄운다.
+        if (!hudTextPrefabs)
+            return;
+
+        GameObject hudTextGameObject = GameObject.Instantiate(hudTextPrefabs.gameObject, hudTextPrefabs.transform);
+        if (!hudTextGameObject)
+            return;
+
+        hudTextGameObject.transform.parent = hudTextCanvas.transform;
+        HUDText hudText = hudTextGameObject.GetComponentInChildren<HUDText>();
+        if (!hudText)
+            return;
+
+        hudText.target = this.gameObject;
+
+        Text text = hudText.GetComponentInChildren<Text>();
+        if (!text)
+            return;
+
+        text.text = str;
+    }
+
+    // 공격용 HUDText를 만든다.
+    void CreateAttackHUDText(GameObject target, string str)
+    {
+        // coin을 수집하면 hud text를 띄운다.
+        if (!hudTextPrefabs)
+            return;
+
+        GameObject hudTextGameObject = GameObject.Instantiate(hudTextPrefabs.gameObject, hudTextPrefabs.transform);
+        if (!hudTextGameObject)
+            return;
+
+        hudTextGameObject.transform.parent = hudTextCanvas.transform;
+        HUDText hudText = hudTextGameObject.GetComponentInChildren<HUDText>();
+        if (!hudText)
+            return;
+
+        hudText.target = target;
+
+        Text text = hudText.GetComponentInChildren<Text>();
+        if (!text)
+            return;
+
+        text.fontSize = 50;
+        text.color  =  new Color(255, 0, 0);
+
+        text.text = str;
+    }
+
     // coin을 수집한다.
     public void CollectCoins(int addCoins)
     {
+        int realCoins   = (int)((addCoins * (GetLevel() + 1)) * GetRealCoinRate());
         // 현재 레벨에 따라 곱해준다.
-        collectedCoins = collectedCoins + (int)((addCoins * (GetLevel() + 1)) * GetRealCoinRate());
+        collectedCoins = collectedCoins + realCoins;
+
+        // hud text 생성
+        CreateHUDText("+" + realCoins.ToString());
     }
 
     // diamond를 수집한다.
     public void CollectDiamonds(int addDimonds)
     {
+        int realDiamonds = (addDimonds * (GetLevel() + 1));
+
         // 현재 레벨에 따라 곱해준다.
-        collectedDiamonds = collectedDiamonds + (addDimonds * (GetLevel() + 1));
+        collectedDiamonds = collectedDiamonds + realDiamonds;
+
+        // hud text 생성
+        CreateHUDText("+" + realDiamonds.ToString());
     }
 
     // 보상(coin, diamond)을 2배로 늘린다.
@@ -694,6 +762,8 @@ public class Player : MonoBehaviour {
         // 단 life가 0개가 되면 죽는다.
         life--;
 
+        CreateAttackHUDText(this.gameObject, "-1");
+
         // 아직 살아있다면 이전위치로 이동한다.
         if (life > 0 || (EnableUserInput && life <= 0 && RevivedByAD == false && revivedByADCanvas))
         {
@@ -804,6 +874,8 @@ public class Player : MonoBehaviour {
 
             // flag 개수를 증가시킨다.
             flagCount++;
+
+            CreateHUDText("+1");
         }
         // clock인 경우
         else if(prop.Item == MapBlockProperty.ItemType.eClock)
@@ -816,8 +888,9 @@ public class Player : MonoBehaviour {
             if(energyBarMode)
             {
                 energyBarMode.IncreateEnergyByAmount(5);
-            }
 
+                CreateHUDText("+5");
+            }
         }
         // life인 경우
         else if(prop.Item == MapBlockProperty.ItemType.eLife)
@@ -826,6 +899,8 @@ public class Player : MonoBehaviour {
                 audioSourceLife.Play();
 
             life++;
+
+            CreateHUDText("+1");
         }
         // lock인 경우
         else if(prop.Item == MapBlockProperty.ItemType.eRock)
@@ -836,6 +911,9 @@ public class Player : MonoBehaviour {
             // rock의 health가 남아 있다면 player를 원래 위치로 이동한다.
             if (prop.IsRemainHealth())
             {
+                // 공격력을 표시
+                CreateAttackHUDText(prop.ItemGameObject, "-" + GetRealPower().ToString());
+
                 // damage를 준다.
                 prop.AddDamage(GetRealPower());
 

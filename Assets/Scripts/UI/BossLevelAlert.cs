@@ -5,13 +5,12 @@ using UnityEngine;
 public class BossLevelAlert : MonoBehaviour {
 
     public AudioSource alertSound;
-
     Animator ani;
     float playingTime;
 
 	// Use this for initialization
 	void Start () {
-        ani = GetComponentInChildren<Animator>();
+        
 	}
 	
 	// Update is called once per frame
@@ -36,6 +35,7 @@ public class BossLevelAlert : MonoBehaviour {
 
     void OnEnable()
     {
+        ani = GetComponentInChildren<Animator>();
         if(ani)
         {
             ani.SetTrigger(Define.Trigger.Alert_Twinkling);

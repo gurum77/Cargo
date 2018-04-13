@@ -495,6 +495,7 @@
     <Compile Include="Assets\Scripts\ShowSliderValue.cs" />
     <Compile Include="Assets\Scripts\TiltWindow.cs" />
     <Compile Include="Assets\Scripts\UI\BossLevelAlert.cs" />
+    <Compile Include="Assets\Scripts\UI\HUDText.cs" />
     <Compile Include="Assets\Scripts\UI\ImageSelector.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerDataEditor.cs" />
     <Compile Include="Assets\Scripts\UI\RevivedByADCanvas.cs" />

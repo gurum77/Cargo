@@ -580,7 +580,7 @@ public class MapController : MonoBehaviour {
             item.transform.parent = temp.transform;
 
             // game object 보관
-            mapBlocks[index].SetItemGameObject(item);
+            mapBlocks[index].ItemGameObject = item;
         }
     }
 

@@ -77,10 +77,10 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eAmbulance].Name    = LocalizationText.GetText("Ambulance");
         
         // 가격 결정
-        characterInfo[(int)Player.Character.eFiretruck].Price = 50000;
+        characterInfo[(int)Player.Character.eFiretruck].Price = 500;
         characterInfo[(int)Player.Character.eFiretruck].Name = LocalizationText.GetText("Firetruck");
 
-        characterInfo[(int)Player.Character.ePolice].Price = 100000;
+        characterInfo[(int)Player.Character.ePolice].Price = 1000;
         characterInfo[(int)Player.Character.ePolice].Name = LocalizationText.GetText("Police car");
         characterInfo[(int)Player.Character.ePolice].Speed = 8;
 
@@ -89,15 +89,15 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eSportsCar].Name = LocalizationText.GetText("Sports car");
         characterInfo[(int)Player.Character.eSportsCar].Speed = 10;
 
-        characterInfo[(int)Player.Character.eTruck].Price = 100000;
+        characterInfo[(int)Player.Character.eTruck].Price = 1000;
         characterInfo[(int)Player.Character.eTruck].Name = LocalizationText.GetText("Truck");
         characterInfo[(int)Player.Character.eTruck].Speed = 4;
         characterInfo[(int)Player.Character.eTruck].Power = 2;
 
-        characterInfo[(int)Player.Character.eTaxi].Price = 200000;
+        characterInfo[(int)Player.Character.eTaxi].Price = 2000;
         characterInfo[(int)Player.Character.eTaxi].Name = LocalizationText.GetText("Taxi");
 
-        characterInfo[(int)Player.Character.eVwVan].Price = 200000;
+        characterInfo[(int)Player.Character.eVwVan].Price = 2000;
         characterInfo[(int)Player.Character.eVwVan].Name = LocalizationText.GetText("Van");
         characterInfo[(int)Player.Character.eVwVan].Speed = 6;
                 
@@ -126,11 +126,11 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eDevil].Name = LocalizationText.GetText("Devil");
         characterInfo[(int)Player.Character.eDevil].DefaultLife = 3;
 
-        characterInfo[(int)Player.Character.eChicken].Price = 1000000;
+        characterInfo[(int)Player.Character.eChicken].Price = 10000;
         characterInfo[(int)Player.Character.eChicken].Diamond = 0;
         characterInfo[(int)Player.Character.eChicken].Name = LocalizationText.GetText("Chicken");
 
-        characterInfo[(int)Player.Character.eCondor].Price = 1000000;
+        characterInfo[(int)Player.Character.eCondor].Price = 10000;
         characterInfo[(int)Player.Character.eCondor].Diamond = 0;
         characterInfo[(int)Player.Character.eCondor].Name = LocalizationText.GetText("Condor");
 
@@ -139,6 +139,12 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eDragon].AD = 5;
         characterInfo[(int)Player.Character.eDragon].Name = LocalizationText.GetText("Dragon");
         characterInfo[(int)Player.Character.eDragon].Power = 4;
+
+        characterInfo[(int)Player.Character.eSnowman].Price = 10000;
+        characterInfo[(int)Player.Character.eSnowman].Diamond = 0;
+        characterInfo[(int)Player.Character.eSnowman].AD = 0;
+        characterInfo[(int)Player.Character.eSnowman].Name = LocalizationText.GetText("Snowman");
+        characterInfo[(int)Player.Character.eSnowman].Power = 1;
     }
     #region 게임 데이타 저장 키 정의
     

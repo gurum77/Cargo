@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speedToUp: 30
+  speedToUp: 100
   timeToUp: 1
 --- !u!222 &222905676198268630
 CanvasRenderer:

@@ -1426,7 +1426,7 @@ MonoBehaviour:
   - {fileID: 1993070692023474, guid: af68f6ffff31ff64c93521a587d234b1, type: 2}
   - {fileID: 1866390378080362, guid: ea09f74638baa144b976a6d30cfeb5c0, type: 2}
   - {fileID: 1127895931938010, guid: 6a3c3be630de526439747694c0304cc2, type: 2}
-  - {fileID: 100000, guid: 0b5146bffa52aad46a5d75d73ed35477, type: 2}
+  - {fileID: 1858714460594842, guid: 133f0e36b63f6af4187175a1c4d18cb3, type: 2}
   player: {fileID: 773459904}
   curtain: {fileID: 2002000091}
   coinText: {fileID: 863236683}

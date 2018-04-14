@@ -107,6 +107,12 @@ public class Player : MonoBehaviour {
 
     public HUDText hudTextPrefabs;
     public Canvas hudTextCanvas;
+    public Color coinHudTextColor;
+    public Color diamondHudTextColor;
+    public Color flagHudTextColor;
+    public Color clockHudTextColor;
+    public Color lifeHudTextColor;
+   
 
     public Canvas revivedByADCanvas;    // 광고로 되살리기 canvas
     public AudioSource audioSourceTick;
@@ -246,8 +252,11 @@ public class Player : MonoBehaviour {
 
     
     // HUDText를 만든다.
-    void CreateHUDText(string str)
+    void CreateGetHUDText(string str, Color color)
     {
+        if (!hudTextCanvas)
+            return;
+
         // coin을 수집하면 hud text를 띄운다.
         if (!hudTextPrefabs)
             return;
@@ -257,6 +266,8 @@ public class Player : MonoBehaviour {
             return;
 
         hudTextGameObject.transform.parent = hudTextCanvas.transform;
+        hudTextGameObject.transform.localScale = new Vector3(1, 1, 1);
+
         HUDText hudText = hudTextGameObject.GetComponentInChildren<HUDText>();
         if (!hudText)
             return;
@@ -268,11 +279,16 @@ public class Player : MonoBehaviour {
             return;
 
         text.text = str;
+        text.color = color;
+        
     }
 
     // 공격용 HUDText를 만든다.
     void CreateAttackHUDText(GameObject target, string str)
     {
+        if (!hudTextCanvas)
+            return;
+
         // coin을 수집하면 hud text를 띄운다.
         if (!hudTextPrefabs)
             return;
@@ -282,6 +298,8 @@ public class Player : MonoBehaviour {
             return;
 
         hudTextGameObject.transform.parent = hudTextCanvas.transform;
+        hudTextGameObject.transform.localScale = new Vector3(1, 1, 1);
+
         HUDText hudText = hudTextGameObject.GetComponentInChildren<HUDText>();
         if (!hudText)
             return;
@@ -294,6 +312,7 @@ public class Player : MonoBehaviour {
 
         text.fontSize = 50;
         text.color  =  new Color(255, 0, 0);
+        text.transform.localScale = new Vector3(1, 1, 1);
 
         text.text = str;
     }
@@ -306,7 +325,7 @@ public class Player : MonoBehaviour {
         collectedCoins = collectedCoins + realCoins;
 
         // hud text 생성
-        CreateHUDText("+" + realCoins.ToString());
+        CreateGetHUDText("+" + realCoins.ToString(), coinHudTextColor);
     }
 
     // diamond를 수집한다.
@@ -318,7 +337,7 @@ public class Player : MonoBehaviour {
         collectedDiamonds = collectedDiamonds + realDiamonds;
 
         // hud text 생성
-        CreateHUDText("+" + realDiamonds.ToString());
+        CreateGetHUDText("+" + realDiamonds.ToString(), diamondHudTextColor);
     }
 
     // 보상(coin, diamond)을 2배로 늘린다.
@@ -875,7 +894,7 @@ public class Player : MonoBehaviour {
             // flag 개수를 증가시킨다.
             flagCount++;
 
-            CreateHUDText("+1");
+            CreateGetHUDText("+1", flagHudTextColor);
         }
         // clock인 경우
         else if(prop.Item == MapBlockProperty.ItemType.eClock)
@@ -889,7 +908,7 @@ public class Player : MonoBehaviour {
             {
                 energyBarMode.IncreateEnergyByAmount(5);
 
-                CreateHUDText("+5");
+                CreateGetHUDText("+5", clockHudTextColor);
             }
         }
         // life인 경우
@@ -900,7 +919,7 @@ public class Player : MonoBehaviour {
 
             life++;
 
-            CreateHUDText("+1");
+            CreateGetHUDText("+1", lifeHudTextColor);
         }
         // lock인 경우
         else if(prop.Item == MapBlockProperty.ItemType.eRock)

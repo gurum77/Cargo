@@ -219,7 +219,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 450602, guid: a7404eeab8d5e49489a17e15938e8ec1, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11465078, guid: a7404eeab8d5e49489a17e15938e8ec1, type: 2}
       propertyPath: _gPartRain
@@ -1506,7 +1506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &273726022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2509,7 +2509,7 @@ Prefab:
     - target: {fileID: 224503804578187540, guid: 0c38e6ed8968d5740a5c86a2736c1407,
         type: 2}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 224503804578187540, guid: 0c38e6ed8968d5740a5c86a2736c1407,
         type: 2}
@@ -4172,7 +4172,8 @@ Prefab:
         type: 2}
       propertyPath: christmasMapPrefabs.Array.data[10]
       value: 
-      objectReference: {fileID: 100000, guid: 0b5146bffa52aad46a5d75d73ed35477, type: 2}
+      objectReference: {fileID: 1591630227673052, guid: 133f0e36b63f6af4187175a1c4d18cb3,
+        type: 2}
     - target: {fileID: 114154392330025212, guid: b07dc56ba5bfc674b94c0765ea162bc3,
         type: 2}
       propertyPath: christmasMapPrefabs.Array.data[11]
@@ -4811,7 +4812,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1625f9ca5072db649b6821514e7d1d48, type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1625f9ca5072db649b6821514e7d1d48, type: 2}
@@ -5845,7 +5846,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 481484, guid: 60db50946a122ca4084afb1bdbaf9317, type: 2}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 11497762, guid: 60db50946a122ca4084afb1bdbaf9317, type: 2}
       propertyPath: lSun
@@ -6731,7 +6732,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &995565825 stripped
 MonoBehaviour:
@@ -7228,7 +7229,7 @@ Transform:
   m_Children:
   - {fileID: 1640106523}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1098311497
 GameObject:
@@ -7510,7 +7511,7 @@ RectTransform:
   m_Children:
   - {fileID: 488950392}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8199,8 +8200,14 @@ MonoBehaviour:
   - {fileID: 1993070692023474, guid: af68f6ffff31ff64c93521a587d234b1, type: 2}
   - {fileID: 1866390378080362, guid: ea09f74638baa144b976a6d30cfeb5c0, type: 2}
   - {fileID: 1127895931938010, guid: 6a3c3be630de526439747694c0304cc2, type: 2}
+  - {fileID: 1858714460594842, guid: 133f0e36b63f6af4187175a1c4d18cb3, type: 2}
   hudTextPrefabs: {fileID: 0}
   hudTextCanvas: {fileID: 0}
+  coinHudTextColor: {r: 0, g: 0, b: 0, a: 0}
+  diamondHudTextColor: {r: 0, g: 0, b: 0, a: 0}
+  flagHudTextColor: {r: 0, g: 0, b: 0, a: 0}
+  clockHudTextColor: {r: 0, g: 0, b: 0, a: 0}
+  lifeHudTextColor: {r: 0, g: 0, b: 0, a: 0}
   revivedByADCanvas: {fileID: 0}
   audioSourceTick: {fileID: 1301157846}
   audioSourceCoin: {fileID: 1301157845}
@@ -8522,6 +8529,7 @@ MonoBehaviour:
   - {fileID: 1517411274}
   - {fileID: 273726020}
   - {fileID: 1097558024}
+  - {fileID: 1127327913}
   targetFrameRate: 0
   mapController: {fileID: 1076280502}
   gameModeController: {fileID: 526823096}
@@ -9913,10 +9921,15 @@ MonoBehaviour:
   - {fileID: 1993070692023474, guid: af68f6ffff31ff64c93521a587d234b1, type: 2}
   - {fileID: 1866390378080362, guid: ea09f74638baa144b976a6d30cfeb5c0, type: 2}
   - {fileID: 1127895931938010, guid: 6a3c3be630de526439747694c0304cc2, type: 2}
-  - {fileID: 100000, guid: 0b5146bffa52aad46a5d75d73ed35477, type: 2}
+  - {fileID: 1858714460594842, guid: 133f0e36b63f6af4187175a1c4d18cb3, type: 2}
   hudTextPrefabs: {fileID: 114878871040957692, guid: 40b4ff643b4d40d4084ba7c5ba023de0,
     type: 2}
   hudTextCanvas: {fileID: 424226334}
+  coinHudTextColor: {r: 1, g: 1, b: 0, a: 1}
+  diamondHudTextColor: {r: 0, g: 0, b: 1, a: 1}
+  flagHudTextColor: {r: 1, g: 0, b: 0, a: 1}
+  clockHudTextColor: {r: 1, g: 1, b: 1, a: 1}
+  lifeHudTextColor: {r: 1, g: 0, b: 0, a: 1}
   revivedByADCanvas: {fileID: 837037584}
   audioSourceTick: {fileID: 1765644315}
   audioSourceCoin: {fileID: 1765644316}
@@ -11988,7 +12001,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2137119195
 Prefab:

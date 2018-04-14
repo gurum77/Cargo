@@ -89,9 +89,9 @@ namespace Assets.Scripts.Controller
         public int GetCoinNums()
         {
             if (Item == ItemType.eCoin)
-                return 100;
+                return 1;
             else if (Item == ItemType.eBigCoin)
-                return 300;
+                return 3;
 
             return 0;
         }

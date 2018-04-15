@@ -145,6 +145,55 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eSnowman].AD = 0;
         characterInfo[(int)Player.Character.eSnowman].Name = LocalizationText.GetText("Snowman");
         characterInfo[(int)Player.Character.eSnowman].Power = 1;
+
+        characterInfo[(int)Player.Character.eCat].Price = 5000;
+        characterInfo[(int)Player.Character.eCat].Diamond = 0;
+        characterInfo[(int)Player.Character.eCat].AD = 0;
+        characterInfo[(int)Player.Character.eCat].Name = LocalizationText.GetText("Cat");
+        characterInfo[(int)Player.Character.eCat].Power = 2;
+
+        characterInfo[(int)Player.Character.eLovelyDuck].Price = 0;
+        characterInfo[(int)Player.Character.eLovelyDuck].Diamond = 0;
+        characterInfo[(int)Player.Character.eLovelyDuck].AD = 5;
+        characterInfo[(int)Player.Character.eLovelyDuck].Name = LocalizationText.GetText("Lovely Duck");
+        characterInfo[(int)Player.Character.eLovelyDuck].Speed = 3;
+        characterInfo[(int)Player.Character.eLovelyDuck].Power = 1;
+
+
+        characterInfo[(int)Player.Character.eAngryPenguin].Price = 5000;
+        characterInfo[(int)Player.Character.eAngryPenguin].Diamond = 0;
+        characterInfo[(int)Player.Character.eAngryPenguin].AD = 0;
+        characterInfo[(int)Player.Character.eAngryPenguin].Name = LocalizationText.GetText("Angry Penguin");
+        characterInfo[(int)Player.Character.eAngryPenguin].Speed = 5.0f;
+        characterInfo[(int)Player.Character.eAngryPenguin].Power = 3;
+
+        characterInfo[(int)Player.Character.eFastSheep].Price = 0;
+        characterInfo[(int)Player.Character.eFastSheep].Diamond = 300;
+        characterInfo[(int)Player.Character.eFastSheep].AD = 0;
+        characterInfo[(int)Player.Character.eFastSheep].Name = LocalizationText.GetText("Fast Sheep");
+        characterInfo[(int)Player.Character.eFastSheep].Speed = 10.0f;
+        characterInfo[(int)Player.Character.eFastSheep].Power = 1;
+
+        characterInfo[(int)Player.Character.eMoleMonster].Price = 5000;
+        characterInfo[(int)Player.Character.eMoleMonster].Diamond = 0;
+        characterInfo[(int)Player.Character.eMoleMonster].AD = 0;
+        characterInfo[(int)Player.Character.eMoleMonster].Name = LocalizationText.GetText("Mole Monster");
+        characterInfo[(int)Player.Character.eMoleMonster].Speed = 5.0f;
+        characterInfo[(int)Player.Character.eMoleMonster].Power = 2;
+
+        characterInfo[(int)Player.Character.eBlueOldAirplane].Price = 0;
+        characterInfo[(int)Player.Character.eBlueOldAirplane].Diamond = 300;
+        characterInfo[(int)Player.Character.eBlueOldAirplane].AD = 0;
+        characterInfo[(int)Player.Character.eBlueOldAirplane].Name = LocalizationText.GetText("Blue Old Airplane");
+        characterInfo[(int)Player.Character.eBlueOldAirplane].Speed = 15.0f;
+        characterInfo[(int)Player.Character.eBlueOldAirplane].Power = 2;
+
+        characterInfo[(int)Player.Character.eRedOldAirplane].Price = 0;
+        characterInfo[(int)Player.Character.eRedOldAirplane].Diamond = 300;
+        characterInfo[(int)Player.Character.eRedOldAirplane].AD = 0;
+        characterInfo[(int)Player.Character.eRedOldAirplane].Name = LocalizationText.GetText("Red Old Airplane");
+        characterInfo[(int)Player.Character.eRedOldAirplane].Speed = 7.0f;
+        characterInfo[(int)Player.Character.eRedOldAirplane].Power = 5;
     }
     #region 게임 데이타 저장 키 정의
     

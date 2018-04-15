@@ -433,7 +433,6 @@
     <None Include="Assets\_ImportedAssets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
     <None Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Documents\ContactInformation.txt" />
     <None Include="Assets\_ImportedAssets\TimeOfDay&amp;WeatherSystem\Documents\VersionInformation.txt" />
-    <None Include="Assets\_ImportedAssets\VertexColorFarmAnimals\Shaders\VertexColorUnlit.shader" />
     <None Include="Assets\_ImportedAssets\WavySprite\Shaders\WavySprite.shader" />
     <None Include="Assets\_ImportedAssets\WavySprite\readme.txt" />
     <None Include="Assets\_ImportedAssets\nnj3de_crucarp\README.txt" />

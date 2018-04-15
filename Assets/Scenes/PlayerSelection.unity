@@ -1427,6 +1427,13 @@ MonoBehaviour:
   - {fileID: 1866390378080362, guid: ea09f74638baa144b976a6d30cfeb5c0, type: 2}
   - {fileID: 1127895931938010, guid: 6a3c3be630de526439747694c0304cc2, type: 2}
   - {fileID: 1858714460594842, guid: 133f0e36b63f6af4187175a1c4d18cb3, type: 2}
+  - {fileID: 1842442699541842, guid: 65613f62cd825b04aa6feca557b4a113, type: 2}
+  - {fileID: 1235564072577010, guid: 427dc488d249f164b88dbfa4331a1248, type: 2}
+  - {fileID: 1228337512862934, guid: e294f6a0b60278a4eb9537c8ba49593f, type: 2}
+  - {fileID: 1725075640137044, guid: 8ebcd993540992047afd31700a88abcd, type: 2}
+  - {fileID: 1442624244357276, guid: 0c3bb4765855dae40ab19936fd937b8a, type: 2}
+  - {fileID: 1678336279250668, guid: 91125d68a2f9cb44f96be0c3df1f94ee, type: 2}
+  - {fileID: 1503520866927796, guid: 5b54079e84c136b4a9f494b856a3ef49, type: 2}
   player: {fileID: 773459904}
   curtain: {fileID: 2002000091}
   coinText: {fileID: 863236683}

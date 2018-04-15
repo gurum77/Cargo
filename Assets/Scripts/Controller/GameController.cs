@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour {
         eControl_MoveOnly       // move만
     };
 
+    public GameObject[] characterPrefabs;   // player의 캐릭터
     public GameObject[] enableGameObjectOnStartup;  // 시작할때 enable 해야 하는 object들..
     public int targetFrameRate;
     static public GameController Instance;

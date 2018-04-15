@@ -29,6 +29,13 @@ public class Player : MonoBehaviour {
         eCondor,
         eDragon,
         eSnowman,
+        eCat,
+        eLovelyDuck,
+        eAngryPenguin,
+        eFastSheep,
+        eMoleMonster,
+        eBlueOldAirplane,
+        eRedOldAirplane,
         eCount
     };
 
@@ -103,7 +110,6 @@ public class Player : MonoBehaviour {
     // 변신에 필요한 콤보
     public int level1Combo; // level1 변신에 필요한 콤보
 
-    public GameObject[] characterPrefabs;   // player의 캐릭터
 
     public HUDText hudTextPrefabs;
     public Canvas hudTextCanvas;
@@ -197,7 +203,7 @@ public class Player : MonoBehaviour {
         }
 
         // character enum에 맞는 character prefab를 가져온다.
-        GameObject characterPrefab = characterPrefabs[(int)GameData.CharacterType];
+        GameObject characterPrefab = GameController.Instance.characterPrefabs[(int)GameData.CharacterType];
 
         // 새로운 캐릭터 object를 생성한다.
         if(characterPrefab)

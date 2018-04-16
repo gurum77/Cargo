@@ -148,10 +148,10 @@ namespace Assets.Scripts.Controller
             sb.Append("+");
             sb.Append(((GameController.Instance.player.GetRealCoinRate() - 1.0f) * 100.0f).ToString());
             sb.Append("%");
-            if (GameController.Instance.player.GetLevel() > 0)
+            if (GameController.Instance.player.GetTransformLevel() > 0)
             {
                 sb.Append(" +");
-                sb.Append((GameController.Instance.player.GetLevel() * 100).ToString());
+                sb.Append((GameController.Instance.player.GetTransformLevel() * 100).ToString());
                 sb.Append("%");
             }
             return sb.ToString();
@@ -174,6 +174,28 @@ namespace Assets.Scripts.Controller
             sb.Append("+");
             sb.Append(GameController.Instance.player.GetRealSpeed().ToString());
 
+            return sb.ToString();
+        }
+
+        // level 문자열
+        public static string GetLevelString()
+        {
+            return GameController.Instance.Player.Level.ToString();
+        }
+
+        // epx 문자열
+        public static string GetExpString()
+        {
+            // 현재 경험치
+            int curExp  = GameController.Instance.Player.Exp;
+
+            // 다음 레벨을 위한 경험치
+            int nextExp = GameController.Instance.player.ExpForNextLevel;
+            StringBuilder sb    = new StringBuilder();
+            sb.Append(curExp.ToString());
+            sb.Append("/");
+            sb.Append(nextExp.ToString());
+            
             return sb.ToString();
         }
     }

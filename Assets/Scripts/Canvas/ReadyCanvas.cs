@@ -9,8 +9,6 @@ public class ReadyCanvas : MonoBehaviour {
 
     public Text scoreText;
     public Text bestScoreText;
-    public Text coinText;
-    public Text diamondText;
     public Text gameModeText;
     public Text gameModeSubText;
     public GameObject exitCanvasItems;
@@ -29,9 +27,6 @@ public class ReadyCanvas : MonoBehaviour {
 
         // display best
         DisplayBestScore();
-
-        // display coins
-        DisplayCoinsAndDiamonds();
 
         // display game mode
         DisplayGameMode();
@@ -89,14 +84,6 @@ public class ReadyCanvas : MonoBehaviour {
             scoreText.text = GameController.Instance.Player.Score.ToString();
     }
 
-    // coins 출력
-    void DisplayCoinsAndDiamonds()
-    {
-        if (coinText)
-            coinText.text = StringMaker.GetCoinsString();
-        if (diamondText)
-            diamondText.text = StringMaker.GetDiamondsString();
-    }
 
     // mode 선택 버튼 클릭
     public void OnGameModeSelectionButtonClicked()

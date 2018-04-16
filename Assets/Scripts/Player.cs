@@ -51,11 +51,13 @@ public class Player : MonoBehaviour {
     public int CollectedCoins
     {
         get { return collectedCoins; }
+        set { collectedCoins = value; }
     }
     int collectedDiamonds;
     public int CollectedDiamonds
     {
         get { return collectedDiamonds; }
+        set { collectedDiamonds = value; }
     }
 
     ////////////////////////////////////////////
@@ -109,6 +111,7 @@ public class Player : MonoBehaviour {
 
     // 변신에 필요한 콤보
     public int level1Combo; // level1 변신에 필요한 콤보
+    public int expByLevel;  // level당 경험치
 
 
     public HUDText hudTextPrefabs;
@@ -326,7 +329,7 @@ public class Player : MonoBehaviour {
     // coin을 수집한다.
     public void CollectCoins(int addCoins)
     {
-        int realCoins   = (int)((addCoins * (GetLevel() + 1)) * GetRealCoinRate());
+        int realCoins   = (int)((addCoins * (GetTransformLevel() + 1)) * GetRealCoinRate());
         // 현재 레벨에 따라 곱해준다.
         collectedCoins = collectedCoins + realCoins;
 
@@ -337,7 +340,7 @@ public class Player : MonoBehaviour {
     // diamond를 수집한다.
     public void CollectDiamonds(int addDimonds)
     {
-        int realDiamonds = (addDimonds * (GetLevel() + 1));
+        int realDiamonds = (addDimonds * (GetTransformLevel() + 1));
 
         // 현재 레벨에 따라 곱해준다.
         collectedDiamonds = collectedDiamonds + realDiamonds;
@@ -512,7 +515,7 @@ public class Player : MonoBehaviour {
         transform.position = targetPos;
         transform.rotation = targetDir;
     }
-    public int GetLevel()
+    public int GetTransformLevel()
     {
         if (level1Combo < Combo)
             return 1;
@@ -526,7 +529,7 @@ public class Player : MonoBehaviour {
          if (ani == null)
              return;
 
-        int level = GetLevel();
+        int level = GetTransformLevel();
         if (level == 0)
         {
             ani.ResetTrigger("Car_Level1");
@@ -631,6 +634,46 @@ public class Player : MonoBehaviour {
         playerPosition++;
     }
 
+    // 레벨
+    public int Level
+    {
+        get
+        {
+            if (expByLevel == 0)
+            {
+                Debug.Assert(false);
+                return 1;
+            }
+
+            return (Exp / expByLevel) + 1;
+        }
+    }
+
+    // 현재 레벨에 도달하는 경험치
+    public int ExpForCurLevel
+    {
+        get { return (Level-1) * expByLevel; }
+    }
+
+    // 다음 레벨에 도달하는 경험치
+    public int ExpForNextLevel
+    {
+        get { return Level * expByLevel; }
+    }
+    // 경험치 리턴
+    public int Exp
+    {
+        get { return gameData.Exp; }
+    }
+    
+    // 경험치는 추가한다.
+    void AddExp(int addedExp)
+    {
+        // 사용자 입력이 있는 경우에만 경험치를 추가한다.
+        if(EnableUserInput)
+            gameData.Exp += addedExp;
+    }
+
     // player를 이동한다.
     // 진행방향으로 movingDist만큼 이동한다.
     // move할때마다 playerPosition이 증가한다.
@@ -640,6 +683,12 @@ public class Player : MonoBehaviour {
         if (!enabled)
             return;
 
+        // 경험치는 실해해도 준다.
+        {
+            AddExp(step);
+        }
+        
+        
         bool isJump = false;
         for(int ix = 0; ix < step; ++ix)
         {

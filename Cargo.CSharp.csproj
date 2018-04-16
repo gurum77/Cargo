@@ -459,6 +459,7 @@
     <Compile Include="Assets\Scripts\Canvas\GameModeSelectionCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\GameOverCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\GameOverCanvasItems.cs" />
+    <Compile Include="Assets\Scripts\Canvas\LevelUpCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\MapSelectionCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\PlayCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\PlayerSelectionCanvas.cs" />
@@ -497,8 +498,10 @@
     <Compile Include="Assets\Scripts\UI\BossLevelAlert.cs" />
     <Compile Include="Assets\Scripts\UI\HUDText.cs" />
     <Compile Include="Assets\Scripts\UI\ImageSelector.cs" />
+    <Compile Include="Assets\Scripts\UI\MainProperty.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerDataEditor.cs" />
     <Compile Include="Assets\Scripts\UI\RevivedByADCanvas.cs" />
+    <Compile Include="Assets\Scripts\UI\Rewards.cs" />
     <Compile Include="Assets\SmartTimersManager\ScriptExamples\BlueLightFlicker.cs" />
     <Compile Include="Assets\SmartTimersManager\ScriptExamples\RedLightFlicker.cs" />
     <Compile Include="Assets\SmartTimersManager\TimerManager\GUI_TimersList.cs" />

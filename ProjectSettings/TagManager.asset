@@ -6,6 +6,11 @@ TagManager:
   tags:
   - PlayerSound
   - Character
+  - Fire
+  - CoinText
+  - DiamondText
+  - LevelText
+  - ExpText
   layers:
   - Default
   - TransparentFX

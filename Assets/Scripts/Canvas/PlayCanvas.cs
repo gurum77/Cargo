@@ -8,8 +8,7 @@ public class PlayCanvas : MonoBehaviour {
 
     public Text scoreText;
     public Text bestScoreText;
-    public Text coinText;
-    public Text diamondText;
+    
     public Text comboText;
     public Text realLifeText;
     public Text realCoinText;
@@ -30,14 +29,15 @@ public class PlayCanvas : MonoBehaviour {
         // display best
         DisplayBestScore();
 
-        // display coins
-        DisplayCoinsAndDiamonds();
+        
 
         // display combo
         DisplayCombo();
 
         // display added property
         DisplayAddedProperty();
+
+        
 	}
 
     // 카메라 버튼 클릭
@@ -96,15 +96,7 @@ public class PlayCanvas : MonoBehaviour {
         scoreText.text = GameController.Instance.Player.Score.ToString();
     }
 
-    // coins 출력
-    void DisplayCoinsAndDiamonds()
-    {
-        if (coinText)
-            coinText.text = StringMaker.GetCoinsString();
-        if (diamondText)
-            diamondText.text = StringMaker.GetDiamondsString();
-    }
-
+  
     // combo 출력
     void DisplayCombo()
     {

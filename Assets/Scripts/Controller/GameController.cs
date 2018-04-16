@@ -51,6 +51,10 @@ public class GameController : MonoBehaviour {
         get { return player; }
     }
 
+    // 게임 전 마지막 player의 레벨
+    public int LastPlayerLevel
+    { get; set; }
+
     private Control controlType;
     public Control ControlType
     {
@@ -128,8 +132,10 @@ public class GameController : MonoBehaviour {
         player.RevivedByAD = false;
         player.DistXFromCenter = 0.0f;
         player.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-
-
+        
+        // player의 레벨 저장
+        LastPlayerLevel = player.Level;
+        
         // player 애니메이션을 base로
         player.InitAnimation();
         

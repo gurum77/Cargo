@@ -4,14 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scripts.Controller;
 using UnityEngine.SceneManagement;
-using UnityEngine.Advertisements;
 
 public class GameOverCanvas : MonoBehaviour {
 
     public Text scoreText;
     public Text bestScoreText;
-    public Text coinText;
-    public Text diamondText;
     public Text gameOverText;
     public float timeToShowButtons; // 버튼을 보이게 하는 시간
     float timeFromEnable;   // 활성화 된 이후 시간
@@ -19,10 +16,8 @@ public class GameOverCanvas : MonoBehaviour {
     public Image successImage;
     public Image failImage;
     public Image bestImage;
+    public LevelUpCanvas levelUpCanvasPrefab;
 
-    public Text collectedCoinsText;
-    public Text collectedDiamondsText;
-    public Button adButton;
 
 	// Use this for initialization
 	void Start () {
@@ -42,9 +37,6 @@ public class GameOverCanvas : MonoBehaviour {
         // display best
         DisplayBestScore();
 
-        // display coins
-        DisplayCoinsAndDiamonds();
-
         // 시간 누적
         // score text가 안보이면 시간은 항상 0
         if (scoreText && scoreText.IsActive())
@@ -61,35 +53,11 @@ public class GameOverCanvas : MonoBehaviour {
         // 결과 이미지 표시
         DisplayResultImage();
 
-        // 보상 표시
-        DisplayRewards();
+        
 	}
 
 
-    private void HandleShowResult(ShowResult result)
-    {
-        if(result == ShowResult.Finished)
-        {
-            GameController.Instance.Player.DuplicateRewards();
-            if (adButton)
-            {
-                adButton.gameObject.SetActive(false);
-            }
-        }
-
-        
-    }
-
-    // 광고 버튼 클릭
-    public void OnADButtonClicked()
-    {
-        if(Advertisement.IsReady(Define.UnityAds.rewardedVideo))
-        {
-            var options = new ShowOptions { resultCallback = HandleShowResult };
-            Advertisement.Show(Define.UnityAds.rewardedVideo, options);
-        }
-        
-    }
+    
 
     // 결과 이미지를 표시한다.
     void DisplayResultImage()
@@ -111,19 +79,6 @@ public class GameOverCanvas : MonoBehaviour {
         }
     }
 
-    // 보상을 표시한다.
-    void DisplayRewards()
-    {
-        if(collectedCoinsText)
-        {
-            collectedCoinsText.text = StringMaker.GetCollectedCoinsString();
-        }
-
-        if(collectedDiamondsText)
-        {
-            collectedDiamondsText.text = StringMaker.GetCollectedDiamondsString();
-        }
-    }
     
     // button을 보여준다.
     // 지정된 시간 이후부터 보인다.
@@ -142,10 +97,6 @@ public class GameOverCanvas : MonoBehaviour {
     // game over canvas는 게임이 종료되고 나서 3초 뒤에 다른 버튼을 누를 수 있게 한다.
     void OnEnable()
     {
-        if (adButton)
-        {
-            adButton.gameObject.SetActive(true);
-        }
     }
 
     void HideButtons()
@@ -154,14 +105,6 @@ public class GameOverCanvas : MonoBehaviour {
         {
             b.gameObject.SetActive(false);
         }
-    }
-
-    private void DisplayCoinsAndDiamonds()
-    {
-        if (coinText)
-            coinText.text = StringMaker.GetCoinsString();
-        if (diamondText)
-            diamondText.text = StringMaker.GetDiamondsString();
     }
 
     private void DisplayBestScore()
@@ -249,12 +192,18 @@ public class GameOverCanvas : MonoBehaviour {
             
     }
 
-    // 받기 버튼을 누르면 보상을 받는다.
-    // 보상을 받고 나서 ready canvas를 연다.
+    // get button을 클릭하면 보상을 받고, level up인지 체크를 한다.
+    // levelup이면  level canvas를 띄운다. // 아니라면 ready 상태로 간다.
     public void OnGetButtonClicked()
     {
-        GameController.Instance.Player.GetRewards();
-        GameController.Instance.Ready();
-        
+        if(GameController.Instance.LastPlayerLevel < GameController.Instance.Player.Level && levelUpCanvasPrefab)
+        {
+            GameObject.Instantiate(levelUpCanvasPrefab, null);
+        }
+        else
+        {
+            GameController.Instance.Player.GetRewards();
+            GameController.Instance.Ready();
+        }
     }
 }

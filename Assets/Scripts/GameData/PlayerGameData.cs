@@ -10,6 +10,9 @@ using UnityEngine;
 public class PlayerGameData
 {
     #region 데이타 get;set;
+    public int Exp
+    { get; set; }
+
     public int EnergyBarModeBestScore
     { get; set; }
 
@@ -56,6 +59,10 @@ public class PlayerGameData
     #endregion
 
     #region 게임 데이타 저장 키 정의
+    static public string ExpKey
+    {
+        get { return "Exp"; }
+    }
     static public string CoinsKey
     {
         get { return "Coins"; }
@@ -136,6 +143,9 @@ public class PlayerGameData
     // 게임 데이타를 저장한다.
     public void Save()
     {
+        // exp
+        PlayerPrefs.SetInt(PlayerGameData.ExpKey, Exp);
+
         // coins
         PlayerPrefs.SetInt(PlayerGameData.CoinsKey, Coins);
 
@@ -185,6 +195,9 @@ public class PlayerGameData
     // 게임 데이타를 읽어온다.
     public void Load()
     {
+        // exp
+        Exp = PlayerPrefs.GetInt(PlayerGameData.ExpKey);
+
         // coins
         Coins = PlayerPrefs.GetInt(PlayerGameData.CoinsKey);
 

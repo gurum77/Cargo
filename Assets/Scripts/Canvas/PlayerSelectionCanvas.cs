@@ -18,11 +18,12 @@ public class PlayerSelectionCanvas : MonoBehaviour {
     public Text diamondText;
     public Text selectText;
     public Text nameText;
-    InventoryGameData inventoryGameData;
-    PlayerGameData playerGameData;
     public Image coinImage;
     public Image diamondImage;
-    public Image adImage;
+    public Image adImage; 
+    
+    InventoryGameData inventoryGameData;
+    PlayerGameData playerGameData;
     public ProgressBarBehaviour powerProgressbar;
     public ProgressBarBehaviour speedProgressbar;
     public ProgressBarBehaviour coinProgressbar;
@@ -50,8 +51,6 @@ public class PlayerSelectionCanvas : MonoBehaviour {
             coinProgressbar.Init();
 
         CreatePreviewCharacter();
-
-        
     }
 
     // 프로그래스바를 표시한다.
@@ -85,6 +84,78 @@ public class PlayerSelectionCanvas : MonoBehaviour {
         }
 	}
 
+    // 구매 정보를 표시한다.
+    void DisplayPurchaseInfo()
+    {
+        int index = (int)previewCharacterType;
+
+        // price text
+        if (coinText)
+        {
+            coinText.text = playerGameData.Coins.ToString();
+        }
+
+        if (diamondText)
+        {
+            diamondText.text = playerGameData.Diamonds.ToString();
+        }
+
+
+
+        // 비활성화 인 경우 글자를 Get로 바꾼다.
+        if (selectText)
+        {
+            if (inventoryGameData.characterInfo[index].Enabled)
+            {
+                if (coinImage)
+                    coinImage.enabled = false;
+                if (diamondImage)
+                    diamondImage.enabled = false;
+                if (adImage)
+                    adImage.enabled = false;
+
+                selectText.text = LocalizationText.GetText("SELECT");
+            }
+
+            else
+            {
+                // diamond로 살수 있는 경우
+                if (inventoryGameData.characterInfo[index].Diamond > 0)
+                {
+                    selectText.text = string.Format("{0}", inventoryGameData.characterInfo[index].Diamond.ToString());
+                    if (coinImage)
+                        coinImage.enabled = false;
+                    if (diamondImage)
+                        diamondImage.enabled = true;
+                    if (adImage)
+                        adImage.enabled = false;
+                }
+                // coin으로 살수 있는 경우
+                else if (inventoryGameData.characterInfo[index].Price > 0)
+                {
+                    selectText.text = string.Format("{0}", inventoryGameData.characterInfo[index].Price.ToString());
+                    if (coinImage)
+                        coinImage.enabled = true;
+                    if (diamondImage)
+                        diamondImage.enabled = false;
+                    if (adImage)
+                        adImage.enabled = false;
+                }
+                // AD로 살수 있는 경우
+                else if (inventoryGameData.characterInfo[index].AD > 0)
+                {
+                    selectText.text = string.Format(" x {0}", inventoryGameData.characterInfo[index].AD.ToString());
+                    if (coinImage)
+                        coinImage.enabled = false;
+                    if (diamondImage)
+                        diamondImage.enabled = false;
+                    if (adImage)
+                        adImage.enabled = true;
+                }
+
+            }
+        }
+    }
     // preview character 를 만든다.
     void CreatePreviewCharacter()
     {
@@ -122,72 +193,8 @@ public class PlayerSelectionCanvas : MonoBehaviour {
             nameText.text = inventoryGameData.characterInfo[index].Name;
         }
 
-        // price text
-        if(coinText)
-        {
-            coinText.text = playerGameData.Coins.ToString();
-        }
-
-        if (diamondText)
-        {
-            diamondText.text = playerGameData.Diamonds.ToString();
-        }
-
-     
-
-        // 비활성화 인 경우 글자를 Get로 바꾼다.
-        if(selectText)
-        {
-            if (inventoryGameData.characterInfo[index].Enabled)
-            {
-                if (coinImage)
-                    coinImage.enabled = false;
-                if (diamondImage)
-                    diamondImage.enabled = false;
-                if (adImage)
-                    adImage.enabled = false;
-
-                    selectText.text = LocalizationText.GetText("SELECT");
-            }
-                
-            else
-            {
-                // diamond로 살수 있는 경우
-                if (inventoryGameData.characterInfo[index].Diamond > 0)
-                {
-                    selectText.text = string.Format("{0}", inventoryGameData.characterInfo[index].Diamond.ToString());
-                    if (coinImage)
-                        coinImage.enabled = false;
-                    if (diamondImage)
-                        diamondImage.enabled = true;
-                    if (adImage)
-                        adImage.enabled = false;
-                }
-                // coin으로 살수 있는 경우
-                else if(inventoryGameData.characterInfo[index].Price > 0)
-                {
-                    selectText.text = string.Format("${0}", inventoryGameData.characterInfo[index].Price.ToString());
-                    if (coinImage)
-                        coinImage.enabled = true;
-                    if (diamondImage)
-                        diamondImage.enabled = false;
-                    if (adImage)
-                        adImage.enabled = false;
-                }
-                // AD로 살수 있는 경우
-                else if(inventoryGameData.characterInfo[index].AD > 0)
-                {
-                    selectText.text = string.Format(" x {0}", inventoryGameData.characterInfo[index].AD.ToString());
-                    if (coinImage)
-                        coinImage.enabled = false;
-                    if (diamondImage)
-                        diamondImage.enabled = false;
-                    if (adImage)
-                        adImage.enabled = true;
-                }
-
-            }
-        }
+        DisplayPurchaseInfo();
+       
 
         DisplayProgressbar();
 

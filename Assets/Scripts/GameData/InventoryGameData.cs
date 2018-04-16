@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// 창고 게임 데이타
-/// 캐릭터별 특성
-/// </summary>
-
-public class CharacterInfo
+// 구매 정보
+public class PurchaseInfo
 {
     public int Price
     { get; set; }
@@ -25,6 +21,28 @@ public class CharacterInfo
     public string Name
     { get; set; }
 
+    public PurchaseInfo()
+    {
+        Price = 0;
+        Diamond = 0;
+        AD = 0;
+        Enabled = false;
+        Name = "";
+    }
+}
+
+// 맵 구매 정보
+public class MapInfo : PurchaseInfo
+{
+}
+
+/// <summary>
+/// 창고 게임 데이타
+/// 캐릭터별 특성
+/// </summary>
+
+public class CharacterInfo : PurchaseInfo
+{
     public float Speed
     { get; set; }
 
@@ -40,11 +58,6 @@ public class CharacterInfo
 
     public CharacterInfo()
     {
-        Price = 0;
-        Diamond = 0;
-        AD = 0;
-        Enabled = false;
-        Name = "";
         Speed = 7.0f;
         DefaultLife = 2;
         Power = 1;
@@ -52,30 +65,30 @@ public class CharacterInfo
     }
 }
 
+
+
 public class InventoryGameData
 {
     
     #region 데이타 
     public CharacterInfo []characterInfo   = new CharacterInfo[(int)Player.Character.eCount];
+    public MapInfo[] mapInfo = new MapInfo[(int)MapController.Map.eCount];
     #endregion
 
     
-
-    // 초기화
-    // 1개만 빼고 모두 비활성화 한다.
-    public InventoryGameData()
+    void InitCharacterInfo()
     {
         for (int ix = 0; ix < (int)Player.Character.eCount; ++ix)
         {
             characterInfo[ix] = new CharacterInfo();
         }
 
-        
+
         // 기본 케릭터
         characterInfo[(int)Player.Character.eAmbulance].Enabled = true;
         characterInfo[(int)Player.Character.eAmbulance].Price = 0;
-        characterInfo[(int)Player.Character.eAmbulance].Name    = LocalizationText.GetText("Ambulance");
-        
+        characterInfo[(int)Player.Character.eAmbulance].Name = LocalizationText.GetText("Ambulance");
+
         // 가격 결정
         characterInfo[(int)Player.Character.eFiretruck].Price = 500;
         characterInfo[(int)Player.Character.eFiretruck].Name = LocalizationText.GetText("Firetruck");
@@ -100,9 +113,9 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eVwVan].Price = 2000;
         characterInfo[(int)Player.Character.eVwVan].Name = LocalizationText.GetText("Van");
         characterInfo[(int)Player.Character.eVwVan].Speed = 6;
-                
+
         characterInfo[(int)Player.Character.ePoliceHelicopter].Price = 0;
-        characterInfo[(int)Player.Character.ePoliceHelicopter].Diamond  = 200;
+        characterInfo[(int)Player.Character.ePoliceHelicopter].Diamond = 200;
         characterInfo[(int)Player.Character.ePoliceHelicopter].Name = LocalizationText.GetText("Police helicopter");
         characterInfo[(int)Player.Character.ePoliceHelicopter].Speed = 7.5f;
         characterInfo[(int)Player.Character.ePoliceHelicopter].CoinRate = 1.2f;
@@ -195,6 +208,45 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eRedOldAirplane].Speed = 7.0f;
         characterInfo[(int)Player.Character.eRedOldAirplane].Power = 5;
     }
+
+    void InitMapInfo()
+    {
+        for (int ix = 0; ix < (int)MapController.Map.eCount; ++ix)
+        {
+            mapInfo[ix] = new MapInfo();
+        }
+
+        mapInfo[(int)MapController.Map.eBasic].Name  = LocalizationText.GetText("Basic");
+        mapInfo[(int)MapController.Map.eBasic].Enabled = true;
+
+        mapInfo[(int)MapController.Map.eSea].Name = LocalizationText.GetText("Sea");
+        mapInfo[(int)MapController.Map.eSea].Enabled = false;
+        mapInfo[(int)MapController.Map.eSea].Price = 1000;
+        mapInfo[(int)MapController.Map.eSea].Diamond    = 0;
+        mapInfo[(int)MapController.Map.eSea].AD = 0;
+
+        mapInfo[(int)MapController.Map.eDesert].Name = LocalizationText.GetText("Desert");
+        mapInfo[(int)MapController.Map.eDesert].Enabled = false;
+        mapInfo[(int)MapController.Map.eDesert].Price = 5000;
+        mapInfo[(int)MapController.Map.eDesert].Diamond = 0;
+        mapInfo[(int)MapController.Map.eDesert].AD = 0;
+
+        mapInfo[(int)MapController.Map.eChristmas].Name = LocalizationText.GetText("X-Mas");
+        mapInfo[(int)MapController.Map.eChristmas].Enabled = false;
+        mapInfo[(int)MapController.Map.eChristmas].Price = 0;
+        mapInfo[(int)MapController.Map.eChristmas].Diamond = 200;
+        mapInfo[(int)MapController.Map.eChristmas].AD = 0;
+        
+
+    }
+    // 초기화
+    // 1개만 빼고 모두 비활성화 한다.
+    public InventoryGameData()
+    {
+        InitCharacterInfo();
+        InitMapInfo();
+       
+    }
     #region 게임 데이타 저장 키 정의
     
     static string EnabledKey(Player.Character character)
@@ -207,24 +259,55 @@ public class InventoryGameData
         return character.ToString() + ".AD";
     }
 
+    static string EnabledKey(MapController.Map map)
+    {
+        return map.ToString() + ".Enabled";
+    }
+
+    static string ADKey(MapController.Map map)
+    {
+        return map.ToString() + ".AD";
+    }
+
     #endregion
 
     #region 게임 데이타를 저장하는 함수
     // 게임 데이타를 저장한다.
     public void Save()
     {
-        int count = (int)Player.Character.eCount;
-        Player.Character character;
-        for (int ix = 0; ix < count; ++ix)
+        // character
         {
-            character = (Player.Character)ix;
-            
+            int count = (int)Player.Character.eCount;
+            Player.Character character;
+            for (int ix = 0; ix < count; ++ix)
+            {
+                character = (Player.Character)ix;
 
-            // enabled
-            PlayerPrefs.SetInt(InventoryGameData.EnabledKey(character), characterInfo[ix].Enabled ? 1 : 0);
 
-            // 남은 AD
-            PlayerPrefs.SetInt(InventoryGameData.ADKey(character), characterInfo[ix].AD);
+                // enabled
+                PlayerPrefs.SetInt(InventoryGameData.EnabledKey(character), characterInfo[ix].Enabled ? 1 : 0);
+
+                // 남은 AD
+                PlayerPrefs.SetInt(InventoryGameData.ADKey(character), characterInfo[ix].AD);
+            }
+        }
+        
+
+        // map
+        {
+            int count = (int)MapController.Map.eCount;
+            MapController.Map map;
+            for (int ix = 0; ix < count; ++ix)
+            {
+                map = (MapController.Map)ix;
+
+
+                // enabled
+                PlayerPrefs.SetInt(InventoryGameData.EnabledKey(map), mapInfo[ix].Enabled ? 1 : 0);
+
+                // 남은 AD
+                PlayerPrefs.SetInt(InventoryGameData.ADKey(map), mapInfo[ix].AD);
+            }
         }
     }
     #endregion
@@ -234,18 +317,38 @@ public class InventoryGameData
     // 게임 데이타를 읽어온다.
     public void Load()
     {
-        int count = (int)Player.Character.eCount;
-        Player.Character character;
-        for (int ix = 0; ix < count; ++ix)
+        // character
         {
-            character = (Player.Character)ix;
+            int count = (int)Player.Character.eCount;
+            Player.Character character;
+            for (int ix = 0; ix < count; ++ix)
+            {
+                character = (Player.Character)ix;
 
-            // enabled
-            characterInfo[ix].Enabled = PlayerPrefs.GetInt(InventoryGameData.EnabledKey(character), characterInfo[ix].Enabled ? 1 : 0) == 0 ? false : true;
+                // enabled
+                characterInfo[ix].Enabled = PlayerPrefs.GetInt(InventoryGameData.EnabledKey(character), characterInfo[ix].Enabled ? 1 : 0) == 0 ? false : true;
 
-            // 남은 AD
-            characterInfo[ix].AD = PlayerPrefs.GetInt(InventoryGameData.ADKey(character), characterInfo[ix].AD);
+                // 남은 AD
+                characterInfo[ix].AD = PlayerPrefs.GetInt(InventoryGameData.ADKey(character), characterInfo[ix].AD);
+            }
         }
+
+        // map
+        {
+            int count = (int)MapController.Map.eCount;
+            MapController.Map map;
+            for (int ix = 0; ix < count; ++ix)
+            {
+                map = (MapController.Map)ix;
+
+                // enabled
+                mapInfo[ix].Enabled = PlayerPrefs.GetInt(InventoryGameData.EnabledKey(map), mapInfo[ix].Enabled ? 1 : 0) == 0 ? false : true;
+
+                // 남은 AD
+                mapInfo[ix].AD = PlayerPrefs.GetInt(InventoryGameData.ADKey(map), mapInfo[ix].AD);
+            }
+        }
+        
     }
     #endregion
 }

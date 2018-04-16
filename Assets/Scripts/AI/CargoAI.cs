@@ -40,6 +40,17 @@ public class CargoAI : MonoBehaviour {
     {
         float diff = targetMovingInterval * targetMovingIntervalRangeRate;
         curTargetMovingInterval = Random.Range(targetMovingInterval - diff, targetMovingInterval + diff);
+
+        // 정해진 속도에 뒤쳐진 만큼 능력치를 올려준다.
+        int positionDiff    = GameController.Instance.Player.PlayerPosition - player.PlayerPosition;
+
+        // 5칸 이상 뒤쳐지면 능력치를 50%씩 올려준다.
+        if(positionDiff > 5)
+        {
+            float up    = (float)((positionDiff + 10) / 5) * 0.5f;
+            curTargetMovingInterval = curTargetMovingInterval * (1.0f / up);
+        }
+        
     }
 	// Update is called once per frame
 	void Update () 

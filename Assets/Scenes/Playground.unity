@@ -1879,7 +1879,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 556e3ed94fcb4ad46929c51d3eb0e42e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 678c0534175cd4943bed3bac5cf2a33d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2974,14 +2974,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.666, g: 0.659, b: 0.7205882, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 181a33a926d114f2986db2828e3a1411, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63c9c0a696085094493c835884b44e87, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6281,7 +6281,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1269575513725646, guid: 69ac018256ccf1f48941050a7ead90f4, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114661994650425008, guid: 69ac018256ccf1f48941050a7ead90f4, type: 2}
@@ -9372,7 +9372,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400094, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: rewards.Array.data[0].reward
-      value: 10000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 22400070, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: m_AnchorMin.y
@@ -9384,7 +9384,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400094, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: rewards.Array.data[1].reward
-      value: 20000
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 11400094, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: rewards.Array.data[1].sprite
@@ -9397,7 +9397,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400094, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: rewards.Array.data[2].reward
-      value: 30000
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 11400094, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: rewards.Array.data[2].sprite
@@ -9410,7 +9410,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400094, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: rewards.Array.data[3].reward
-      value: 40000
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 11400094, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: rewards.Array.data[3].sprite
@@ -9423,7 +9423,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400094, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: rewards.Array.data[4].reward
-      value: 50000
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 11400094, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: rewards.Array.data[5].unit
@@ -9431,7 +9431,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400094, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: rewards.Array.data[5].reward
-      value: 100000
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 11400094, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: rewards.Array.data[6].unit
@@ -9439,7 +9439,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400094, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: rewards.Array.data[6].reward
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11400094, guid: 4f0e1815f9c4b0841aa273bbb5aacbb2, type: 2}
       propertyPath: rewards.Array.data[6].sprite

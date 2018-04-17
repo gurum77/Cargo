@@ -307,6 +307,7 @@
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
     <None Include="Assets\_ImportedAssets\ColorfulButtons\Credits.txt" />
+    <None Include="Assets\_ImportedAssets\Fantasy_Kingdom_Pack_Lite\Demo\Read me01.txt" />
     <None Include="Assets\_ImportedAssets\FireWing\Shader\Wing_Main.shader" />
     <None Include="Assets\_ImportedAssets\FireWing\Shader\Wing_Sub.shader" />
     <None Include="Assets\_ImportedAssets\Fork Particle Variety Pack FX\Assets\Resources\ForkFX\Alien_Fire_PSK.xml" />

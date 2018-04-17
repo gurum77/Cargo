@@ -12,20 +12,27 @@ namespace Assets.Scripts.Controller
         public static string GetBestScoreString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(LocalizationText.GetText("Best "));
+            
             // 모드별로 다르게 표시한다.
             GameModeController.GameMode curGameMode = GameController.Instance.gameModeController.GetCurGameMode();
             if (curGameMode == GameModeController.GameMode.eEnergyBarMode)
             {
+                sb.Append(LocalizationText.GetText("Best "));
                 sb.Append(GameController.Instance.Player.GameData.EnergyBarModeBestScore.ToString());
             }
             else if (curGameMode == GameModeController.GameMode.e100MMode)
             {
+                sb.Append(LocalizationText.GetText("Best "));
                 sb.Append(GameMode_100M.TimeToString(GameController.Instance.Player.GameData.HundredMBestTime));
             }
             else if(curGameMode == GameModeController.GameMode.eMathMode)
             {
+                sb.Append(LocalizationText.GetText("Best "));
                 sb.Append(GameController.Instance.Player.GameData.MathModeBestScore.ToString());
+            }
+            else if (curGameMode == GameModeController.GameMode.eFlagMode)
+            {
+                return GetFlagModeLevelString();
             }
             
             return sb.ToString();
@@ -146,14 +153,9 @@ namespace Assets.Scripts.Controller
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("+");
-            sb.Append(((GameController.Instance.player.GetRealCoinRate() - 1.0f) * 100.0f).ToString());
+            sb.Append(((GameController.Instance.player.GetRealCoinRate() - 1.0f) * 100.0f + (GameController.Instance.player.GetTransformLevel() * 100)).ToString());
             sb.Append("%");
-            if (GameController.Instance.player.GetTransformLevel() > 0)
-            {
-                sb.Append(" +");
-                sb.Append((GameController.Instance.player.GetTransformLevel() * 100).ToString());
-                sb.Append("%");
-            }
+            
             return sb.ToString();
         }
 

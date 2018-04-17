@@ -89,7 +89,7 @@ public class GameMode_100M : MonoBehaviour {
     /// </summary>
     void CheckGameOver()
     {
-        if(GameController.Instance.Player.Score >= meter)
+        if (GameController.Instance.Player.PlayerPosition >= meter)
         {
             // 결과를 저장한다.
             if (GameController.Instance.Player.GameData.HundredMBestTime != 0)

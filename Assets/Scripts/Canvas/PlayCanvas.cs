@@ -78,10 +78,7 @@ public class PlayCanvas : MonoBehaviour {
 
         // 모드별로 다르게 표시한다.
         GameModeController.GameMode curMode = GameController.Instance.gameModeController.GetCurGameMode();
-        if (curMode == GameModeController.GameMode.eEnergyBarMode)
-            bestScoreText.text = LocalizationText.GetText("Best ") + GameController.Instance.Player.GameData.EnergyBarModeBestScore.ToString();
-        else if (curMode == GameModeController.GameMode.e100MMode)
-            bestScoreText.text = LocalizationText.GetText("Best ") + GameMode_100M.TimeToString(GameController.Instance.Player.GameData.HundredMBestTime);
+        bestScoreText.text = StringMaker.GetBestScoreString();
     }
 
     // 점수 출력

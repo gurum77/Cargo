@@ -16,6 +16,9 @@ public class CargoAI : MonoBehaviour {
     // 인터벌 변경할 범위는 목표 이동 인터벌의 지정된 % 내에서 정해진다.
     public float targetMovingIntervalRangeRate;
     public int bossAttackInterval;  // 보스가 공격하는 인터벌
+
+    public int differentCountForSpeedUp; // 속도업이 되기 위한 차이나는 개수
+    public int intervalToAdjustSpeed;  // 속도 조절 인터벌
     
     Player player;
 
@@ -45,9 +48,9 @@ public class CargoAI : MonoBehaviour {
         int positionDiff    = GameController.Instance.Player.PlayerPosition - player.PlayerPosition;
 
         // 5칸 이상 뒤쳐지면 능력치를 50%씩 올려준다.
-        if(positionDiff > 5)
+        if (positionDiff > differentCountForSpeedUp)
         {
-            float up    = (float)((positionDiff + 10) / 5) * 0.5f;
+            float up = (float)((positionDiff + 10) / differentCountForSpeedUp) * 0.5f;
             curTargetMovingInterval = curTargetMovingInterval * (1.0f / up);
         }
         
@@ -73,7 +76,7 @@ public class CargoAI : MonoBehaviour {
 
 
                 // 이동을 하고 나서 5칸마다 인터벌을 조정한다.
-                if (player.PlayerPosition % 5 == 0)
+                if (player.PlayerPosition % intervalToAdjustSpeed == 0)
                 {
                     SetCurTargetMovingIntervalInRange();
                 }

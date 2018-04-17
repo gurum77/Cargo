@@ -135,7 +135,7 @@ public class GameMode_Math : MonoBehaviour {
             for (int form = 0; form < 4; ++form)
             {
                 // 1자리 ~ 2자리덧셈
-                int gap = 1;
+                int gap = 2;
                 for (int ix = 1; ix < 100; ix += gap)
                 {
                     x = ix;
@@ -149,7 +149,7 @@ public class GameMode_Math : MonoBehaviour {
 
                         // x와 y가 10보다 커지면 gap을 3으로 올린다.
                         if (x > 10 && y > 10)
-                            gap = 3;
+                            gap = 5;
 
                         // 뺄샘은 더 큰값을 y로 한다.
                         if(form == 1)

@@ -13,6 +13,7 @@ public class MapController : MonoBehaviour {
         eSea,
         eDesert,
         eChristmas,
+        eVillage,
         eCount
     };
 
@@ -68,6 +69,7 @@ public class MapController : MonoBehaviour {
     public GameObject[] seaMapPrefabs;      // 0 : mainMap prefab, 1 : road block 왼쪽, 2 : road block 오른쪽, 3 이후 : sub map prefab
     public GameObject[] desertMapPrefabs;      // 0 : mainMap prefab, 1 : road block 왼쪽, 2 : road block 오른쪽, 3 이후 : sub map prefab
     public GameObject[] christmasMapPrefabs;      // 0 : mainMap prefab, 1 : road block 왼쪽, 2 : road block 오른쪽, 3 이후 : sub map prefab
+    public GameObject[] villageMapPrefabs;      // 0 : mainMap prefab, 1 : road block 왼쪽, 2 : road block 오른쪽, 3 이후 : sub map prefab
     #endregion 
     
     public int leftTileColsFromPlayer;  // player의 좌측 tile columns 수
@@ -182,6 +184,10 @@ public class MapController : MonoBehaviour {
         else if (map == Map.eChristmas)
         {
             mapPrefabs = christmasMapPrefabs;
+        }
+        else if(map == Map.eVillage)
+        {
+            mapPrefabs = villageMapPrefabs;
         }
         else
             return;

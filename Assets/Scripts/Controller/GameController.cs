@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour {
         eControl_MoveOnly       // move만
     };
 
+    public AudioSource audioSourceBackgroundMusic;
     public GameObject[] characterPrefabs;   // player의 캐릭터
     public GameObject[] enableGameObjectOnStartup;  // 시작할때 enable 해야 하는 object들..
     public int targetFrameRate;
@@ -30,7 +31,7 @@ public class GameController : MonoBehaviour {
     public GameObject playCanvasItems;
     public GameObject readyCanvasItems;
     public GameObject gameOverCanvasItems;
-
+    
     // 게임 셋팅을 저장하는 데이타
     SettingGameData settingGameData = new SettingGameData();
     public SettingGameData SettingGameData
@@ -100,6 +101,11 @@ public class GameController : MonoBehaviour {
     // game over를 한다.
     public void GameOver()
     {
+        if (audioSourceBackgroundMusic)
+        {
+            audioSourceBackgroundMusic.Stop();
+        }
+
         // 데이타 저장
         SaveGameData();
 
@@ -119,6 +125,11 @@ public class GameController : MonoBehaviour {
     // play를 시작한다.
     public void Play()
     {
+        if(audioSourceBackgroundMusic)
+        {
+            audioSourceBackgroundMusic.Play();
+        }
+
         // 게임 상태를 플레이로
         GameState = State.ePlay;
         
@@ -153,6 +164,11 @@ public class GameController : MonoBehaviour {
     // 게임 준비단계로 간다.
     public void Ready()
     {
+        if (audioSourceBackgroundMusic)
+        {
+            audioSourceBackgroundMusic.Stop();
+        }
+
         // 게임 데이타를 동기화 한다.
         {
             SyncGameDataToGameObject();

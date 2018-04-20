@@ -130,4 +130,13 @@ public class ReadyCanvas : MonoBehaviour {
         // player 선택 신으로 변경한다.
         SceneManager.LoadScene(Define.Scene.PlayerDataEditor);
     }
+
+    public void OnOptionsButtonClicked()
+    {
+        // game data를 저장한다.
+        GameController.Instance.SaveGameData();
+
+        // player 선택 신으로 변경한다.
+        SceneManager.LoadScene(Define.Scene.Options);
+    }
 }

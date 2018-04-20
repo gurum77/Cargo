@@ -236,6 +236,12 @@ public class InventoryGameData
         mapInfo[(int)MapController.Map.eChristmas].Price = 0;
         mapInfo[(int)MapController.Map.eChristmas].Diamond = 200;
         mapInfo[(int)MapController.Map.eChristmas].AD = 0;
+
+        mapInfo[(int)MapController.Map.eVillage].Name = LocalizationText.GetText("Village");
+        mapInfo[(int)MapController.Map.eVillage].Enabled = false;
+        mapInfo[(int)MapController.Map.eVillage].Price = 0;
+        mapInfo[(int)MapController.Map.eVillage].Diamond = 200;
+        mapInfo[(int)MapController.Map.eVillage].AD = 0;
         
 
     }

@@ -461,6 +461,7 @@
     <Compile Include="Assets\Scripts\Canvas\GameOverCanvasItems.cs" />
     <Compile Include="Assets\Scripts\Canvas\LevelUpCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\MapSelectionCanvas.cs" />
+    <Compile Include="Assets\Scripts\Canvas\OptionsCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\PlayCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\PlayerSelectionCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\ReadyCanvas.cs" />
@@ -507,6 +508,11 @@
     <Compile Include="Assets\SmartTimersManager\TimerManager\GUI_TimersList.cs" />
     <Compile Include="Assets\SmartTimersManager\TimerManager\Timer.cs" />
     <Compile Include="Assets\SmartTimersManager\TimerManager\TimersManager.cs" />
+    <Compile Include="Assets\sumMusic\Sample\SumMusicMultiSceneTest.cs" />
+    <Compile Include="Assets\sumMusic\Sample\SumMusicSampleMenu.cs" />
+    <Compile Include="Assets\sumMusic\Scripts\SumMusic.cs" />
+    <Compile Include="Assets\sumMusic\Scripts\SumMusicButton.cs" />
+    <Compile Include="Assets\sumMusic\Scripts\SumMusicButtonImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DailyRewards\README.txt" />
@@ -632,6 +638,7 @@
     <None Include="Assets\_ImportedAssets\nnj3de_crucarp\README.txt" />
     <None Include="Assets\_ImportedAssets\sumPause\README.md.txt" />
     <None Include="Assets\read me.txt" />
+    <None Include="Assets\sumMusic\README.md.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
 </Project>

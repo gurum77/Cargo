@@ -30,6 +30,7 @@ namespace Define
         static public readonly string MapSelection = "MapSelection";
         static public readonly string PlayerSelection = "PlayerSelection";
         static public readonly string PlayerDataEditor = "PlayerDataEditor";
+        static public readonly string Options   = "Options";
     }
 
     public class Message

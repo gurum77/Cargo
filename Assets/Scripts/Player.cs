@@ -130,7 +130,9 @@ public class Player : MonoBehaviour {
     public AudioSource audioSourceClock;
     public AudioSource audioSourceLife;
     public AudioSource audioSourceRock;
-
+    public AudioSource audioSourceJump;
+    public AudioSource audioSourceDestroy;
+    
 
     Vector3 targetPos   = new Vector3();  // 목표 위치
     Vector3 targetPosWidthDistXFromCenter = new Vector3();  // 중심에서 x거리가 적용된 목표 위치
@@ -688,6 +690,11 @@ public class Player : MonoBehaviour {
             AddExp(step);
         }
         
+        // step 2이상이면 점프 중인것이다.
+        if(step > 1 && audioSourceJump)
+        {
+            audioSourceJump.Play();
+        }
         
         bool isJump = false;
         for(int ix = 0; ix < step; ++ix)
@@ -703,6 +710,7 @@ public class Player : MonoBehaviour {
             {
                 audioSourceTick.Play();
             }
+
 
             // 이동할때마다 체크한다.
             // 마지막 step에서만 이동을 성공했는지 체크한다.
@@ -836,6 +844,11 @@ public class Player : MonoBehaviour {
         // 단 life가 0개가 되면 죽는다.
         life--;
 
+        if(life == 0)
+        {
+            if (audioSourceDestroy)
+                audioSourceDestroy.Play();
+        }
         CreateAttackHUDText(this.gameObject, "-1");
 
         // 아직 살아있다면 이전위치로 이동한다.
@@ -854,9 +867,16 @@ public class Player : MonoBehaviour {
             // 그로기 효과
             if (groggyEffect)
                 groggyEffect.Play();
+
+            if (audioSourceRock)
+            {
+                audioSourceRock.Play();
+            }
         }
         else
         {
+          
+
             GameController.Instance.GameOver();
 
             return false;

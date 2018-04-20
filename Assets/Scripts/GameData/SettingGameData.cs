@@ -18,6 +18,11 @@ public class SettingGameData
         get { return "CameraSkyViewKey"; }
     }
 
+    // volume
+    static public string VolumeKey
+    {
+        get { return "VolumeKey"; }
+    }
     #endregion
 
     #region 게임 세팅 데이타를 저장하는 함수
@@ -26,6 +31,9 @@ public class SettingGameData
     {
         // Camera sky view
         PlayerPrefs.SetInt(SettingGameData.CameraSkyViewKey, CameraSkyView);
+
+        // volume
+        PlayerPrefs.SetFloat(SettingGameData.VolumeKey, Volume);
     }
     #endregion
 
@@ -36,11 +44,16 @@ public class SettingGameData
     {
         // Camera sky view
         CameraSkyView = PlayerPrefs.GetInt(SettingGameData.CameraSkyViewKey);
+
+        // volume
     }
     #endregion
 
     #region 데이타 get;set;
     public int CameraSkyView
+    { get; set; }
+
+    public float Volume
     { get; set; }
     #endregion
 }

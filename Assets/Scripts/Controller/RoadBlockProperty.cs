@@ -70,6 +70,11 @@ namespace Assets.Scripts.Controller
                 if(rock)
                 {
                     rock.AddDamage(power);
+
+                    if(GameController.Instance.Player.audioSourceRock)
+                    {
+                        GameController.Instance.Player.audioSourceRock.Play();
+                    }
                 }
             }
         }

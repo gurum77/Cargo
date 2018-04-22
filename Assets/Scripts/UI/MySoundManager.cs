@@ -18,7 +18,8 @@ namespace DigitalRuby.SoundManagerNamespace
             eGameOver,
             eGetLife,
             eGetClock,
-            eGetFlag
+            eGetFlag,
+            eBossAlert
         }
 
         public enum Music
@@ -32,7 +33,7 @@ namespace DigitalRuby.SoundManagerNamespace
                 return;
 
             int index = (int)eSound;
-            if (soundAudioSources[index] && soundAudioSources[index].clip)
+            if (soundAudioSources.Length > index && soundAudioSources[index] && soundAudioSources[index].clip)
                 soundAudioSources[index].PlayOneShotSoundManaged(soundAudioSources[index].clip);
             else
                 Debug.Log(eSound.ToString() + " : Audio souces is not attached.");
@@ -44,7 +45,7 @@ namespace DigitalRuby.SoundManagerNamespace
                 return;
 
             int index = (int)eMusic;
-            if (musicAudioSources[index] && musicAudioSources[index].clip)
+            if (musicAudioSources.Length > index && musicAudioSources[index] && musicAudioSources[index].clip)
                 musicAudioSources[index].PlayLoopingMusicManaged(1.0f, 1.0f, true);
             else
                 Debug.Log(eMusic.ToString() + " : Audio soures is not attached");

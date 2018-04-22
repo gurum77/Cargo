@@ -4,6 +4,7 @@ using UnityEngine;
 using Assets.Scripts.Controller;
 using UnityEngine.UI;
 using ProgressBar;
+using DigitalRuby.SoundManagerNamespace;
 
 public class GameMode_Flag : MonoBehaviour {
 
@@ -293,6 +294,8 @@ public class GameMode_Flag : MonoBehaviour {
         if(bossLevelAlert)
         {
             bossLevelAlert.SetActive(true);
+            if (GameController.Instance.mySoundManager)
+                GameController.Instance.mySoundManager.PlaySound(MySoundManager.Sound.eBossAlert);
         }
     }
 

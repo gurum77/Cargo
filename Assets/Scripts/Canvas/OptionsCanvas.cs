@@ -98,11 +98,33 @@ public class OptionsCanvas : MonoBehaviour {
     public void OnSoundVolumeSliderChanged()
     {
         settingGameData.SoundVolume = soundVolumeSlider.value;
+
+        if(settingGameData.SoundVolume > 0 && settingGameData.SoundOnOff == 0)
+        {
+            settingGameData.SoundOnOff = 1;
+            ChangeButtonSprites();
+        }
+        else if(settingGameData.SoundVolume == 0 && settingGameData.SoundOnOff == 1)
+        {
+            settingGameData.SoundOnOff = 0;
+            ChangeButtonSprites();
+        }
         
     }
 
     public void OnMusicVolumeSliderChanged()
     {
         settingGameData.MusicVolume = musicVolumeSlider.value;
+
+        if (settingGameData.MusicVolume > 0 && settingGameData.MusicOnOff == 0)
+        {
+            settingGameData.MusicOnOff = 1;
+            ChangeButtonSprites();
+        }
+        else if (settingGameData.MusicVolume == 0 && settingGameData.MusicOnOff == 1)
+        {
+            settingGameData.MusicOnOff = 0;
+            ChangeButtonSprites();
+        }
     }
 }

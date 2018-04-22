@@ -124,7 +124,10 @@ public class Player : MonoBehaviour {
    
 
     public Canvas revivedByADCanvas;    // 광고로 되살리기 canvas
-    public MySoundManager mySoundManager;
+    MySoundManager mySoundManager
+    {
+        get { return GameController.Instance == null ? null : GameController.Instance.mySoundManager; }
+    }
 
 
     Vector3 targetPos   = new Vector3();  // 목표 위치

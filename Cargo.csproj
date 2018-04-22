@@ -462,7 +462,9 @@
     <Compile Include="Assets\Scripts\Canvas\GameModeSelectionCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\GameOverCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\GameOverCanvasItems.cs" />
+    <Compile Include="Assets\Scripts\Canvas\LevelUpCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\MapSelectionCanvas.cs" />
+    <Compile Include="Assets\Scripts\Canvas\OptionsCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\PlayCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\PlayerSelectionCanvas.cs" />
     <Compile Include="Assets\Scripts\Canvas\ReadyCanvas.cs" />
@@ -500,13 +502,23 @@
     <Compile Include="Assets\Scripts\UI\BossLevelAlert.cs" />
     <Compile Include="Assets\Scripts\UI\HUDText.cs" />
     <Compile Include="Assets\Scripts\UI\ImageSelector.cs" />
+    <Compile Include="Assets\Scripts\UI\MainProperty.cs" />
+    <Compile Include="Assets\Scripts\UI\MySoundManager.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerDataEditor.cs" />
     <Compile Include="Assets\Scripts\UI\RevivedByADCanvas.cs" />
+    <Compile Include="Assets\Scripts\UI\Rewards.cs" />
     <Compile Include="Assets\SmartTimersManager\ScriptExamples\BlueLightFlicker.cs" />
     <Compile Include="Assets\SmartTimersManager\ScriptExamples\RedLightFlicker.cs" />
     <Compile Include="Assets\SmartTimersManager\TimerManager\GUI_TimersList.cs" />
     <Compile Include="Assets\SmartTimersManager\TimerManager\Timer.cs" />
     <Compile Include="Assets\SmartTimersManager\TimerManager\TimersManager.cs" />
+    <Compile Include="Assets\SoundManager\Demo\SoundManagerDemo.cs" />
+    <Compile Include="Assets\SoundManager\SoundManager.cs" />
+    <Compile Include="Assets\sumMusic\Sample\SumMusicMultiSceneTest.cs" />
+    <Compile Include="Assets\sumMusic\Sample\SumMusicSampleMenu.cs" />
+    <Compile Include="Assets\sumMusic\Scripts\SumMusic.cs" />
+    <Compile Include="Assets\sumMusic\Scripts\SumMusicButton.cs" />
+    <Compile Include="Assets\sumMusic\Scripts\SumMusicButtonImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DailyRewards\README.txt" />
@@ -514,12 +526,14 @@
     <None Include="Assets\MakakaIconPack\Fonts\Font_Read_Me.txt" />
     <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />
     <None Include="Assets\Prefabs\GameMode\Resources\MathQuestions.xml" />
+    <None Include="Assets\SoundManager\Readme.txt" />
     <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
     <None Include="Assets\_ImportedAssets\ColorfulButtons\Credits.txt" />
+    <None Include="Assets\_ImportedAssets\Fantasy_Kingdom_Pack_Lite\Demo\Read me01.txt" />
     <None Include="Assets\_ImportedAssets\FireWing\Shader\Wing_Main.shader" />
     <None Include="Assets\_ImportedAssets\FireWing\Shader\Wing_Sub.shader" />
     <None Include="Assets\_ImportedAssets\Fork Particle Variety Pack FX\Assets\Resources\ForkFX\Alien_Fire_PSK.xml" />
@@ -631,6 +645,7 @@
     <None Include="Assets\_ImportedAssets\nnj3de_crucarp\README.txt" />
     <None Include="Assets\_ImportedAssets\sumPause\README.md.txt" />
     <None Include="Assets\read me.txt" />
+    <None Include="Assets\sumMusic\README.md.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class OptionsCanvas : MonoBehaviour {
 
@@ -9,21 +10,29 @@ public class OptionsCanvas : MonoBehaviour {
     public Sprite soundOnSprite;
     public Sprite soundOffSprite;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    public Button musicButton;
+    public Sprite musicOnSprite;
+    public Sprite musicOffSprite;
+    SettingGameData settingGameData;
+
+    public Slider soundVolumeSlider;
+    public Slider musicVolumeSlider;
+
+    // Use this for initialization
+    void Start () {
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
 
-    void OnEnable()
+    void ChangeButtonSprites()
     {
-        if(soundButton)
+         if(soundButton)
         { 
-            if(GetVolumn() > 0)
+            if(settingGameData.SoundOnOff > 0)
             {
                 soundButton.image.sprite    = soundOnSprite;
             }
@@ -32,16 +41,68 @@ public class OptionsCanvas : MonoBehaviour {
                 soundButton.image.sprite = soundOffSprite;
             }
         }
-    }
 
-    int GetVolumn()
+        if (musicButton)
+        {
+            if (settingGameData.MusicOnOff > 0)
+            {
+                musicButton.image.sprite = musicOnSprite;
+            }
+            else
+            {
+                musicButton.image.sprite = musicOffSprite;
+            }
+        }
+    }
+    void OnEnable()
     {
-        return 1;   
+        settingGameData = new SettingGameData();
+        settingGameData.Load();
+
+        ChangeButtonSprites();
+        InitSliders();
     }
 
+
+    void InitSliders()
+    {
+        if (settingGameData == null)
+            return;
+        if (soundVolumeSlider == null)
+            return;
+        if (musicVolumeSlider == null)
+            return;
+
+        soundVolumeSlider.value = settingGameData.SoundVolume;
+        musicVolumeSlider.value = settingGameData.MusicVolume;
+    }
 
     public void OnSoundButtonClicked()
     {
+        settingGameData.SoundOnOff = settingGameData.SoundOnOff == 0 ? 1 : 0;
+        ChangeButtonSprites();
+    }
+
+    public void OnMusicButtonClicked()
+    {
+        settingGameData.MusicOnOff = settingGameData.MusicOnOff == 0 ? 1 : 0;
+        ChangeButtonSprites();
+    }
+
+    public void CloseButtonClicked()
+    {
+        settingGameData.Save();
+        SceneManager.LoadScene(Define.Scene.Playground);
+    }
+
+    public void OnSoundVolumeSliderChanged()
+    {
+        settingGameData.SoundVolume = soundVolumeSlider.value;
         
+    }
+
+    public void OnMusicVolumeSliderChanged()
+    {
+        settingGameData.MusicVolume = musicVolumeSlider.value;
     }
 }

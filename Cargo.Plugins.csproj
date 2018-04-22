@@ -304,12 +304,14 @@
     <None Include="Assets\MakakaIconPack\Fonts\Font_Read_Me.txt" />
     <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />
     <None Include="Assets\Prefabs\GameMode\Resources\MathQuestions.xml" />
+    <None Include="Assets\SoundManager\Readme.txt" />
     <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
     <None Include="Assets\_ImportedAssets\ColorfulButtons\Credits.txt" />
+    <None Include="Assets\_ImportedAssets\Fantasy_Kingdom_Pack_Lite\Demo\Read me01.txt" />
     <None Include="Assets\_ImportedAssets\FireWing\Shader\Wing_Main.shader" />
     <None Include="Assets\_ImportedAssets\FireWing\Shader\Wing_Sub.shader" />
     <None Include="Assets\_ImportedAssets\Fork Particle Variety Pack FX\Assets\Resources\ForkFX\Alien_Fire_PSK.xml" />
@@ -421,6 +423,7 @@
     <None Include="Assets\_ImportedAssets\nnj3de_crucarp\README.txt" />
     <None Include="Assets\_ImportedAssets\sumPause\README.md.txt" />
     <None Include="Assets\read me.txt" />
+    <None Include="Assets\sumMusic\README.md.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
+using DigitalRuby.SoundManagerNamespace;
 
 public class GameController : MonoBehaviour {
 
@@ -20,7 +21,7 @@ public class GameController : MonoBehaviour {
         eControl_MoveOnly       // move만
     };
 
-    public AudioSource audioSourceBackgroundMusic;
+    public MySoundManager mySoundManager;
     public GameObject[] characterPrefabs;   // player의 캐릭터
     public GameObject[] enableGameObjectOnStartup;  // 시작할때 enable 해야 하는 object들..
     public int targetFrameRate;
@@ -101,11 +102,6 @@ public class GameController : MonoBehaviour {
     // game over를 한다.
     public void GameOver()
     {
-        if (audioSourceBackgroundMusic)
-        {
-            audioSourceBackgroundMusic.Stop();
-        }
-
         // 데이타 저장
         SaveGameData();
 
@@ -125,10 +121,7 @@ public class GameController : MonoBehaviour {
     // play를 시작한다.
     public void Play()
     {
-        if(audioSourceBackgroundMusic)
-        {
-            audioSourceBackgroundMusic.Play();
-        }
+       
 
         // 게임 상태를 플레이로
         GameState = State.ePlay;
@@ -164,10 +157,8 @@ public class GameController : MonoBehaviour {
     // 게임 준비단계로 간다.
     public void Ready()
     {
-        if (audioSourceBackgroundMusic)
-        {
-            audioSourceBackgroundMusic.Stop();
-        }
+        if (mySoundManager)
+            mySoundManager.PlayMusic(MySoundManager.Music.eMusicRetro);
 
         // 게임 데이타를 동기화 한다.
         {
@@ -216,6 +207,18 @@ public class GameController : MonoBehaviour {
         if (cameraController)
         {
             cameraController.skyView = settingGameData.CameraSkyView == 1 ? true : false;
+        }
+
+        // volume
+        if(mySoundManager)
+        {
+            SoundManager.SoundVolume    = settingGameData.SoundVolume;
+            SoundManager.MusicVolume    = settingGameData.MusicVolume;
+            if (settingGameData.SoundOnOff == 0)
+                SoundManager.SoundVolume = 0;
+            if (settingGameData.MusicOnOff == 0)
+                SoundManager.MusicVolume = 0;
+
         }
     }
 

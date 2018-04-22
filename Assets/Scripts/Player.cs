@@ -5,7 +5,7 @@ using Assets.Scripts.Controller;
 using Assets.Scripts;
 using UnityEngine.Advertisements;
 using UnityEngine.UI;
-
+using DigitalRuby.SoundManagerNamespace;
 /// <summary>
 /// player game object 스크립트
 /// 사용법 : player game object에 추가한다.
@@ -124,15 +124,8 @@ public class Player : MonoBehaviour {
    
 
     public Canvas revivedByADCanvas;    // 광고로 되살리기 canvas
-    public AudioSource audioSourceTick;
-    public AudioSource audioSourceCoin;
-    public AudioSource audioSourceDiamond;
-    public AudioSource audioSourceClock;
-    public AudioSource audioSourceLife;
-    public AudioSource audioSourceRock;
-    public AudioSource audioSourceJump;
-    public AudioSource audioSourceDestroy;
-    
+    public MySoundManager mySoundManager;
+
 
     Vector3 targetPos   = new Vector3();  // 목표 위치
     Vector3 targetPosWidthDistXFromCenter = new Vector3();  // 중심에서 x거리가 적용된 목표 위치
@@ -691,9 +684,10 @@ public class Player : MonoBehaviour {
         }
         
         // step 2이상이면 점프 중인것이다.
-        if(step > 1 && audioSourceJump)
+        if(step > 1)
         {
-            audioSourceJump.Play();
+            if(mySoundManager)
+                mySoundManager.PlaySound(MySoundManager.Sound.eJump);
         }
         
         bool isJump = false;
@@ -706,12 +700,9 @@ public class Player : MonoBehaviour {
             MoveTargetPos();
 
             // play
-            if (audioSourceTick)
-            {
-                audioSourceTick.Play();
-            }
-
-
+            if (mySoundManager)
+                mySoundManager.PlaySound(MySoundManager.Sound.eMove);
+          
             // 이동할때마다 체크한다.
             // 마지막 step에서만 이동을 성공했는지 체크한다.
             if (isJump || CheckSuccess())
@@ -846,8 +837,8 @@ public class Player : MonoBehaviour {
 
         if(life == 0)
         {
-            if (audioSourceDestroy)
-                audioSourceDestroy.Play();
+            if (mySoundManager)
+                mySoundManager.PlaySound(MySoundManager.Sound.eGameOver);
         }
         CreateAttackHUDText(this.gameObject, "-1");
 
@@ -868,10 +859,9 @@ public class Player : MonoBehaviour {
             if (groggyEffect)
                 groggyEffect.Play();
 
-            if (audioSourceRock)
-            {
-                audioSourceRock.Play();
-            }
+            // damage sound play
+            if (mySoundManager)
+                mySoundManager.PlaySound(MySoundManager.Sound.eDamage);
         }
         else
         {
@@ -945,8 +935,8 @@ public class Player : MonoBehaviour {
         // coin인 경우
         if (prop.Item == MapBlockProperty.ItemType.eCoin || prop.Item == MapBlockProperty.ItemType.eBigCoin)
         {
-            if (audioSourceCoin)
-                audioSourceCoin.Play();
+            if (mySoundManager)
+                mySoundManager.PlaySound(MySoundManager.Sound.eGetCoin);
 
             // 동전개수를 증가시킨다.
             CollectCoins(prop.GetCoinNums());
@@ -954,8 +944,8 @@ public class Player : MonoBehaviour {
         // Diamond인 경우
         else if (prop.Item == MapBlockProperty.ItemType.eDiamond)
         {
-            if (audioSourceDiamond)
-                audioSourceDiamond.Play();
+            if (mySoundManager)
+                mySoundManager.PlaySound(MySoundManager.Sound.eGetDiamond);
 
             // diamond 개수를 증가시킨다.
             CollectDiamonds(prop.GetDiamondNums());
@@ -963,8 +953,8 @@ public class Player : MonoBehaviour {
         // flag인 경우
         else if(prop.Item == MapBlockProperty.ItemType.eFlag)
         {
-            if (audioSourceCoin)
-                audioSourceCoin.Play();
+            if (mySoundManager)
+                mySoundManager.PlaySound(MySoundManager.Sound.eGetFlag);
 
             // flag 개수를 증가시킨다.
             flagCount++;
@@ -974,8 +964,8 @@ public class Player : MonoBehaviour {
         // clock인 경우
         else if(prop.Item == MapBlockProperty.ItemType.eClock)
         {
-            if (audioSourceClock)
-                audioSourceClock.Play();
+            if (mySoundManager)
+                mySoundManager.PlaySound(MySoundManager.Sound.eGetClock);
 
             // 시간을 늘린다.
             GameMode_EnergyBar energyBarMode = GameController.Instance.gameModeController.curGameMode.GetComponent < GameMode_EnergyBar>();
@@ -989,8 +979,8 @@ public class Player : MonoBehaviour {
         // life인 경우
         else if(prop.Item == MapBlockProperty.ItemType.eLife)
         {
-            if (audioSourceLife)
-                audioSourceLife.Play();
+            if (mySoundManager)
+                mySoundManager.PlaySound(MySoundManager.Sound.eGetLife);
 
             life++;
 
@@ -999,8 +989,8 @@ public class Player : MonoBehaviour {
         // lock인 경우
         else if(prop.Item == MapBlockProperty.ItemType.eRock)
         {
-            if (audioSourceRock)
-                audioSourceRock.Play();
+            if (mySoundManager)
+                mySoundManager.PlaySound(MySoundManager.Sound.eDamage);
 
             // rock의 health가 남아 있다면 player를 원래 위치로 이동한다.
             if (prop.IsRemainHealth())

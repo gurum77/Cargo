@@ -18,10 +18,28 @@ public class SettingGameData
         get { return "CameraSkyViewKey"; }
     }
 
-    // volume
-    static public string VolumeKey
+    // sound volume
+    static public string SoundVolumeKey
     {
-        get { return "VolumeKey"; }
+        get { return "SoundVolumeKey"; }
+    }
+
+    // sound onoff
+    static public string SoundOnOffKey
+    {
+        get { return "SoundOnOffKey"; }
+    }
+
+    // music volume
+    static public string MusicVolumeKey
+    {
+        get { return "MusicVolumeKey"; }
+    }
+
+    // music onoff
+    static public string MusicOnOffKey
+    {
+        get { return "MusicOnOffKey"; }
     }
     #endregion
 
@@ -32,8 +50,17 @@ public class SettingGameData
         // Camera sky view
         PlayerPrefs.SetInt(SettingGameData.CameraSkyViewKey, CameraSkyView);
 
-        // volume
-        PlayerPrefs.SetFloat(SettingGameData.VolumeKey, Volume);
+        // sound volume
+        PlayerPrefs.SetFloat(SettingGameData.SoundVolumeKey, SoundVolume);
+
+        // sound onoff
+        PlayerPrefs.SetInt(SettingGameData.SoundOnOffKey, SoundOnOff);
+
+        // music volume
+        PlayerPrefs.SetFloat(SettingGameData.MusicVolumeKey, MusicVolume);
+
+        // music onoff
+        PlayerPrefs.SetInt(SettingGameData.MusicOnOffKey, MusicOnOff);
     }
     #endregion
 
@@ -45,7 +72,17 @@ public class SettingGameData
         // Camera sky view
         CameraSkyView = PlayerPrefs.GetInt(SettingGameData.CameraSkyViewKey);
 
-        // volume
+        // sound volume
+        SoundVolume = PlayerPrefs.GetFloat(SettingGameData.SoundVolumeKey);
+
+        // sound on
+        SoundOnOff = PlayerPrefs.GetInt(SettingGameData.SoundOnOffKey);
+
+        // music volume
+        MusicVolume = PlayerPrefs.GetFloat(SettingGameData.MusicVolumeKey);
+
+        // music on/off
+        MusicOnOff  = PlayerPrefs.GetInt(SettingGameData.MusicOnOffKey);
     }
     #endregion
 
@@ -53,7 +90,17 @@ public class SettingGameData
     public int CameraSkyView
     { get; set; }
 
-    public float Volume
+    public float SoundVolume
     { get; set; }
+
+    public int SoundOnOff
+    { get; set; }
+
+    public float MusicVolume
+    { get; set; }
+
+    public int MusicOnOff
+    { get; set; }
+
     #endregion
 }

@@ -1472,12 +1472,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: acafda9ff61dcc849a58cf2fa828f77c, type: 3}
   - {fileID: 21300000, guid: 51f81ebabcac47e419c8ae67c70a7c5e, type: 3}
   - {fileID: 21300000, guid: 3fbadda4b547eef47936509cfe8a1862, type: 3}
+  - {fileID: 21300000, guid: 9643b9b809e6f9a4b9e04748dc8c56d7, type: 3}
   titles:
   - BASIC
   - SEA
   - DESERT
   - X-MAS
   - VILLAGE
+  - FOREST
 --- !u!224 &1882103175
 RectTransform:
   m_ObjectHideFlags: 0

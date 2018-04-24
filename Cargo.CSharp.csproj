@@ -500,6 +500,7 @@
     <Compile Include="Assets\Scripts\UI\HUDText.cs" />
     <Compile Include="Assets\Scripts\UI\ImageSelector.cs" />
     <Compile Include="Assets\Scripts\UI\MainProperty.cs" />
+    <Compile Include="Assets\Scripts\UI\MySoundManager.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerDataEditor.cs" />
     <Compile Include="Assets\Scripts\UI\RevivedByADCanvas.cs" />
     <Compile Include="Assets\Scripts\UI\Rewards.cs" />
@@ -508,6 +509,8 @@
     <Compile Include="Assets\SmartTimersManager\TimerManager\GUI_TimersList.cs" />
     <Compile Include="Assets\SmartTimersManager\TimerManager\Timer.cs" />
     <Compile Include="Assets\SmartTimersManager\TimerManager\TimersManager.cs" />
+    <Compile Include="Assets\SoundManager\Demo\SoundManagerDemo.cs" />
+    <Compile Include="Assets\SoundManager\SoundManager.cs" />
     <Compile Include="Assets\sumMusic\Sample\SumMusicMultiSceneTest.cs" />
     <Compile Include="Assets\sumMusic\Sample\SumMusicSampleMenu.cs" />
     <Compile Include="Assets\sumMusic\Scripts\SumMusic.cs" />
@@ -520,6 +523,7 @@
     <None Include="Assets\MakakaIconPack\Fonts\Font_Read_Me.txt" />
     <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />
     <None Include="Assets\Prefabs\GameMode\Resources\MathQuestions.xml" />
+    <None Include="Assets\SoundManager\Readme.txt" />
     <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />

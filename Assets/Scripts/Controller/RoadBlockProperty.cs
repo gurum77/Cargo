@@ -74,6 +74,19 @@ namespace Assets.Scripts.Controller
             }
         }
         
+        // item game object를 set한다.
+        // 이미 있다면 삭제한다.
+        public void SetItemGameObject(GameObject gameObject)
+        {
+            if (itemGameObject)
+            {
+                Mem.DestroyGameObject(itemGameObject);
+                itemGameObject = null;
+            }
+
+            itemGameObject = gameObject;
+        }
+
         // item object
         GameObject itemGameObject;
         public GameObject ItemGameObject
@@ -109,8 +122,12 @@ namespace Assets.Scripts.Controller
         // 코인 object를 모두 삭제한다.
         public void DeleteItemGameObject()
         {
-            Mem.DestroyGameObject(itemGameObject);
-            itemGameObject = null;
+            if (itemGameObject)
+            {
+                Mem.DestroyGameObject(itemGameObject);
+                itemGameObject = null;
+            }
+            
             if (Item != ItemType.eBlank)
             {
                 Item = ItemType.eNone;

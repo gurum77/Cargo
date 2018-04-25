@@ -775,6 +775,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnGetButtonClicked
       objectReference: {fileID: 0}
+    - target: {fileID: 114607532953902554, guid: febf15bc64dea4c4b8fd4a8afa5cd974,
+        type: 2}
+      propertyPath: getButtonText
+      value: 
+      objectReference: {fileID: 848395346}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: febf15bc64dea4c4b8fd4a8afa5cd974, type: 2}
   m_IsPrefabParent: 0
@@ -6734,6 +6739,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1903989745}
   m_Script: {fileID: 11500000, guid: 5e7bfa6267aae4749b50f1edbe359a32, type: 3}
+--- !u!114 &848395346 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114094732151419582, guid: febf15bc64dea4c4b8fd4a8afa5cd974,
+    type: 2}
+  m_PrefabInternal: {fileID: 73713075}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &870330479
 GameObject:
   m_ObjectHideFlags: 0

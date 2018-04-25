@@ -17,6 +17,17 @@ public class GameModeSelectionCanvas : MonoBehaviour {
         if(imageSelector)
         {
             imageSelector.SelectImage(PlayerPrefs.GetInt(PlayerGameData.GameModeKey));
+
+            // 번역
+            for(int ix = 0; ix < imageSelector.titles.Length; ++ix)
+            {
+                imageSelector.titles[ix] = GameModeController.GetGameModeDisplayName((GameModeController.GameMode)ix);
+            }
+
+            if (imageSelector.selectButtonText)
+                imageSelector.selectButtonText.text = LocalizationText.GetText("SELECT");
+
+
         }
     }
 

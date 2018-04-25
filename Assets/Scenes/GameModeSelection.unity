@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -252,7 +252,7 @@ Prefab:
     - target: {fileID: 114960325999224354, guid: bef33327be17dfa4cb730d85a9e81a09,
         type: 2}
       propertyPath: titles.Array.data[0]
-      value: Energy-bar mode
+      value: Energy bar mode
       objectReference: {fileID: 0}
     - target: {fileID: 114960325999224354, guid: bef33327be17dfa4cb730d85a9e81a09,
         type: 2}
@@ -462,6 +462,11 @@ Prefab:
       propertyPath: m_FontData.m_FontSize
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 114960325999224354, guid: bef33327be17dfa4cb730d85a9e81a09,
+        type: 2}
+      propertyPath: selectButtonText
+      value: 
+      objectReference: {fileID: 398768948}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bef33327be17dfa4cb730d85a9e81a09, type: 2}
   m_IsPrefabParent: 0
@@ -503,6 +508,12 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &398768948 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114975756603052188, guid: bef33327be17dfa4cb730d85a9e81a09,
+    type: 2}
+  m_PrefabInternal: {fileID: 155366341}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &523431489
 GameObject:
   m_ObjectHideFlags: 0

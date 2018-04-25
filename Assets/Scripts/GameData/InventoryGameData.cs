@@ -233,8 +233,8 @@ public class InventoryGameData
 
         mapInfo[(int)MapController.Map.eChristmas].Name = LocalizationText.GetText("X-Mas");
         mapInfo[(int)MapController.Map.eChristmas].Enabled = false;
-        mapInfo[(int)MapController.Map.eChristmas].Price = 0;
-        mapInfo[(int)MapController.Map.eChristmas].Diamond = 5000;
+        mapInfo[(int)MapController.Map.eChristmas].Price = 5000;
+        mapInfo[(int)MapController.Map.eChristmas].Diamond = 0;
         mapInfo[(int)MapController.Map.eChristmas].AD = 0;
 
         mapInfo[(int)MapController.Map.eVillage].Name = LocalizationText.GetText("Village");
@@ -243,7 +243,7 @@ public class InventoryGameData
         mapInfo[(int)MapController.Map.eVillage].Diamond = 200;
         mapInfo[(int)MapController.Map.eVillage].AD = 0;
 
-        mapInfo[(int)MapController.Map.eForeset].Name = LocalizationText.GetText("Foreset");
+        mapInfo[(int)MapController.Map.eForeset].Name = LocalizationText.GetText("Forest");
         mapInfo[(int)MapController.Map.eForeset].Enabled = false;
         mapInfo[(int)MapController.Map.eForeset].Price = 0;
         mapInfo[(int)MapController.Map.eForeset].Diamond = 300;

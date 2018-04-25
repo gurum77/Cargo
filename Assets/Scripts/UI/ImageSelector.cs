@@ -7,6 +7,7 @@ public class ImageSelector : MonoBehaviour {
 
     public Image selectedImage;
     public Text selectedImageTitleText;
+    public Text selectButtonText;
 
     public Sprite[] images;
     public string[] titles;
@@ -38,6 +39,7 @@ public class ImageSelector : MonoBehaviour {
             return;
         }
 
+     
         RefreshSelectedImage();
     }
 

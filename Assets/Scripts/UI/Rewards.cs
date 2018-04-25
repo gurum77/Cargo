@@ -11,6 +11,7 @@ public class Rewards : MonoBehaviour {
     public Text collectedCoinsText;
     public Text collectedDiamondsText;
     public Button adButton;
+    public Text getButtonText;
 
 
 	// Use this for initialization
@@ -23,6 +24,12 @@ public class Rewards : MonoBehaviour {
 
         // 보상 표시
         DisplayRewards();
+
+        // 버튼 번역
+        if(getButtonText)
+        {
+            getButtonText.text = LocalizationText.GetText("Get Rewards");
+        }
 	}
 
     // 보상을 표시한다.

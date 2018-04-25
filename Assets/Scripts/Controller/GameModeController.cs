@@ -49,21 +49,23 @@ public class GameModeController : MonoBehaviour {
         curGameMode = gameModes[(int)gameMode];
     }
 
+    static public string GetGameModeDisplayName(GameMode gameMode)
+    {
+        if (gameMode == GameMode.eEnergyBarMode)
+            return LocalizationText.GetText("Energy bar") + LocalizationText.GetText(" mode");
+        else if (gameMode == GameMode.e100MMode)
+            return LocalizationText.GetText("100M") + LocalizationText.GetText(" mode");
+        else if (gameMode == GameMode.eFlagMode)
+            return LocalizationText.GetText("Flag") + LocalizationText.GetText(" mode");
+        else if (gameMode == GameMode.eMathMode)
+            return LocalizationText.GetText("Math") + LocalizationText.GetText(" mode");
+
+        return "None";
+    }
     // 현재 게임 모드의 표시 이름리턴
     public string GetCurGameModeDisplayName()
     {
-        GameMode gameMode = GetCurGameMode();
-
-        if (gameMode == GameMode.eEnergyBarMode)
-            return LocalizationText.GetText("Energy bar");
-        else if (gameMode == GameMode.e100MMode)
-            return LocalizationText.GetText("100M");
-        else if (gameMode == GameMode.eFlagMode)
-            return LocalizationText.GetText("Flag");
-        else if (gameMode == GameMode.eMathMode)
-            return LocalizationText.GetText("Math");
-
-        return "None";
+        return GameModeController.GetGameModeDisplayName(GetCurGameMode());
     }
     // 현재 게임 모드를 리턴한다.
     public GameMode GetCurGameMode()

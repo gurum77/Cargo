@@ -6,6 +6,12 @@ using MarchingBytes;
 
 public class MapController : MonoBehaviour {
 
+    static public string GetMapName(MapController.Map eMap)
+    {
+        InventoryGameData ig = new InventoryGameData();
+        return ig.mapInfo[(int)eMap].Name;
+    }
+
     // 맵의 종류
     public enum Map
     {

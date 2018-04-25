@@ -33,6 +33,15 @@ public class MapSelectionCanvas : MonoBehaviour {
         if(imageSelector)
         {
             imageSelector.SelectImage(PlayerPrefs.GetInt(PlayerGameData.MapKey));
+
+            // 번역
+            for(int ix = 0; ix < imageSelector.titles.Length; ++ix)
+            {
+                imageSelector.titles[ix] = MapController.GetMapName((MapController.Map)ix);
+            }
+
+            if (imageSelector.selectButtonText)
+                imageSelector.selectButtonText.text = LocalizationText.GetText("SELECT");
         }
 
         playerGameData = new PlayerGameData();

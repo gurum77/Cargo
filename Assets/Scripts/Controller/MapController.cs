@@ -446,11 +446,12 @@ public class MapController : MonoBehaviour {
                 // sub map의 위치
                 pos = position;
                 {
-                    // road block에 폭과 위차래에 방향으로 겹치지 않도록 조정
+                    // road block에 폭과 위아래에 방향으로 겹치지 않도록 조정
                     if (isLeft)
                         pos.x -= (size.x / 2 + size.z / 2) + 1;
                     else
                         pos.x += (size.x / 2 + size.z / 2) + 1;
+
                     pos.y = subMapPrefabs[subMapIndex].transform.position.y;
                 }
 

@@ -297,6 +297,10 @@ public class GameMode_Flag : MonoBehaviour {
             if (GameController.Instance.mySoundManager)
                 GameController.Instance.mySoundManager.PlaySound(MySoundManager.Sound.eBossAlert);
         }
+        else
+        {
+            bossLevelAlert.SetActive(false);
+        }
     }
 
     // 현재 레벨이 보스 레벨인지?

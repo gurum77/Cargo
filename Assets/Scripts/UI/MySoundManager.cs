@@ -19,7 +19,8 @@ namespace DigitalRuby.SoundManagerNamespace
             eGetLife,
             eGetClock,
             eGetFlag,
-            eBossAlert
+            eBossAlert,
+            eExplosion
         }
 
         public enum Music

@@ -1022,7 +1022,25 @@ public class Player : MonoBehaviour {
 
         playerPosition--;
         targetPos = GameController.Instance.mapController.GetMapBlockProperty(playerPosition).Position;
-        // 살짝 흔든다.
+
+        // 이전 위치로 돌리고 나면 방향을 잡아 줘야 한다.
+        // 안 그러면 점프해야 하는 경우 죽는다.
+        Vector3 nextTargetPos = GameController.Instance.mapController.GetMapBlockProperty(playerPosition + 1).Position;
+
+        // 좌측 45방향인지?
+        if (nextTargetPos.x < targetPos.x)
+        {
+            // 좌측 45방향을 바라 보도록 한다.
+            targetDir = Quaternion.Euler(new Vector3(0, -45, 0));
+            
+        }
+        else
+        {
+            // 우측 45방향을 바라 보도록 한다.
+            targetDir = Quaternion.Euler(new Vector3(0, 45, 0));
+        }
+        transform.rotation = targetDir;
+        
         
     }
 

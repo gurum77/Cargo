@@ -41,16 +41,23 @@ public class CargoAI : MonoBehaviour {
     // 범위내에서 현재 목표 이동 인터벌을 결정한다.
     void SetCurTargetMovingIntervalInRange()
     {
+        float lastTargetMovingInterval = curTargetMovingInterval;
+
         float diff = targetMovingInterval * targetMovingIntervalRangeRate;
         curTargetMovingInterval = Random.Range(targetMovingInterval - diff, targetMovingInterval + diff);
+
+        // 마지막으로 적용되었던 속도보다 20%보다 차이나게 적어지지 않도록 한다.
+        if (curTargetMovingInterval > lastTargetMovingInterval * 1.5f)
+            curTargetMovingInterval = lastTargetMovingInterval * 1.5f;
+
 
         // 정해진 속도에 뒤쳐진 만큼 능력치를 올려준다.
         int positionDiff    = GameController.Instance.Player.PlayerPosition - player.PlayerPosition;
 
-        // 5칸 이상 뒤쳐지면 능력치를 50%씩 올려준다.
+        // 5칸 이상 뒤쳐지면 능력치를 30%씩 올려준다.
         if (positionDiff > differentCountForSpeedUp)
         {
-            float up = (float)((positionDiff + 10) / differentCountForSpeedUp) * 0.5f;
+            float up = (float)((positionDiff + 10) / differentCountForSpeedUp) * 0.3f;
             curTargetMovingInterval = curTargetMovingInterval * (1.0f / up);
         }
         

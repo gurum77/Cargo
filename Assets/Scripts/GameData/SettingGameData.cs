@@ -70,19 +70,19 @@ public class SettingGameData
     public void Load()
     {
         // Camera sky view
-        CameraSkyView = PlayerPrefs.GetInt(SettingGameData.CameraSkyViewKey);
+        CameraSkyView = PlayerPrefs.GetInt(SettingGameData.CameraSkyViewKey, 1);
 
         // sound volume
-        SoundVolume = PlayerPrefs.GetFloat(SettingGameData.SoundVolumeKey);
+        SoundVolume = PlayerPrefs.GetFloat(SettingGameData.SoundVolumeKey, 0.7f);
 
         // sound on
-        SoundOnOff = PlayerPrefs.GetInt(SettingGameData.SoundOnOffKey);
+        SoundOnOff = PlayerPrefs.GetInt(SettingGameData.SoundOnOffKey, 1);
 
         // music volume
-        MusicVolume = PlayerPrefs.GetFloat(SettingGameData.MusicVolumeKey);
+        MusicVolume = PlayerPrefs.GetFloat(SettingGameData.MusicVolumeKey, 0.7f);
 
         // music on/off
-        MusicOnOff  = PlayerPrefs.GetInt(SettingGameData.MusicOnOffKey);
+        MusicOnOff  = PlayerPrefs.GetInt(SettingGameData.MusicOnOffKey, 1);
     }
     #endregion
 

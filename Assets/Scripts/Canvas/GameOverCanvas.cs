@@ -30,7 +30,26 @@ public class GameOverCanvas : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        
+        if (gameOverText)
+        {
+            // 성공 했을때는 Good job 이라고 한다.
+            GameModeController.GameMode curGameMode = GameController.Instance.gameModeController.GetCurGameMode();
+            if (curGameMode == GameModeController.GameMode.eFlagMode)
+            {
+                GameMode_Flag flagMode = GameController.Instance.gameModeController.curGameMode.GetComponent<GameMode_Flag>();
+                if (flagMode && flagMode.IsWin())
+                    gameOverText.text =  LocalizationText.GetText("Good Job!");
+                else
+                    gameOverText.text   =  LocalizationText.GetText("GameOver");
+
+            }
+            else
+            {
+                gameOverText.text = LocalizationText.GetText("GameOver");
+            }
+            
+        }
+
         // display score
         DisplayScore();
 
@@ -181,7 +200,7 @@ public class GameOverCanvas : MonoBehaviour {
                 GameMode_Flag flagMode = GameController.Instance.gameModeController.curGameMode.GetComponent<GameMode_Flag>();
                 if (flagMode)
                 {
-                    scoreText.text = flagMode.IsWin() ? "Win" : "Lost";
+                    scoreText.text = flagMode.IsWin() ? LocalizationText.GetText("Win") : LocalizationText.GetText("Lost");
                 }
             }
             else

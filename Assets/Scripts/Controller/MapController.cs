@@ -15,11 +15,11 @@ public class MapController : MonoBehaviour {
     // 맵의 종류
     public enum Map
     {
+        eVillage, 
         eBasic,
         eSea,
         eDesert,
         eChristmas,
-        eVillage,
         eForeset,
         eCount
     };

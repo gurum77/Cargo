@@ -389,7 +389,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 13a0bbb50adbdb741a56717f546beb84, type: 3}
-    m_FontSize: 50
+    m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -883,6 +883,9 @@ MonoBehaviour:
   levelText: {fileID: 114651825039522406}
   rewardsCoinsByLevel: 1000
   rewardsDiamondsByLevel: 10
+  messageText: {fileID: 114199635400076962}
+  levelUpText: {fileID: 114126337632861346}
+  getRewardsText: {fileID: 114020527758430860}
 --- !u!114 &114776111935516794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -981,6 +984,7 @@ MonoBehaviour:
   collectedCoinsText: {fileID: 114397500271432266}
   collectedDiamondsText: {fileID: 114336944770432472}
   adButton: {fileID: 114251141484303324}
+  getButtonText: {fileID: 0}
 --- !u!114 &114909114511720252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1247,7 +1251,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: -100, y: 100}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224489849003407954
 RectTransform:

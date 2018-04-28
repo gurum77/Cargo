@@ -67,7 +67,7 @@ namespace Assets.Scripts.Controller
         public static string GetFlagModeLevelString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("LEVEL ");
+            sb.Append("Stage ");
 
             GameModeController.GameMode curGameMode = GameController.Instance.gameModeController.GetCurGameMode();
             if (curGameMode == GameModeController.GameMode.eFlagMode)

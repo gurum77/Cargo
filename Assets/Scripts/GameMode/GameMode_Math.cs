@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scripts.Controller;
-using Timers;
 using ProgressBar;
 using System.Xml;
 using System.IO;
@@ -290,6 +289,11 @@ public class GameMode_Math : MonoBehaviour {
         elapsedTimeFromStartingTimer += Time.deltaTime;
         // progress bar 갱신
         DisplayProgressbar();
+
+        if(elapsedTimeFromStartingTimer > timeOut)
+        {
+            OnTimeout();
+        }
     }
 
     void DisplayProgressbar()
@@ -334,8 +338,6 @@ public class GameMode_Math : MonoBehaviour {
 
 
         // timer를 시작한다.
-        TimersManager.ClearTimer(OnTimeout);
-        TimersManager.SetLoopableTimer(this, timeOut, OnTimeout);
         elapsedTimeFromStartingTimer = 0.0f;
     }
 

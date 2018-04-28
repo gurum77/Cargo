@@ -101,6 +101,7 @@ public class InventoryGameData
         characterInfo[(int)Player.Character.eSportsCar].Diamond = 320;
         characterInfo[(int)Player.Character.eSportsCar].Name = LocalizationText.GetText("Sports car");
         characterInfo[(int)Player.Character.eSportsCar].Speed = 10;
+        characterInfo[(int)Player.Character.eSportsCar].CoinRate = 1.5f;
 
         characterInfo[(int)Player.Character.eTruck].Price = 1000;
         characterInfo[(int)Player.Character.eTruck].Name = LocalizationText.GetText("Truck");
@@ -216,8 +217,17 @@ public class InventoryGameData
             mapInfo[ix] = new MapInfo();
         }
 
+        mapInfo[(int)MapController.Map.eVillage].Name = LocalizationText.GetText("Village");
+        mapInfo[(int)MapController.Map.eVillage].Enabled = true;
+        mapInfo[(int)MapController.Map.eVillage].Price = 0;
+        mapInfo[(int)MapController.Map.eVillage].Diamond = 0;
+        mapInfo[(int)MapController.Map.eVillage].AD = 0;
+
         mapInfo[(int)MapController.Map.eBasic].Name  = LocalizationText.GetText("Basic");
-        mapInfo[(int)MapController.Map.eBasic].Enabled = true;
+        mapInfo[(int)MapController.Map.eBasic].Enabled = false;
+        mapInfo[(int)MapController.Map.eBasic].Price = 500;
+        mapInfo[(int)MapController.Map.eBasic].Diamond = 0;
+        mapInfo[(int)MapController.Map.eBasic].AD = 0;
 
         mapInfo[(int)MapController.Map.eSea].Name = LocalizationText.GetText("Sea");
         mapInfo[(int)MapController.Map.eSea].Enabled = false;
@@ -237,12 +247,7 @@ public class InventoryGameData
         mapInfo[(int)MapController.Map.eChristmas].Diamond = 0;
         mapInfo[(int)MapController.Map.eChristmas].AD = 0;
 
-        mapInfo[(int)MapController.Map.eVillage].Name = LocalizationText.GetText("Village");
-        mapInfo[(int)MapController.Map.eVillage].Enabled = false;
-        mapInfo[(int)MapController.Map.eVillage].Price = 0;
-        mapInfo[(int)MapController.Map.eVillage].Diamond = 200;
-        mapInfo[(int)MapController.Map.eVillage].AD = 0;
-
+        
         mapInfo[(int)MapController.Map.eForeset].Name = LocalizationText.GetText("Forest");
         mapInfo[(int)MapController.Map.eForeset].Enabled = false;
         mapInfo[(int)MapController.Map.eForeset].Price = 0;

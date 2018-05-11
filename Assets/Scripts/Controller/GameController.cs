@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
 using DigitalRuby.SoundManagerNamespace;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -32,6 +33,7 @@ public class GameController : MonoBehaviour {
     public GameObject playCanvasItems;
     public GameObject readyCanvasItems;
     public GameObject gameOverCanvasItems;
+    public LeaderBoard leaderBoard;
     
     // 게임 셋팅을 저장하는 데이타
     SettingGameData settingGameData = new SettingGameData();
@@ -99,6 +101,7 @@ public class GameController : MonoBehaviour {
         return Player.revivedByADCanvas.gameObject.activeSelf ? true : false;
     }
 
+  
     // game over를 한다.
     public void GameOver()
     {
@@ -247,6 +250,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+
         // 광고 초기화
         Advertisement.Initialize(Define.UnityAds.gameID);
 
@@ -264,7 +268,14 @@ public class GameController : MonoBehaviour {
 
         // 시작하면 게임 준비 상태
         Ready();
-	}
+
+
+        // 시작할때 ID가 없다면 입력받도록 한다
+        if (LeaderBoard.GetPlayerID().Length == 0)
+        {
+            SceneManager.LoadScene(Define.Scene.Options);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {

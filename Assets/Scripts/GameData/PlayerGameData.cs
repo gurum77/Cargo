@@ -187,6 +187,15 @@ public class PlayerGameData
 
         // Math mode best score
         PlayerPrefs.SetInt(PlayerGameData.MathModeBestScoreKey, MathModeBestScore);
+
+        // leader board에 등록
+        if(GameController.Instance.leaderBoard)
+        {
+            GameController.Instance.leaderBoard.SetScore((int)GameModeController.GameMode.eEnergyBarMode, EnergyBarModeBestScore);
+            GameController.Instance.leaderBoard.SetScore((int)GameModeController.GameMode.e100MMode, (int)HundredMBestTime);
+            GameController.Instance.leaderBoard.SetScore((int)GameModeController.GameMode.eFlagMode, FlagModeLevel);
+            GameController.Instance.leaderBoard.SetScore((int)GameModeController.GameMode.eMathMode, MathModeBestScore);
+        }
     }
 #endregion
 

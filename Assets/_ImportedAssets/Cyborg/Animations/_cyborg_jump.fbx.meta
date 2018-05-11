@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 1d0c00ad4186c204b9e99ce900441a85
-timeCreated: 1519846918
-licenseType: Store
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -211,6 +209,7 @@ ModelImporter:
     400202: rig
     7400000: jump_complete
     9500000: //RootNode
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -233,6 +232,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5

@@ -379,6 +379,11 @@ public class Player : MonoBehaviour {
 
     public void OnLeftKeyClicked()
     {
+        if(EnableUserInput && !GameController.Instance.IsStart)
+        {
+            GameController.Instance.IsStart = true;
+        }
+
         // 그로기 상태일때는 버튼 클릭 안됨
         if (IsGroggy)
             return;
@@ -391,6 +396,11 @@ public class Player : MonoBehaviour {
 
     public void OnRightKeyClicked()
     {
+        if (EnableUserInput && !GameController.Instance.IsStart)
+        {
+            GameController.Instance.IsStart = true;
+        }
+
         // 그로기 상태일때는 버튼 클릭 안됨
         if (IsGroggy)
             return;
@@ -404,6 +414,11 @@ public class Player : MonoBehaviour {
 
     public void OnJumpKeyClicked()
     {
+        if (EnableUserInput && !GameController.Instance.IsStart)
+        {
+            GameController.Instance.IsStart = true;
+        }
+
         // 그로기 상태일때는 버튼 클릭 안됨
         if (IsGroggy)
             return;
@@ -452,7 +467,17 @@ public class Player : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (GameController.Instance.IsWaitingToRevive())
+
+        // 출발 전이라면 키 입력을 받으면 출발 시킨다.
+        if(EnableUserInput && !GameController.Instance.IsStart)
+        {
+            if (IsInputTurnKey() || IsInputLeftMoveKey() || IsInputMoveKey() || IsInputRightMoveKey())
+            {
+                GameController.Instance.IsStart = true;
+            }
+        }
+
+        if (GameController.Instance.IsWaitingToReviveOrStart())
             return;
 
         // 이동에 걸린 시간을 누적시킨다.

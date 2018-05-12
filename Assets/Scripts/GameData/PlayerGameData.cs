@@ -192,7 +192,11 @@ public class PlayerGameData
         if(GameController.Instance.leaderBoard)
         {
             GameController.Instance.leaderBoard.SetScore((int)GameModeController.GameMode.eEnergyBarMode, EnergyBarModeBestScore);
-            GameController.Instance.leaderBoard.SetScore((int)GameModeController.GameMode.e100MMode, (int)HundredMBestTime);
+            // 100 M 모드는 기록이 0인 경우 기록이 없는 경우이다. 99999로 넣자.
+            if(HundredMBestTime == 0)
+                GameController.Instance.leaderBoard.SetScore((int)GameModeController.GameMode.e100MMode, (int)99999);
+            else
+                GameController.Instance.leaderBoard.SetScore((int)GameModeController.GameMode.e100MMode, (int)HundredMBestTime);
             GameController.Instance.leaderBoard.SetScore((int)GameModeController.GameMode.eFlagMode, FlagModeLevel);
             GameController.Instance.leaderBoard.SetScore((int)GameModeController.GameMode.eMathMode, MathModeBestScore);
         }

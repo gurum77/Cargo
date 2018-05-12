@@ -258,7 +258,7 @@ public class GameMode_Math : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (GameController.Instance.IsWaitingToRevive())
+        if (GameController.Instance.IsWaitingToReviveOrStart())
             return;
 
         // life가 없다면 업데이트 하지 않는다.
@@ -351,9 +351,14 @@ public class GameMode_Math : MonoBehaviour {
         if (rightButton)
             rightButton.SetActive(false);
 
-        // 사용자 입력을 막는다.
+        
+        
         if(GameController.Instance)
         {
+            // 수학모드는 키 입력없어도 바로 시작한다.
+            GameController.Instance.IsStart = true;
+
+            // 사용자 입력을 막는다.
             GameController.Instance.Player.EnableUserInput = false;
         }
 

@@ -432,8 +432,11 @@ public class Weather_Controller : MonoBehaviour
     {
         // Light (Directional light, "SUN") settings
         // * We call the sunlight from our TimeOfDay script as this controls most of the sun
-        gTimeOfDay.GetComponent<ToD_Base>().lSun.intensity = Mathf.Lerp(gTimeOfDay.GetComponent<ToD_Base>().lSun.intensity, sunIntensity, Time.deltaTime / fadeTime);
-        gTimeOfDay.GetComponent<ToD_Base>().lSun.color = Color.Lerp(gTimeOfDay.GetComponent<ToD_Base>().lSun.color, sunLightColor, Time.deltaTime / fadeTime);
+        if (gTimeOfDay.GetComponent<ToD_Base>().GetSet_bUseSun == true)
+        {
+            gTimeOfDay.GetComponent<ToD_Base>().lSun.intensity = Mathf.Lerp(gTimeOfDay.GetComponent<ToD_Base>().lSun.intensity, sunIntensity, Time.deltaTime / fadeTime);
+            gTimeOfDay.GetComponent<ToD_Base>().lSun.color = Color.Lerp(gTimeOfDay.GetComponent<ToD_Base>().lSun.color, sunLightColor, Time.deltaTime / fadeTime);
+        }
 
         // Moon light
         if (gTimeOfDay.GetComponent<ToD_Base>().GetSet_bUseMoon == true)

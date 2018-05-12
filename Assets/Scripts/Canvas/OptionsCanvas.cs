@@ -19,10 +19,7 @@ public class OptionsCanvas : MonoBehaviour {
 
     public Slider soundVolumeSlider;
     public Slider musicVolumeSlider;
-    public InputField playerID;
-    public Text id;
-    public Button createIDButton;
-
+    
     // Use this for initialization
     void Start () {
         
@@ -66,24 +63,9 @@ public class OptionsCanvas : MonoBehaviour {
 
         ChangeButtonSprites();
         InitSliders();
-        DisplayPlayerID();
     }
 
-    void DisplayPlayerID()
-    {
-        string idstring = LeaderBoard.GetPlayerID();
-        if(idstring.Length > 0)
-        {
-            playerID.gameObject.SetActive(false);
-            createIDButton.gameObject.SetActive(false);
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append("ID : ");
-            sb.Append(idstring);
-            id.text = sb.ToString();
-            
-        }
-    }
 
     void InitSliders()
     {
@@ -147,30 +129,5 @@ public class OptionsCanvas : MonoBehaviour {
             settingGameData.MusicOnOff = 0;
             ChangeButtonSprites();
         }
-    }
-
-    public void OnCreateIDButtonClicked()
-    {
-        if (playerID.text.Length == 0)
-            return;
-
-        // 클릭을 하면 ID가 있는지 본다.
-        dreamloLeaderBoard lb = dreamloLeaderBoard.GetSceneDreamloLeaderboard();
-        if (lb == null)
-            return;
-
-
-        if(lb.IsExistPlayerName(playerID.text) == false )
-        {
-            LeaderBoard.SavePlayerID(playerID.text);
-            DisplayPlayerID();
-            SceneManager.LoadScene(Define.Scene.Playground);
-            return;
-        }
-
-        // 있다면 다시 입력
-        playerID.textComponent.text = "";
-        playerID.textComponent.enabled = false;
-        playerID.placeholder.enabled = true;
     }
 }

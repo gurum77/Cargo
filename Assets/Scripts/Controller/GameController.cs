@@ -55,6 +55,11 @@ public class GameController : MonoBehaviour {
         get { return player; }
     }
 
+    // 출발을 했는지?
+    public bool IsStart
+    { get; set; }
+    
+
     // 게임 전 마지막 player의 레벨
     public int LastPlayerLevel
     { get; set; }
@@ -92,9 +97,13 @@ public class GameController : MonoBehaviour {
         settingGameData.Save();
     }
 
-    // 재생을 위해 기다리는 중인지?
-    public bool IsWaitingToRevive()
+    // 재생이나 게임 시작을 위해 기다리는 중인지?
+    public bool IsWaitingToReviveOrStart()
     {
+        // 출발 전이면 기다리는 거로(키를 누르면 시작)
+        if (!IsStart)
+            return true;
+
         if (!Player.revivedByADCanvas)
             return false;
 
@@ -124,11 +133,12 @@ public class GameController : MonoBehaviour {
     // play를 시작한다.
     public void Play()
     {
-       
-
         // 게임 상태를 플레이로
         GameState = State.ePlay;
-        
+
+        // 출발은 안한걸로
+        IsStart = false;
+
         // canvas 교체
         playCanvasItems.SetActive(true);
         readyCanvasItems.SetActive(false);
@@ -268,13 +278,6 @@ public class GameController : MonoBehaviour {
 
         // 시작하면 게임 준비 상태
         Ready();
-
-
-        // 시작할때 ID가 없다면 입력받도록 한다
-        if (LeaderBoard.GetPlayerID().Length == 0)
-        {
-            SceneManager.LoadScene(Define.Scene.Options);
-        }
     }
 	
 	// Update is called once per frame
@@ -284,6 +287,4 @@ public class GameController : MonoBehaviour {
             Application.targetFrameRate = targetFrameRate;
         }
 	}
-
-  
 }

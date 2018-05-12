@@ -26,17 +26,19 @@ public class GameMode_EnergyBar : MonoBehaviour {
   
 	// Update is called once per frame
 	void Update () {
-        if (GameController.Instance.IsWaitingToRevive())
-            return;
+        // 에너지 프로그레스바를 갱신한다.
+        DisplayEnergyProgressBar();
 
+        if (GameController.Instance.IsWaitingToReviveOrStart())
+            return;
+        
         // 점수가 변경된 경우 변경된 점수만큼 에너지를 늘린다.
         IncreaseEnergy();
 
         // 에너지를 줄인다.
         DecreaseEnergy();
 
-        // 에너지 프로그레스바를 갱신한다.
-        DisplayEnergyProgressBar();
+        
 
         // 게임종료 체크
         CheckGameOver();

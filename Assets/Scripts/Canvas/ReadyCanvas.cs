@@ -115,13 +115,6 @@ public class ReadyCanvas : MonoBehaviour {
         SceneManager.LoadScene(Define.Scene.PlayerSelection);
     }
 
-    // 리더보드 버튼 클릭
-    public void OnLeaderBoardButtonClicked()
-    {
-        
-
-    }
-
     public void OnGameDataEditorButtonClicked()
     {
         // game data를 저장한다.
@@ -138,5 +131,14 @@ public class ReadyCanvas : MonoBehaviour {
 
         // player 선택 신으로 변경한다.
         SceneManager.LoadScene(Define.Scene.Options);
+    }
+
+    public void OnLeaderboardButtonClicked()
+    {
+        // game data를 저장한다.
+        GameController.Instance.SaveGameData();
+
+        // leader board 신으로 변경한다.
+        SceneManager.LoadScene(Define.Scene.Leaderboard);
     }
 }

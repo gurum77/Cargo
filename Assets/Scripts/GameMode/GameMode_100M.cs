@@ -27,7 +27,7 @@ public class GameMode_100M : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (GameController.Instance.IsWaitingToRevive())
+        if (GameController.Instance.IsWaitingToReviveOrStart())
             return;
 
         // 시간 증가

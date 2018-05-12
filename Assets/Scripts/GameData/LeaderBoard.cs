@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class LeaderBoard : MonoBehaviour {
 
     public dreamloLeaderBoard[] leaderBoards;
-    Canvas inputIDCanvas;
+    public GameObject inputIDCanvasPrefab;
     string playerID;
 
     static public string GetPlayerID()
@@ -19,6 +19,7 @@ public class LeaderBoard : MonoBehaviour {
     {
         PlayerPrefs.SetString("PlayerID", id);
     }
+
     public void SetScore(int leaderBoardIndex, int score)
     {
         if (leaderBoards.Length <= leaderBoardIndex)
@@ -27,6 +28,18 @@ public class LeaderBoard : MonoBehaviour {
         leaderBoards[leaderBoardIndex].AddScore(playerID, score);
     }
 
+    // ID가 존재 하는지 검사
+    // 모든 리더보드를 검사한다.
+    public bool IsExistPlayerID(string playerID)
+    {
+        for(int i = 0; i < leaderBoards.Length; ++i)
+        {
+            if (leaderBoards[i].IsExistPlayerName(playerID))
+                return true;
+        }
+
+        return false;
+    }
 
     private void Awake()
     {
@@ -39,7 +52,13 @@ public class LeaderBoard : MonoBehaviour {
         // ID가 없다면 입력을 받는다.
         if (playerID.Length == 0)
         {
-            SceneManager.LoadScene(Define.Scene.Options);
+            if (inputIDCanvasPrefab == null)
+            {
+                Debug.Log("You need a inputIDCanvasPrefab");
+                return;
+            }
+
+            Instantiate(inputIDCanvasPrefab);
         }
     }
 	

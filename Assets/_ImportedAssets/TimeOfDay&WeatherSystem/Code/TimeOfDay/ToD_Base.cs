@@ -20,6 +20,12 @@ public class ToD_Base : MonoBehaviour
     /// Does the user want to use a moon? 
     /// </summary>
     [SerializeField]
+    private bool _bUseSun = true;
+
+    /// <summary>
+    /// Does the user want to use a moon? 
+    /// </summary>
+    [SerializeField]
     private bool _bUseMoon = true;
 
     /// <summary>
@@ -166,6 +172,12 @@ public class ToD_Base : MonoBehaviour
     public float Get_fCurrentMinute { get { return _fCurrentMinute; } }
     public int Get_iAmountOfDaysPlayed { get { return _iAmountOfDaysPlayed; } }
 
+    public bool GetSet_bUseSun
+    {
+        get { return _bUseSun; }
+        set { _bUseSun = value; }
+    }
+
     public bool GetSet_bUseMoon
     {
         get { return _bUseMoon; }
@@ -272,7 +284,8 @@ public class ToD_Base : MonoBehaviour
     void UpdateSunAndMoon()
     {
         // This rotates the sun 360 degree in X-axis according to our current time of day.
-        lSun.transform.localRotation = Quaternion.Euler((_fCurrentTimeOfDay * 360) - 90, 170, 0);
+        if(_bUseSun == true)
+            lSun.transform.localRotation = Quaternion.Euler((_fCurrentTimeOfDay * 360) - 90, 170, 0);
 
         if (_bUseMoon == true)
             lMoon.transform.localRotation = Quaternion.Euler((_fCurrentTimeOfDay * 360) - 270, 170, 0);

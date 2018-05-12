@@ -171,6 +171,13 @@ public class dreamloLeaderBoard : MonoBehaviour {
         highScores = www.text;
     }
 
+    public bool IsExistHighScores()
+    {
+        if (this.highScores == null) return false;
+        if (this.highScores == "") return false;
+
+        return true;
+    }
 
     public string[] ToStringArray()
 	{

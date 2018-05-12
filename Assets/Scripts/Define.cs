@@ -31,6 +31,7 @@ namespace Define
         static public readonly string PlayerSelection = "PlayerSelection";
         static public readonly string PlayerDataEditor = "PlayerDataEditor";
         static public readonly string Options   = "Options";
+        static public readonly string Leaderboard = "Leaderboard";
     }
 
     public class Message

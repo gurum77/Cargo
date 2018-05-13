@@ -374,6 +374,7 @@
     <Compile Include="C:\Users\hilee\AppData\Local\Unity\cache\packages\packages.unity.com\com.unity.package-manager-ui@1.8.8\Editor\Sources\UI\PackageSearchFilterTabs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Activity Indicators\ReadMe_txt.txt" />
     <None Include="Assets\DailyRewards\README.txt" />
     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
     <None Include="Assets\MakakaIconPack\Fonts\Font_Read_Me.txt" />

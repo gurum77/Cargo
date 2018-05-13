@@ -802,7 +802,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22440686, guid: 700fa4739f929e24698fb8d976a1dfd9, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00026807125
+      value: 0.00030502578
       objectReference: {fileID: 0}
     - target: {fileID: 22440686, guid: 700fa4739f929e24698fb8d976a1dfd9, type: 2}
       propertyPath: m_SizeDelta.y
@@ -1476,7 +1476,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: Waiting...
 --- !u!222 &2080201031
 CanvasRenderer:
   m_ObjectHideFlags: 0

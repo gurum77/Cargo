@@ -151,12 +151,11 @@ public class dreamloLeaderBoard : MonoBehaviour {
 		highScores = www.text;
 	}
 
-    public bool IsExistPlayerName(string playerName)
+    public WWW GetWWW_GetSingleScore(string playerName)
     {
-        WWW www = new WWW(dreamloWebserviceURL + publicCode + "/pipe-get/" + WWW.EscapeURL(playerName));
-        return www.text.Length == 0 ? false : true;
+        return new WWW(dreamloWebserviceURL + publicCode + "/pipe-get/" + WWW.EscapeURL(playerName));
     }
-
+ 
     public void LoadScores()
 	{
 		if (TooManyRequests()) return;

@@ -27,20 +27,7 @@ public class LeaderBoard : MonoBehaviour {
 
         leaderBoards[leaderBoardIndex].AddScore(playerID, score);
     }
-
-    // ID가 존재 하는지 검사
-    // 모든 리더보드를 검사한다.
-    public bool IsExistPlayerID(string playerID)
-    {
-        for(int i = 0; i < leaderBoards.Length; ++i)
-        {
-            if (leaderBoards[i].IsExistPlayerName(playerID))
-                return true;
-        }
-
-        return false;
-    }
-
+    
     private void Awake()
     {
        

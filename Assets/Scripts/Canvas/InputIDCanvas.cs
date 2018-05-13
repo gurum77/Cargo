@@ -31,6 +31,9 @@ public class InputIDCanvas : MonoBehaviour {
         if (leaderBoard == null || leaderBoard.leaderBoards.Length == 0)
             return;
 
+
+        messageText.text = "Checking...";
+
         string playerID = inputIDField.textComponent.text;
 
         // 아무것도 입력을 안했으면 경고메세지 보여주고 리턴
@@ -41,22 +44,49 @@ public class InputIDCanvas : MonoBehaviour {
         }
 
         // 이미 존재하는 ID인지 검사
-        if(leaderBoard.IsExistPlayerID(playerID))
+        StartCoroutine(CheckNewPlayerID(playerID));
+    }
+
+    IEnumerator CheckNewPlayerID(string playerID)
+    {
+        bool isExist = false;
+        for (int i = 0; i < leaderBoard.leaderBoards.Length; ++i)
+        {
+            WWW www = leaderBoard.leaderBoards[i].GetWWW_GetSingleScore(playerID);
+            do
+            {
+                yield return true;
+            }
+            while (!www.isDone);
+            
+
+            // 웹 접속 실패나 text가 있다면 id가 있는것으로 판단
+            if (www.error != null || www.text.Length > 0)
+                isExist = true;
+        }
+
+
+        if (isExist)
         {
             // 있다면 다시 입력
-            inputIDField.textComponent.text = "";
-            inputIDField.textComponent.enabled = true;
-            inputIDField.placeholder.enabled = true;
+            if(inputIDField != null && messageText != null)
+            {
+                inputIDField.textComponent.text = "";
+                inputIDField.textComponent.enabled = true;
+                inputIDField.placeholder.enabled = false;
 
-            messageText.text = "It already exists...";
+                messageText.text = "It already exists...";
+            }
+            
         }
         // 없는 ID라면 저장하고 canvas를 삭제
         else
         {
-            messageText.text = "Hi! " + playerID;
+            if(messageText != null)
+                messageText.text = "Hi! " + playerID;
             LeaderBoard.SavePlayerID(playerID);
             GameObject.Destroy(gameObject, 1);
-            return;
         }
+        
     }
 }
